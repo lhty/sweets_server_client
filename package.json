@@ -4,17 +4,21 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
     "client": "npm run start --prefix client",
     "client:install": "npm install --prefix client",
     "client:build": "npm run build --prefix client",
     "client:types": "npm run types --prefix client",
-    "server": "strapi develop --prefix server",
+    "server": "npm run strapi develop --prefix server",
     "server:install": "npm install --prefix server",
-    "server:start": "strapi start --prefix server",
-    "server:build": "strapi build --prefix server"
+    "server:start": "npm run strapi start --prefix server",
+    "server:build": "npm run strapi build --prefix server"
   },
   "author": {
     "name": ""
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^5.2.0"
+  }
 }

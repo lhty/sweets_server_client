@@ -1,4 +1,4 @@
-import { Product, UploadFile } from "graphql/queryTypes";
+import { UploadFile } from "graphql/queryTypes";
 
 export const ThumbnailUrl = (image: UploadFile[]) => {
   const size = window.innerWidth;
@@ -14,34 +14,6 @@ export const ThumbnailUrl = (image: UploadFile[]) => {
   };
 
   return process.env.API_URL + prefix(size) + image[0].url.substring(9);
-};
-
-export const makeBundle = (input: Product[]) => {
-  return (
-    input &&
-    (input.length > 1
-      ? input.map((product: Product) => ({ ...product, ...makeSet(product) }))
-      : { ...input[0], ...makeSet(input[0]) })
-  );
-};
-
-const makeSet = ({ items, _schema, proportion: { price = 0 } }: Product) => {
-  const set = [];
-  for (let element of _schema.split(",")) {
-    let item = parseInt(element)
-      ? items.find((item) => item.id === element)
-      : {
-          ...items.find((item) => item.name === "Буква"),
-          letter: element,
-        };
-    price += item.price;
-    set.push(item);
-  }
-  return {
-    set,
-    price,
-    size: set.length,
-  };
 };
 
 export const makeStrShorter = (str: string, n: number): string =>

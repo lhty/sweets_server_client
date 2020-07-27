@@ -1,0 +1,42 @@
+{
+  "kind": "collectionType",
+  "collectionName": "products",
+  "info": {
+    "name": "Product"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "info": {
+      "type": "component",
+      "repeatable": false,
+      "component": "info.info"
+    },
+    "dimensions": {
+      "type": "component",
+      "repeatable": false,
+      "component": "dimensions.dimensions"
+    },
+    "price": {
+      "type": "component",
+      "repeatable": false,
+      "component": "price.price"
+    },
+    "tags": {
+      "collection": "tags",
+      "via": "products",
+      "dominant": true
+    },
+    "bundle": {
+      "type": "component",
+      "repeatable": true,
+      "component": "bundle.bundle"
+    },
+    "box": {
+      "model": "box",
+      "via": "products"
+    }
+  }
+}

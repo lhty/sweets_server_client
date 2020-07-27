@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_spec_dimensions",
+  "info": {
+    "name": "dimensions",
+    "icon": "arrows-alt-h"
+  },
+  "options": {},
+  "attributes": {
+    "weight": {
+      "type": "integer"
+    },
+    "width": {
+      "type": "integer"
+    },
+    "breadth": {
+      "type": "integer"
+    },
+    "height": {
+      "type": "integer"
+    }
+  }
+}

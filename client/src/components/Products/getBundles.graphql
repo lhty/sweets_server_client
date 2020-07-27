@@ -1,0 +1,31 @@
+query getBundles($start: Int, $limit: Int) {
+  products(sort: "id:desc", start: $start, limit: $limit) {
+    id
+    info {
+      name
+      description
+      image {
+        url
+      }
+    }
+    box {
+      info {
+        name
+        description
+      }
+      countmin
+      countmax
+      price {
+        overall
+      }
+    }
+    bundle {
+      item {
+        info {
+          name
+          description
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "boxes",
+  "info": {
+    "name": "box"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "info": {
+      "type": "component",
+      "repeatable": false,
+      "component": "info.info"
+    },
+    "countmin": {
+      "type": "integer"
+    },
+    "countmax": {
+      "type": "integer"
+    },
+    "price": {
+      "type": "component",
+      "repeatable": false,
+      "component": "price.price"
+    },
+    "dimensions": {
+      "type": "component",
+      "repeatable": false,
+      "component": "dimensions.dimensions"
+    },
+    "tags": {
+      "collection": "tags",
+      "via": "boxes",
+      "dominant": true
+    },
+    "products": {
+      "via": "box",
+      "collection": "product"
+    }
+  }
+}

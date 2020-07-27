@@ -1,0 +1,10 @@
+footer {
+  grid-column: 1 / span 2;
+  @mixin pattern5 var(--nav-element-color6);
+  display: flex;
+  justify-content: center;
+  color: var(--text-alt);
+  & h2 {
+    align-self: center;
+  }
+}

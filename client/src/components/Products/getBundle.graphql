@@ -1,0 +1,30 @@
+query getBundle($id: ID!) {
+  product(id: $id) {
+    info {
+      name
+      description
+      image {
+        url
+      }
+    }
+    box {
+      info {
+        name
+        description
+      }
+      countmin
+      countmax
+      price {
+        overall
+      }
+    }
+    bundle {
+      item {
+        info {
+          name
+          description
+        }
+      }
+    }
+  }
+}

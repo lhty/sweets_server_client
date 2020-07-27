@@ -1,0 +1,42 @@
+html {
+  /* //  LAYOUT */
+  --layoutbg-main: #fdf1ec;
+  --layoutbg-alt: #000;
+
+  --shadow: #f2f3f5;
+
+  --nav-color1: #f2ebe4;
+  --nav-color2: #fff1e2;
+
+  --nav-element-color1: #441800;
+  --nav-element-color2: #f2ebe4;
+  --nav-element-color3: #ed6e8e;
+  --nav-element-color4: #ff9898;
+  --nav-element-color5: #e63946;
+  --nav-element-color6: #ff7c86;
+
+  --loading-bg: #eaddd0;
+
+  --nav-element-gradient1: linear-gradient(
+    30deg,
+    var(--nav-element-color3) 5%,
+    var(--nav-element-color4) 95%
+  );
+
+  --accent-color1: red;
+  --accent-color2: blue;
+
+  --headerbg: #fff;
+
+  /* //  BLOCK */
+  --blockbg-main: #fff;
+  --blockbg-alt: #000;
+
+  /* //  TEXT */
+  --text-main: #441800;
+  --text-alt: #fff;
+
+  /* //  ERROR */
+  --errorbg-main: #e03030;
+  --errorbg-font: #fff;
+}

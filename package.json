@@ -1,0 +1,20 @@
+{
+  "name": "sweets_server_client",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "client": "npm run start --prefix client",
+    "client:install": "npm install --prefix client",
+    "client:build": "npm run build --prefix client",
+    "client:types": "npm run types --prefix client",
+    "server": "strapi develop --prefix server",
+    "server:install": "npm install --prefix server",
+    "server:start": "strapi start --prefix server",
+    "server:build": "strapi build --prefix server"
+  },
+  "author": {
+    "name": ""
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,45 @@
+.header {
+  --icon-size: 40px;
+  @mixin pattern4 var(--headerbg);
+  background-position-y: 170%;
+  grid-column: 1 / span 2;
+  position: sticky;
+  display: flex;
+  justify-content: space-between;
+  top: 0;
+  padding: 5px;
+  z-index: 10000;
+  box-shadow: 0 15px 20px -20px rgb(0 0 0 / 8%);
+  & svg {
+    cursor: pointer;
+  }
+
+  & span {
+    align-self: center;
+    color: var(--nav-element-color3);
+  }
+  & span:first-child {
+    border: 3px solid var(--nav-element-color3);
+    border-radius: 50%;
+    font-size: calc(var(--icon-size)-7px);
+    & svg {
+      padding: 1px;
+    }
+  }
+  & span:last-child {
+    font-size: calc(var(--icon-size)+4px);
+  }
+  &_logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 1px;
+    z-index: -1;
+  }
+  &_title {
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(calc(-50% + 10px));
+  }
+}

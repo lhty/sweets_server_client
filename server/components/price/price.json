@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_price_prices",
+  "info": {
+    "name": "price",
+    "icon": "dollar-sign"
+  },
+  "options": {},
+  "attributes": {
+    "discount": {
+      "type": "integer"
+    },
+    "overall": {
+      "type": "integer"
+    },
+    "price": {
+      "type": "integer"
+    }
+  }
+}

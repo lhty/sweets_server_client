@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_bundle_bundles",
+  "info": {
+    "name": "item",
+    "icon": "align-justify"
+  },
+  "options": {},
+  "attributes": {
+    "item": {
+      "model": "item"
+    }
+  }
+}

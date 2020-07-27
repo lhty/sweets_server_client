@@ -1,0 +1,16 @@
+query getBanners {
+  banners {
+    id
+    info {
+      name
+      description
+      image {
+        url
+      }
+    }
+    tags {
+      name
+      description
+    }
+  }
+}

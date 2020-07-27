@@ -1,0 +1,24 @@
+import React, { ReactElement } from "react";
+
+import { Route } from "react-router-dom";
+
+import Bundles from "./Bundles";
+import Bundle from "./Bundle";
+import { Product } from "graphql/queryTypes";
+
+interface Props {
+  bundles: Product[];
+}
+
+export default function index({ bundles }: Props): ReactElement {
+  return (
+    <>
+      <Route exact path="/">
+        <Bundles {...{ bundles }} />
+      </Route>
+      <Route exact path="/:id/:title">
+        <Bundle />
+      </Route>
+    </>
+  );
+}

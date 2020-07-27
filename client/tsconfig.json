@@ -1,0 +1,32 @@
+{
+  "include": ["./src"],
+  "exclude": ["./node_modules", "./build"],
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "target": "es2015",
+    "module": "es2015",
+    "declaration": true,
+    "downlevelIteration": true,
+    "importHelpers": true,
+    "sourceMap": true,
+    "jsx": "react",
+    "moduleResolution": "node",
+    "allowJs": false,
+    "checkJs": false,
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
+    "noImplicitAny": true,
+    "noUnusedParameters": false,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "strict": true,
+    "strictNullChecks": false,
+    "strictFunctionTypes": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "typeRoots": ["src/types", "./node_modules/@types"]
+  }
+}

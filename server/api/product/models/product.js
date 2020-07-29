@@ -1,8 +1,23 @@
-'use strict';
+"use strict";
 
 /**
  * Read the documentation (https://strapi.io/documentation/v3.x/concepts/models.html#lifecycle-hooks)
  * to customize this model
  */
 
-module.exports = {};
+module.exports = {
+  lifecycles: {
+    afterCreate: async (_, data) => {
+      data = await strapi.services.product.CalculateProductBundlePrice(data);
+    },
+    beforeUpdate: async (_, data) => {
+      data = await strapi.services.product.CalculateProductBundlePrice(data);
+    },
+    beforeSave: () => {
+      console.log("BROKEN :(");
+    },
+    afterSave: () => {
+      console.log("BROKEN :(");
+    },
+  },
+};

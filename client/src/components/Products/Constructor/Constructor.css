@@ -3,7 +3,7 @@
   @mixin pattern1 var(--nav-element-color2);
   & .toggler {
     position: absolute;
-    left: -60px;
+    left: -65px;
     top: 0;
 
     & span {

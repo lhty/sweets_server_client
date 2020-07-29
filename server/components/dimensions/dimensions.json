@@ -7,16 +7,20 @@
   "options": {},
   "attributes": {
     "weight": {
-      "type": "integer"
+      "type": "integer",
+      "default": 0
     },
     "width": {
-      "type": "integer"
+      "type": "integer",
+      "default": 0
     },
     "breadth": {
-      "type": "integer"
+      "type": "integer",
+      "default": 0
     },
     "height": {
-      "type": "integer"
+      "type": "integer",
+      "default": 0
     }
   }
 }

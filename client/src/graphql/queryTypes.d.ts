@@ -314,7 +314,7 @@ export type AdminUser = {
   username?: Maybe<Scalars['String']>;
 };
 
-export type Morph = UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsLoginPayload | UserPermissionsPasswordPayload | Banner | BannerConnection | BannerAggregator | BannerGroupBy | BannerConnectionId | BannerConnectionCreated_At | BannerConnectionUpdated_At | BannerConnectionInfo | BannerConnectionCreated_By | BannerConnectionUpdated_By | CreateBannerPayload | UpdateBannerPayload | DeleteBannerPayload | Box | BoxConnection | BoxAggregator | BoxAggregatorSum | BoxAggregatorAvg | BoxAggregatorMin | BoxAggregatorMax | BoxGroupBy | BoxConnectionId | BoxConnectionCreated_At | BoxConnectionUpdated_At | BoxConnectionInfo | BoxConnectionCountmin | BoxConnectionCountmax | BoxConnectionPrice | BoxConnectionDimensions | BoxConnectionCreated_By | BoxConnectionUpdated_By | CreateBoxPayload | UpdateBoxPayload | DeleteBoxPayload | Item | ItemConnection | ItemAggregator | ItemGroupBy | ItemConnectionId | ItemConnectionCreated_At | ItemConnectionUpdated_At | ItemConnectionIs_Available_In_Constructor | ItemConnectionLetter | ItemConnectionIs_Editable | ItemConnectionInfo | ItemConnectionDimensions | ItemConnectionPrice | ItemConnectionCreated_By | ItemConnectionUpdated_By | CreateItemPayload | UpdateItemPayload | DeleteItemPayload | Material | MaterialConnection | MaterialAggregator | MaterialGroupBy | MaterialConnectionId | MaterialConnectionCreated_At | MaterialConnectionUpdated_At | MaterialConnectionInfo | MaterialConnectionCreated_By | MaterialConnectionUpdated_By | CreateMaterialPayload | UpdateMaterialPayload | DeleteMaterialPayload | Product | ProductConnection | ProductAggregator | ProductGroupBy | ProductConnectionId | ProductConnectionCreated_At | ProductConnectionUpdated_At | ProductConnectionInfo | ProductConnectionDimensions | ProductConnectionPrice | ProductConnectionCreated_By | ProductConnectionUpdated_By | CreateProductPayload | UpdateProductPayload | DeleteProductPayload | Tags | TagsConnection | TagsAggregator | TagsGroupBy | TagsConnectionId | TagsConnectionCreated_At | TagsConnectionUpdated_At | TagsConnectionName | TagsConnectionDescription | TagsConnectionCreated_By | TagsConnectionUpdated_By | CreateTagPayload | UpdateTagPayload | DeleteTagPayload | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileAggregatorSum | UploadFileAggregatorAvg | UploadFileAggregatorMin | UploadFileAggregatorMax | UploadFileGroupBy | UploadFileConnectionId | UploadFileConnectionCreated_At | UploadFileConnectionUpdated_At | UploadFileConnectionName | UploadFileConnectionAlternativeText | UploadFileConnectionCaption | UploadFileConnectionWidth | UploadFileConnectionHeight | UploadFileConnectionFormats | UploadFileConnectionHash | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionPreviewUrl | UploadFileConnectionProvider | UploadFileConnectionProvider_Metadata | UploadFileConnectionCreated_By | UploadFileConnectionUpdated_By | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | UsersPermissionsRoleConnectionCreated_By | UsersPermissionsRoleConnectionUpdated_By | CreateRolePayload | UpdateRolePayload | DeleteRolePayload | UsersPermissionsUser | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionCreated_At | UsersPermissionsUserConnectionUpdated_At | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole | UsersPermissionsUserConnectionSocial_Photo_Url | UsersPermissionsUserConnectionCreated_By | UsersPermissionsUserConnectionUpdated_By | CreateUserPayload | UpdateUserPayload | DeleteUserPayload | ComponentBundleBundle | ComponentDimensionsDimensions | ComponentInfoInfo | ComponentPricePrice;
+export type Morph = UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsLoginPayload | UserPermissionsPasswordPayload | Banner | BannerConnection | BannerAggregator | BannerGroupBy | BannerConnectionId | BannerConnectionCreated_At | BannerConnectionUpdated_At | BannerConnectionInfo | BannerConnectionCreated_By | BannerConnectionUpdated_By | CreateBannerPayload | UpdateBannerPayload | DeleteBannerPayload | Box | BoxConnection | BoxAggregator | BoxAggregatorSum | BoxAggregatorAvg | BoxAggregatorMin | BoxAggregatorMax | BoxGroupBy | BoxConnectionId | BoxConnectionCreated_At | BoxConnectionUpdated_At | BoxConnectionInfo | BoxConnectionCountmin | BoxConnectionCountmax | BoxConnectionPrice | BoxConnectionDimensions | BoxConnectionCreated_By | BoxConnectionUpdated_By | CreateBoxPayload | UpdateBoxPayload | DeleteBoxPayload | Item | ItemConnection | ItemAggregator | ItemGroupBy | ItemConnectionId | ItemConnectionCreated_At | ItemConnectionUpdated_At | ItemConnectionIs_Available_In_Constructor | ItemConnectionLetter | ItemConnectionIs_Editable | ItemConnectionInfo | ItemConnectionDimensions | ItemConnectionPrice | ItemConnectionCreated_By | ItemConnectionUpdated_By | CreateItemPayload | UpdateItemPayload | DeleteItemPayload | Material | MaterialConnection | MaterialAggregator | MaterialGroupBy | MaterialConnectionId | MaterialConnectionCreated_At | MaterialConnectionUpdated_At | MaterialConnectionInfo | MaterialConnectionCreated_By | MaterialConnectionUpdated_By | CreateMaterialPayload | UpdateMaterialPayload | DeleteMaterialPayload | Product | ProductConnection | ProductAggregator | ProductGroupBy | ProductConnectionId | ProductConnectionCreated_At | ProductConnectionUpdated_At | ProductConnectionInfo | ProductConnectionDimensions | ProductConnectionPrice | ProductConnectionBox | ProductConnectionCreated_By | ProductConnectionUpdated_By | CreateProductPayload | UpdateProductPayload | DeleteProductPayload | Tags | TagsConnection | TagsAggregator | TagsGroupBy | TagsConnectionId | TagsConnectionCreated_At | TagsConnectionUpdated_At | TagsConnectionName | TagsConnectionDescription | TagsConnectionCreated_By | TagsConnectionUpdated_By | CreateTagPayload | UpdateTagPayload | DeleteTagPayload | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileAggregatorSum | UploadFileAggregatorAvg | UploadFileAggregatorMin | UploadFileAggregatorMax | UploadFileGroupBy | UploadFileConnectionId | UploadFileConnectionCreated_At | UploadFileConnectionUpdated_At | UploadFileConnectionName | UploadFileConnectionAlternativeText | UploadFileConnectionCaption | UploadFileConnectionWidth | UploadFileConnectionHeight | UploadFileConnectionFormats | UploadFileConnectionHash | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionPreviewUrl | UploadFileConnectionProvider | UploadFileConnectionProvider_Metadata | UploadFileConnectionCreated_By | UploadFileConnectionUpdated_By | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | UsersPermissionsRoleConnectionCreated_By | UsersPermissionsRoleConnectionUpdated_By | CreateRolePayload | UpdateRolePayload | DeleteRolePayload | UsersPermissionsUser | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionCreated_At | UsersPermissionsUserConnectionUpdated_At | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole | UsersPermissionsUserConnectionSocial_Photo_Url | UsersPermissionsUserConnectionCreated_By | UsersPermissionsUserConnectionUpdated_By | CreateUserPayload | UpdateUserPayload | DeleteUserPayload | ComponentBundleBundle | ComponentDimensionsDimensions | ComponentInfoInfo | ComponentPricePrice;
 
 export type UsersPermissionsMe = {
   __typename?: 'UsersPermissionsMe';
@@ -432,10 +432,19 @@ export type Box = {
   created_by?: Maybe<AdminUser>;
   updated_by?: Maybe<AdminUser>;
   tags?: Maybe<Array<Maybe<Tags>>>;
+  products?: Maybe<Array<Maybe<Product>>>;
 };
 
 
 export type BoxTagsArgs = {
+  sort?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  where?: Maybe<Scalars['JSON']>;
+};
+
+
+export type BoxProductsArgs = {
   sort?: Maybe<Scalars['String']>;
   limit?: Maybe<Scalars['Int']>;
   start?: Maybe<Scalars['Int']>;
@@ -447,7 +456,8 @@ export type ComponentPricePrice = {
   id: Scalars['ID'];
   discount?: Maybe<Scalars['Int']>;
   overall?: Maybe<Scalars['Int']>;
-  price?: Maybe<Scalars['Int']>;
+  base_price?: Maybe<Scalars['Int']>;
+  additional?: Maybe<Scalars['Int']>;
 };
 
 export type ComponentDimensionsDimensions = {
@@ -567,6 +577,7 @@ export type Product = {
   dimensions?: Maybe<ComponentDimensionsDimensions>;
   price?: Maybe<ComponentPricePrice>;
   bundle?: Maybe<Array<Maybe<ComponentBundleBundle>>>;
+  box?: Maybe<Box>;
   created_by?: Maybe<AdminUser>;
   updated_by?: Maybe<AdminUser>;
   tags?: Maybe<Array<Maybe<Tags>>>;
@@ -914,6 +925,7 @@ export type ProductGroupBy = {
   info?: Maybe<Array<Maybe<ProductConnectionInfo>>>;
   dimensions?: Maybe<Array<Maybe<ProductConnectionDimensions>>>;
   price?: Maybe<Array<Maybe<ProductConnectionPrice>>>;
+  box?: Maybe<Array<Maybe<ProductConnectionBox>>>;
   created_by?: Maybe<Array<Maybe<ProductConnectionCreated_By>>>;
   updated_by?: Maybe<Array<Maybe<ProductConnectionUpdated_By>>>;
 };
@@ -950,6 +962,12 @@ export type ProductConnectionDimensions = {
 
 export type ProductConnectionPrice = {
   __typename?: 'ProductConnectionPrice';
+  key?: Maybe<Scalars['ID']>;
+  connection?: Maybe<ProductConnection>;
+};
+
+export type ProductConnectionBox = {
+  __typename?: 'ProductConnectionBox';
   key?: Maybe<Scalars['ID']>;
   connection?: Maybe<ProductConnection>;
 };
@@ -1758,6 +1776,7 @@ export type BoxInput = {
   price?: Maybe<ComponentPricePriceInput>;
   dimensions?: Maybe<ComponentDimensionsDimensionInput>;
   tags?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  products?: Maybe<Array<Maybe<Scalars['ID']>>>;
   created_by?: Maybe<Scalars['ID']>;
   updated_by?: Maybe<Scalars['ID']>;
 };
@@ -1765,7 +1784,8 @@ export type BoxInput = {
 export type ComponentPricePriceInput = {
   discount?: Maybe<Scalars['Int']>;
   overall?: Maybe<Scalars['Int']>;
-  price?: Maybe<Scalars['Int']>;
+  base_price?: Maybe<Scalars['Int']>;
+  additional?: Maybe<Scalars['Int']>;
 };
 
 export type ComponentDimensionsDimensionInput = {
@@ -1787,6 +1807,7 @@ export type EditBoxInput = {
   price?: Maybe<EditComponentPricePriceInput>;
   dimensions?: Maybe<EditComponentDimensionsDimensionInput>;
   tags?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  products?: Maybe<Array<Maybe<Scalars['ID']>>>;
   created_by?: Maybe<Scalars['ID']>;
   updated_by?: Maybe<Scalars['ID']>;
 };
@@ -1795,7 +1816,8 @@ export type EditComponentPricePriceInput = {
   id?: Maybe<Scalars['ID']>;
   discount?: Maybe<Scalars['Int']>;
   overall?: Maybe<Scalars['Int']>;
-  price?: Maybe<Scalars['Int']>;
+  base_price?: Maybe<Scalars['Int']>;
+  additional?: Maybe<Scalars['Int']>;
 };
 
 export type EditComponentDimensionsDimensionInput = {
@@ -1886,6 +1908,7 @@ export type ProductInput = {
   price?: Maybe<ComponentPricePriceInput>;
   tags?: Maybe<Array<Maybe<Scalars['ID']>>>;
   bundle?: Maybe<Array<Maybe<ComponentBundleBundleInput>>>;
+  box?: Maybe<Scalars['ID']>;
   created_by?: Maybe<Scalars['ID']>;
   updated_by?: Maybe<Scalars['ID']>;
 };
@@ -1905,6 +1928,7 @@ export type EditProductInput = {
   price?: Maybe<EditComponentPricePriceInput>;
   tags?: Maybe<Array<Maybe<Scalars['ID']>>>;
   bundle?: Maybe<Array<Maybe<EditComponentBundleBundleInput>>>;
+  box?: Maybe<Scalars['ID']>;
   created_by?: Maybe<Scalars['ID']>;
   updated_by?: Maybe<Scalars['ID']>;
 };
@@ -2000,6 +2024,7 @@ export type UserInput = {
   blocked?: Maybe<Scalars['Boolean']>;
   role?: Maybe<Scalars['ID']>;
   social_photo_url?: Maybe<Scalars['String']>;
+  personal_discount?: Maybe<Scalars['Int']>;
   created_by?: Maybe<Scalars['ID']>;
   updated_by?: Maybe<Scalars['ID']>;
 };
@@ -2019,6 +2044,7 @@ export type EditUserInput = {
   blocked?: Maybe<Scalars['Boolean']>;
   role?: Maybe<Scalars['ID']>;
   social_photo_url?: Maybe<Scalars['String']>;
+  personal_discount?: Maybe<Scalars['Int']>;
   created_by?: Maybe<Scalars['ID']>;
   updated_by?: Maybe<Scalars['ID']>;
 };

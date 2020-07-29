@@ -29,14 +29,15 @@
       "via": "products",
       "dominant": true
     },
-    "bundle": {
-      "type": "component",
-      "repeatable": true,
-      "component": "bundle.bundle"
-    },
     "box": {
       "model": "box",
       "via": "products"
+    },
+    "bundle": {
+      "type": "component",
+      "repeatable": true,
+      "component": "bundle.item",
+      "required": true
     }
   }
 }

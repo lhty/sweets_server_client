@@ -55,6 +55,11 @@
     },
     "social_photo_url": {
       "type": "string"
+    },
+    "personal_discount": {
+      "type": "integer",
+      "default": 0,
+      "private": true
     }
   }
 }

@@ -6,14 +6,21 @@
   },
   "options": {},
   "attributes": {
-    "discount": {
-      "type": "integer"
-    },
     "overall": {
-      "type": "integer"
+      "type": "integer",
+      "default": 0
     },
-    "price": {
-      "type": "integer"
+    "base_price": {
+      "type": "integer",
+      "default": 0
+    },
+    "additional": {
+      "type": "integer",
+      "default": 0
+    },
+    "discount": {
+      "type": "string",
+      "default": "0"
     }
   }
 }

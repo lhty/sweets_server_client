@@ -9,6 +9,7 @@ query getBundles($start: Int, $limit: Int) {
       }
     }
     box {
+      id
       info {
         name
         description
@@ -21,11 +22,16 @@ query getBundles($start: Int, $limit: Int) {
     }
     bundle {
       item {
+        id
         info {
           name
           description
         }
       }
+    }
+    price {
+      discount
+      overall
     }
   }
 }

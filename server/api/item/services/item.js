@@ -8,9 +8,11 @@
 module.exports = {
   CalculateOverallPrice: (item) => {
     const resultPrice = item.price.base_price + item.price.additional;
-    const discount = item.price.discount.includes("%")
-      ? (resultPrice / 100) * Number(item.price.discount.replace(/\D/g, ""))
-      : Number(item.price.discount);
+    const discount = strapi.services.product.CalculateDiscount(
+      item.price.discount,
+      resultPrice
+    );
+
     item.price.overall = resultPrice - discount;
     return item;
   },

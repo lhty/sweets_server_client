@@ -7,9 +7,14 @@
 
 module.exports = {
   CalculateDiscount: (discount, total) =>
-    discount.includes("%")
-      ? (total / 100) * Number(discount.replace(/\D/g, ""))
-      : Number(discount),
+    Math.round(
+      discount.includes("%")
+        ? (total / 100) * Number(discount.replace(/\D/g, ""))
+        : Number(discount)
+    ),
+
+  CalculateItemsWeight: (items) =>
+    items.reduce((acc, { dimensions }) => (acc += dimensions.weight), 0),
 
   CalculateProductBundlePrice: async (product) => {
     const items = await Promise.all(
@@ -19,7 +24,9 @@ module.exports = {
     );
 
     const box = await strapi.services.box.findOne({ id: product.box });
-
+    const totalWeight =
+      strapi.services.product.CalculateItemsWeight(items) +
+      box.dimensions.weight;
     const base =
       items.reduce((acc, { price }) => (acc += price.overall), 0) +
       box.price.overall;
@@ -33,6 +40,10 @@ module.exports = {
     );
 
     product.price.overall = total - discount;
+    product.dimensions.weight = totalWeight;
+    product.dimensions.width = box.dimensions.width;
+    product.dimensions.breadth = box.dimensions.breadth;
+    product.dimensions.height = box.dimensions.height;
 
     return product;
   },

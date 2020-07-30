@@ -25,7 +25,14 @@ query getBundles($start: Int, $limit: Int) {
         id
         info {
           name
+          image {
+            url
+          }
           description
+        }
+        price {
+          discount
+          overall
         }
       }
     }

@@ -7,7 +7,7 @@
 
 module.exports = {
   lifecycles: {
-    afterCreate: async (_, data) => {
+    beforeCreate: async (data) => {
       data = await strapi.services.product.CalculateProductBundlePrice(data);
     },
     beforeUpdate: async (_, data) => {

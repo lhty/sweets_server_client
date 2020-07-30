@@ -34,13 +34,13 @@ export default function Card({
       />
       <div className={styles.content}>
         <ShoppingCartOutlined />
-        <div className={styles.title}>{bundle.info.name}</div>
+        <h2 className={styles.title}>{bundle.info.name}</h2>
         <div className={styles.desc}>
           {bundle.info.description?.length > 100
             ? makeStrShorter(bundle.info.description, 100)
             : bundle.info.description}
         </div>
-        <span className={styles.price}>0₽</span>
+        <span className={styles.price}>{bundle.price.overall}₽</span>
       </div>
       {/* <div className={styles.success}></div> */}
     </div>

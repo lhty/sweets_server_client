@@ -26,6 +26,12 @@ query getBundle($id: ID!) {
         }
       }
     }
+    dimensions {
+      weight
+      width
+      breadth
+      height
+    }
     price {
       discount
       overall

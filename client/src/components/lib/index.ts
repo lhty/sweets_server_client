@@ -5,7 +5,7 @@ export const ThumbnailUrl = (image: UploadFile[]) => {
   const prefix = (size: number) => {
     switch (true) {
       case size <= 800:
-        return "/uploads/thumbnail_";
+        return "/uploads/small_";
       case size > 2000:
         return "/uploads/";
       default:

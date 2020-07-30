@@ -13,6 +13,7 @@
     visibility: visible;
   }
   & div {
+    border-radius: 2px;
     position: relative;
   }
   & p {

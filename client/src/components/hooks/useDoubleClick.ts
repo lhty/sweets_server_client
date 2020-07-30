@@ -5,7 +5,7 @@ interface Props {
   delay: number;
 }
 
-const useDoubleclick = ({ callback, delay = 300 }: Props) => {
+export const useDoubleclick = ({ callback, delay = 300 }: Props) => {
   const [timesClicked, setTimesClicked] = useState(0);
   let timerId = useRef(null);
 
@@ -30,5 +30,3 @@ const useDoubleclick = ({ callback, delay = 300 }: Props) => {
 
   return doubleClick;
 };
-
-export default useDoubleclick;

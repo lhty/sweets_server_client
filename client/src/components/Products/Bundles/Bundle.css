@@ -1,4 +1,26 @@
 .container {
   position: relative;
   width: 100%;
+
+  & div {
+    padding: 0 1em;
+  }
+
+  & span {
+    font-size: 4rem;
+    color: var(--nav-element-color5);
+  }
+
+  & .desc {
+    & h2 {
+      text-align-last: end;
+      font-size: 3rem;
+    }
+  }
+  & .dimensions {
+  }
+  & .inside {
+  }
+  & .price {
+  }
 }

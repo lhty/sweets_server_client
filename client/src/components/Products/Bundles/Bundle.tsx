@@ -5,6 +5,8 @@ import { useQuery } from "@apollo/client";
 import * as getBundle from "../getBundle.graphql";
 
 import * as styles from "./Bundle.css";
+import { DoubleLeftOutlined } from "@ant-design/icons";
+import { Item } from "graphql/queryTypes";
 
 interface Props {}
 
@@ -13,10 +15,29 @@ export default function Bundle({}: Props): ReactElement {
   const { id } = useParams();
   const { data, loading } = useQuery(getBundle, { variables: { id } });
 
+  if (loading) return <></>;
+
   return (
     <section className={styles.container}>
-      <button onClick={() => history.push("/")}>back</button>
-      {!loading && data.product.id}
+      <DoubleLeftOutlined onClick={() => history.push("/")} />
+      <div className={styles.desc}>
+        <h2>{data.product.info.name}</h2>
+        <p>{data.product.info.description}</p>
+      </div>
+      <div className={styles.dimensions}>
+        <p>{data.product.dimensions.weight} г</p>
+        <p>{data.product.dimensions.width} мм</p>
+        <p>{data.product.dimensions.breadth} мм</p>
+        <p>{data.product.dimensions.height} мм</p>
+      </div>
+      <div className={styles.inside}>
+        {data.product.bundle.map(({ item }: { item: Item }, i: number) => (
+          <p key={i}>{item.info.name}</p>
+        ))}
+      </div>
+      <div className={styles.price}>
+        <p>{data.product.price.overall} ₽</p>
+      </div>
     </section>
   );
 }

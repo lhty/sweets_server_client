@@ -1,5 +1,4 @@
 .header {
-  --icon-size: 40px;
   @mixin pattern4 var(--headerbg);
   background-position-y: 170%;
   grid-column: 1 / span 2;
@@ -9,7 +8,7 @@
   top: 0;
   padding: 5px;
   z-index: 10000;
-  box-shadow: 0 15px 20px -20px rgb(0 0 0 / 8%);
+
   & svg {
     cursor: pointer;
   }

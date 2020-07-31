@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=development webpack-dev-server --mode development",
-    "build": "NODE_ENV=production webpack --mode production",
+    "start": "NODE_ENV=development webpack-dev-server",
+    "build": "NODE_ENV=production webpack",
     "type-check:watch": "npm run type-check -- --watch",
     "types": "graphql-codegen --config codegen.yml"
   },

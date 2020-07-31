@@ -5,6 +5,7 @@
     position: absolute;
     left: -64px;
     top: 0;
+    cursor: pointer;
 
     & span {
       @mixin square var(--nav-element-color5), 10px 0 0 10px;

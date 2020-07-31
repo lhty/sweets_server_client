@@ -4,7 +4,7 @@ const initial: {
   consructorWindow: "closed",
 };
 
-export default function viewReducer(state = initial, action) {
+export default function viewReducer(state = initial, action: any) {
   switch (action.type) {
     case false:
       return state;

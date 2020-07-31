@@ -42,6 +42,7 @@ const Minify = () => {
 
 module.exports = {
   optimization: Minify(),
+  mode: process.env.NODE_ENV,
   devServer: {
     port: process.env.PORT,
     hot: isDev,
@@ -50,7 +51,6 @@ module.exports = {
     open: false,
     historyApiFallback: true,
   },
-  mode: "development",
   devtool: isDev ? "source-map" : "",
   entry: {
     app: path.join(__dirname, "src", "index.tsx"),

@@ -1,23 +1,33 @@
-import React, { ReactElement, useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import * as styles from "./Slider.css";
 import { useSprings, interpolate, animated as a } from "react-spring";
 import { useGesture } from "react-use-gesture";
 
-interface Props {
-  children: ReactElement[] | ReactElement;
-  scaleOnDrag?: boolean;
+interface SliderProps {
   itemsPerPage?: number;
-  bullets?: string | boolean;
+  scaleOnDrag?: boolean;
+  hasBullets?: boolean | string;
+  activeIndex?: number;
+  auto?: number;
+  children?: React.ReactElement | React.ReactElement[];
+  onSlideChange?: (slide: number) => void;
+  setSlideCustom?: (slide: number) => number;
 }
 
 export default function Slider({
-  children,
-  scaleOnDrag = false,
   itemsPerPage = 1,
-  bullets = false,
-}: Props): ReactElement {
+  scaleOnDrag = false,
+  hasBullets = false,
+  activeIndex = 0,
+  auto = 0,
+  children,
+  onSlideChange = () => undefined,
+  setSlideCustom = undefined,
+}: SliderProps): React.ReactElement {
   if (!Array.isArray(children)) return <>{children}</>;
+
+  const [currentSlide, setSlide] = useState<number>(0);
 
   const SLIDES = children.reduce(
     (acc, _, i) =>
@@ -25,48 +35,65 @@ export default function Slider({
     []
   );
 
-  const [slide, setSlide] = useState<number>(0);
-  // const [isDragging, setDragging] = useState(false);
-
-  const [springProps, setSpringProps] = useSprings(SLIDES.length, (i) => ({
-    x: i * window.innerWidth,
-    sc: 1,
+  const [springs, set] = useSprings(SLIDES.length, (i) => ({
+    x:
+      i < currentSlide
+        ? -window.innerWidth
+        : i === currentSlide
+        ? 0
+        : window.innerWidth,
+    sc: i != currentSlide && scaleOnDrag ? 0.8 : 1,
   }));
 
-  const bind = useGesture({
-    onDrag: ({ down, direction: [xDir], distance, cancel }) => {
-      if (down && distance > window.innerWidth / 5) {
-        cancel();
-        setSlide(_clamp(slide + (xDir > 0 ? -1 : 1), 0, SLIDES.length - 1));
-      }
-    },
-  });
-
-  useEffect(() => {
-    setSlide(slide % SLIDES.length);
-  }, [slide, SLIDES.length]);
-
-  useEffect(() => {
+  const handleSlideToPage = (i: number) =>
     // @ts-ignore
-    setSpringProps((i) => ({
-      x: i < slide ? -window.innerWidth : i === slide ? 0 : window.innerWidth,
-      sc: i != slide && scaleOnDrag ? 0.8 : 1,
-    }));
-    return () => {
-      // @ts-ignore
-      setSpringProps((i) => ({
-        x: 0,
-        sc: 1,
-      }));
-    };
-  }, [slide]);
+    set((i) => ({
+      x:
+        i < currentSlide
+          ? -window.innerWidth
+          : i === currentSlide
+          ? 0
+          : window.innerWidth,
+      sc: i != currentSlide && scaleOnDrag ? 0.8 : 1,
+    })); // @ts-ignore
+  set((i) => ({
+    x:
+      i < currentSlide
+        ? -window.innerWidth
+        : i === currentSlide
+        ? 0
+        : window.innerWidth,
+    sc: i != currentSlide && scaleOnDrag ? 0.8 : 1,
+  }));
+
+  const bind = useGesture(
+    {
+      onDrag: ({ down, direction: [xDir], distance, cancel }) => {
+        if (down && distance > window.innerWidth / 5) {
+          const newIndex = _clamp(
+            currentSlide + (xDir > 0 ? -1 : 1),
+            0,
+            SLIDES.length - 1
+          );
+          cancel();
+          handleSlideToPage(newIndex);
+          setSlide(newIndex);
+        }
+      },
+    },
+    {
+      drag: {
+        delay: 100,
+      },
+    }
+  );
 
   return (
     <>
       <div className={styles.container}>
-        {springProps.map(
+        {springs.map(
           ({ x, sc }, index) =>
-            slide === index && (
+            currentSlide === index && (
               <a.div
                 onContextMenu={(e) => e.preventDefault()}
                 className={styles.wrapper}
@@ -79,19 +106,22 @@ export default function Slider({
                   ),
                 }}
               >
-                {SLIDES[slide]}
+                {SLIDES[currentSlide]}
               </a.div>
             )
         )}
       </div>
-      {bullets && SLIDES.length > 1 && (
-        <div className={bullets.toString()}>
+      {hasBullets && SLIDES.length > 1 && (
+        <div className={hasBullets.toString()}>
           {SLIDES.map((_, i) => (
             <div
-              onClick={() => setSlide(i)}
+              onClick={() => {
+                handleSlideToPage(i);
+                setSlide(i);
+              }}
               style={{
-                opacity: i != slide ? 0.6 : 1,
-                transform: `scale(${i === slide ? 1 : 0.8})`,
+                opacity: i != currentSlide ? 0.6 : 1,
+                transform: `scale(${i === currentSlide ? 1 : 0.8})`,
                 transition: "0.3s ease",
               }}
               key={i}

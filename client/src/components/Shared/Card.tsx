@@ -1,4 +1,4 @@
-import React, { useState, ReactElement } from "react";
+import React, { useState } from "react";
 
 import { useSpring, animated as a } from "react-spring";
 import * as styles from "./Card.css";
@@ -15,7 +15,7 @@ interface Props {
 export default function Card({
   bundle,
   select = () => {},
-}: Props): ReactElement {
+}: Props): React.ReactElement {
   const [loading, setLoading] = useState(true);
 
   const skeletonStyle = useSpring({

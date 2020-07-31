@@ -16,7 +16,7 @@ export default function index(): ReactElement {
 
   return (
     <section className={styles.container}>
-      <Slider bullets={styles.bullets} scaleOnDrag>
+      <Slider hasBullets={styles.bullets} scaleOnDrag>
         {data?.banners.map((banner: IBanner, i: number) => (
           <Banner key={i} {...{ banner }} />
         ))}

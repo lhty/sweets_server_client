@@ -4,6 +4,7 @@ query getBundle($id: ID!) {
       name
       description
       image {
+        id
         url
       }
     }

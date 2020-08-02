@@ -1,13 +1,16 @@
 .header {
-  @mixin pattern4 var(--headerbg);
-  background-position-y: 170%;
   grid-column: 1 / span 2;
   position: sticky;
-  display: flex;
-  justify-content: space-between;
   top: 0;
-  padding: 5px;
   z-index: 10000;
+
+  & .wrapper {
+    @mixin pattern4 var(--headerbg);
+    background-position-y: 170%;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+  }
 
   & svg {
     cursor: pointer;
@@ -17,7 +20,7 @@
     align-self: center;
     color: var(--nav-element-color3);
   }
-  & span:first-child {
+  & span:first-of-type {
     border: 3px solid var(--nav-element-color3);
     border-radius: 50%;
     font-size: calc(var(--icon-size)-7px);
@@ -25,20 +28,20 @@
       padding: 1px;
     }
   }
-  & span:last-child {
+  & span:last-of-type {
     font-size: calc(var(--icon-size)+4px);
-  }
-  &_logo {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 1px;
-    z-index: -1;
   }
   &_title {
     position: absolute;
     top: 15px;
     left: 50%;
     transform: translateX(calc(-50% + 10px));
+    z-index: 1;
+  }
+  &_logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 1px;
   }
 }

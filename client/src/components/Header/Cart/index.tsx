@@ -2,12 +2,14 @@ import React, { ReactElement } from "react";
 
 import { ShoppingCartOutlined } from "@ant-design/icons";
 
-interface Props {}
+interface Props {
+  Handler: () => void;
+}
 
-export default function index({}: Props): ReactElement {
+export default function index({ Handler }: Props): ReactElement {
   return (
     <>
-      <ShoppingCartOutlined />
+      <ShoppingCartOutlined onClick={Handler} />
     </>
   );
 }

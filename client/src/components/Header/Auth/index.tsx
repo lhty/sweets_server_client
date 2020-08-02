@@ -2,12 +2,10 @@ import React, { ReactElement } from "react";
 
 import { UserOutlined } from "@ant-design/icons";
 
-interface Props {}
-
-export default function ({}: Props): ReactElement {
+export default function ({ Handler }: { Handler: () => void }): ReactElement {
   return (
     <>
-      <UserOutlined />
+      <UserOutlined onClick={Handler} />
     </>
   );
 }

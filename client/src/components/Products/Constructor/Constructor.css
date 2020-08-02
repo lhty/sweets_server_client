@@ -8,9 +8,8 @@
     cursor: pointer;
 
     & span {
-      @mixin square var(--nav-element-color5), 10px 0 0 10px;
       font-size: 4rem;
-      color: var(--text-alt);
+      color: var(--nav-element-color5);
     }
   }
 }

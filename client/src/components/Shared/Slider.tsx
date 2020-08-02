@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import * as styles from "./Slider.css";
-import { useSprings, interpolate, animated as a } from "react-spring";
+import { useSprings, to, animated as a } from "react-spring";
 import { useGesture } from "react-use-gesture";
 
 interface SliderProps {
@@ -27,48 +27,48 @@ export default function Slider({
 }: SliderProps): React.ReactElement {
   if (!Array.isArray(children)) return <>{children}</>;
 
-  const [currentSlide, setSlide] = useState<number>(0);
+  const [currentSlide, setSlide] = useState<number>(activeIndex);
 
-  const SLIDES = children.reduce(
-    (acc, _, i) =>
-      i % itemsPerPage ? acc : [...acc, children.slice(i, i + itemsPerPage)],
-    []
-  );
+  const SLIDES = Array.isArray(children)
+    ? children.reduce(
+        (acc, _, i) =>
+          i % itemsPerPage
+            ? acc
+            : [...acc, children.slice(i, i + itemsPerPage)],
+        []
+      )
+    : children;
 
-  const [springs, set] = useSprings(SLIDES.length, (i) => ({
-    x:
-      i < currentSlide
-        ? -window.innerWidth
-        : i === currentSlide
-        ? 0
-        : window.innerWidth,
-    sc: i != currentSlide && scaleOnDrag ? 0.8 : 1,
+  const [springs, set] = useSprings(SLIDES.length, () => ({
+    x: 0,
+    sc: 1,
   }));
 
-  const handleSlideToPage = (i: number) =>
+  useEffect(() => {
     // @ts-ignore
-    set((i) => ({
-      x:
-        i < currentSlide
-          ? -window.innerWidth
-          : i === currentSlide
-          ? 0
-          : window.innerWidth,
-      sc: i != currentSlide && scaleOnDrag ? 0.8 : 1,
-    })); // @ts-ignore
-  set((i) => ({
-    x:
-      i < currentSlide
-        ? -window.innerWidth
-        : i === currentSlide
-        ? 0
-        : window.innerWidth,
-    sc: i != currentSlide && scaleOnDrag ? 0.8 : 1,
-  }));
+    set((i) => {
+      return {
+        x:
+          i < currentSlide
+            ? -window.innerWidth
+            : i === currentSlide
+            ? 0
+            : window.innerWidth,
+        sc: i != currentSlide && scaleOnDrag ? 0.8 : 1,
+      };
+    });
+    return () => {};
+  }, [currentSlide]);
 
   const bind = useGesture(
     {
-      onDrag: ({ down, direction: [xDir], distance, cancel }) => {
+      onDrag: ({
+        down,
+        direction: [xDir],
+        delta: [xDelta],
+        distance,
+        cancel,
+      }) => {
         if (down && distance > window.innerWidth / 5) {
           const newIndex = _clamp(
             currentSlide + (xDir > 0 ? -1 : 1),
@@ -76,9 +76,17 @@ export default function Slider({
             SLIDES.length - 1
           );
           cancel();
-          handleSlideToPage(newIndex);
           setSlide(newIndex);
         }
+        // @ts-ignore
+        set(() => ({
+          x: down ? (distance * (xDir > 0 ? 1 : -1)) / 10 : 0,
+          sc: scaleOnDrag
+            ? down && xDir
+              ? 1 - distance / window.innerWidth
+              : 1
+            : 1,
+        }));
       },
     },
     {
@@ -100,7 +108,7 @@ export default function Slider({
                 {...bind()}
                 key={index}
                 style={{
-                  transform: interpolate(
+                  transform: to(
                     [x, sc],
                     (x, sc) => `translateX(${x}px) scale(${sc})`
                   ),
@@ -116,7 +124,6 @@ export default function Slider({
           {SLIDES.map((_, i) => (
             <div
               onClick={() => {
-                handleSlideToPage(i);
                 setSlide(i);
               }}
               style={{

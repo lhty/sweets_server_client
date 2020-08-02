@@ -1,33 +1,47 @@
-import React, { ReactElement, useState, useEffect } from "react";
+import React, { ReactElement, useEffect } from "react";
 import { useSpring, animated as a } from "react-spring";
 // import { useDrag } from "react-use-gesture";
 
+import { ChangeConstructorWidth } from "../../../redux/actions/view";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "redux/reducers";
+
 import * as styles from "./Constructor.css";
-import { DoubleLeftOutlined } from "@ant-design/icons";
+import { DoubleLeftOutlined, CloseOutlined } from "@ant-design/icons";
 
 interface Props {}
 
 export default function Constructor({}: Props): ReactElement {
-  const [expanded, setExpanded] = useState(false);
+  const constructorWindowState = useSelector<RootState, string>(
+    (state) => state.view.consructorWindow
+  );
+  const dispatch = useDispatch();
 
   const [wrapperStyle, set] = useSpring(() => ({
-    width: `0%`,
+    width: `${constructorWindowState}%`,
   }));
 
   useEffect(() => {
-    if (expanded) set({ width: `100%` });
+    set({ width: `${constructorWindowState}%` });
 
     return () => {
       set({ width: `0%` });
     };
-  }, [expanded]);
+  }, [constructorWindowState]);
 
   return (
     <a.div className={styles.container} style={wrapperStyle}>
-      <div className={styles.toggler} onClick={() => setExpanded(!expanded)}>
-        <DoubleLeftOutlined />
+      <div
+        className={styles.toggler}
+        onClick={() =>
+          dispatch(
+            ChangeConstructorWidth(+constructorWindowState === 100 ? 0 : 100)
+          )
+        }
+      >
+        {constructorWindowState ? <CloseOutlined /> : <DoubleLeftOutlined />}
       </div>
-      {expanded && <div style={{ padding: "0 10px" }}>1212</div>}
+      {constructorWindowState && <div style={{ padding: "0 10px" }}>1212</div>}
     </a.div>
   );
 }

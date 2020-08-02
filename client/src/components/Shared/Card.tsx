@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "redux/reducers";
+import { AddToCart } from "../../redux/actions/cart";
+
 import { useSpring, animated as a } from "react-spring";
 import * as styles from "./Card.css";
 
@@ -17,6 +21,11 @@ export default function Card({
   select = () => {},
 }: Props): React.ReactElement {
   const [loading, setLoading] = useState(true);
+  const constructorWindowState = useSelector<RootState, string>(
+    (state) => state.view.consructorWindow
+  );
+  const cart = useSelector<RootState, string>((state) => state.cart.cart);
+  const dispatch = useDispatch();
 
   const skeletonStyle = useSpring({
     opacity: loading ? 1 : 0,
@@ -33,14 +42,22 @@ export default function Card({
         alt=""
       />
       <div className={styles.content}>
-        <ShoppingCartOutlined />
         <h2 className={styles.title}>{bundle.info.name}</h2>
-        <div className={styles.desc}>
-          {bundle.info.description?.length > 100
-            ? makeStrShorter(bundle.info.description, 100)
-            : bundle.info.description}
-        </div>
-        <span className={styles.price}>{bundle.price.overall}₽</span>
+        {!constructorWindowState && (
+          <>
+            {!cart.includes(bundle) && (
+              <ShoppingCartOutlined
+                onClick={() => dispatch(AddToCart(bundle))}
+              />
+            )}
+            <div className={styles.desc}>
+              {bundle.info.description?.length > 100
+                ? makeStrShorter(bundle.info.description, 100)
+                : bundle.info.description}
+            </div>
+          </>
+        )}
+        <div className={styles.price}>{bundle.price.overall}₽</div>
       </div>
       {/* <div className={styles.success}></div> */}
     </div>

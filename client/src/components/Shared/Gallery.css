@@ -1,0 +1,13 @@
+.container {
+  width: 100%;
+
+  & .wrapper {
+    position: relative;
+    display: flex;
+    overflow: hidden;
+
+    & img {
+      width: 100%;
+    }
+  }
+}

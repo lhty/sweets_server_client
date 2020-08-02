@@ -4,6 +4,5 @@
 }
 .wrapper {
   /* @mixin pattern5 var(--nav-element-color6), 10px; */
-  @mixin roundedCard 10px;
   height: 100%;
 }

@@ -91,7 +91,7 @@
     padding-bottom: 0.8em;
   }
 
-  & span:first-child {
+  & span:first-of-type {
     @mixin square var(--nav-element-color5), 50% 0 15px 0;
     position: absolute;
     display: flex;

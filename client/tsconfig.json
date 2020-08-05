@@ -12,9 +12,11 @@
     "importHelpers": true,
     "sourceMap": true,
     "jsx": "react",
+    "skipLibCheck": true,
     "moduleResolution": "node",
     "allowJs": false,
     "checkJs": false,
+    "isolatedModules": true,
     "lib": ["dom", "dom.iterable", "esnext"],
     "forceConsistentCasingInFileNames": true,
     "experimentalDecorators": true,
@@ -27,6 +29,9 @@
     "strictNullChecks": false,
     "strictFunctionTypes": true,
     "suppressImplicitAnyIndexErrors": true,
+    "noEmit": false,
+    "noEmitOnError": false,
+    "removeComments": true,
     "typeRoots": ["src/types", "./node_modules/@types"]
   }
 }

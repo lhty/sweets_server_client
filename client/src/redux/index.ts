@@ -1,5 +1,4 @@
-// import { createStore, applyMiddleware, compose } from "redux";
-const { createStore, applyMiddleware, compose } = require("redux");
+import { createStore, applyMiddleware, compose } from "redux";
 import { routerMiddleware } from "react-router-redux";
 import createSagaMiddleware from "redux-saga";
 import { createBrowserHistory } from "history";

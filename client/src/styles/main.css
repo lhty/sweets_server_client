@@ -39,7 +39,7 @@ body::-webkit-scrollbar-thumb {
   background-color: var(--nav-element-color5);
 }
 
-body > div {
+body > div + div {
   width: 100%;
   /* @mixin M {
     width: 85%;

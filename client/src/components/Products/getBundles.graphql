@@ -1,44 +1,48 @@
 query getBundles($start: Int, $limit: Int) {
   products(sort: "id:desc", start: $start, limit: $limit) {
+    ...Product
+  }
+}
+
+fragment Product on Product {
+  id
+  info {
+    name
+    description
+    image {
+      id
+      url
+    }
+  }
+  box {
     id
     info {
       name
       description
-      image {
-        url
-      }
     }
-    box {
+    countmin
+    countmax
+    price {
+      overall
+    }
+  }
+  bundle {
+    item {
       id
       info {
         name
         description
       }
-      countmin
-      countmax
-      price {
-        overall
-      }
     }
-    bundle {
-      item {
-        id
-        info {
-          name
-          image {
-            url
-          }
-          description
-        }
-        price {
-          discount
-          overall
-        }
-      }
-    }
-    price {
-      discount
-      overall
-    }
+  }
+  dimensions {
+    weight
+    width
+    breadth
+    height
+  }
+  price {
+    discount
+    overall
   }
 }

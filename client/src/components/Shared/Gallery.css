@@ -11,3 +11,10 @@
     }
   }
 }
+.fullscreen {
+  width: 100%;
+  position: absolute;
+  z-index: 10000;
+  top: 50%;
+  transform: translateY(-50%);
+}

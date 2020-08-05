@@ -25,6 +25,7 @@ const Plugins = () => [
 
 const Minify = () => {
   const config = {
+    usedExports: !isDev,
     splitChunks: {
       chunks: "all",
     },

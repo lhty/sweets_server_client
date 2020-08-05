@@ -1,9 +1,23 @@
 .Auth {
   position: fixed;
   z-index: -1;
-  top: 0;
+  top: 45px;
   left: 0;
-  width: 500px;
-  height: 500px;
+  padding: 2ch 1ch;
   @mixin pattern1 var(--headerbg), 10px;
+
+  & .toggle {
+    color: var(--text-main);
+    background: transparent;
+    outline: none;
+    border: none;
+    box-sizing: border-box;
+    font-size: 1.5rem;
+    transition: 1.5s ease;
+  }
+
+  & .form {
+    display: flex;
+    flex-flow: column wrap;
+  }
 }

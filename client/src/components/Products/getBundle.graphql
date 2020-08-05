@@ -1,5 +1,6 @@
 query getBundle($id: ID!) {
   product(id: $id) {
+    id
     info {
       name
       description
@@ -9,6 +10,7 @@ query getBundle($id: ID!) {
       }
     }
     box {
+      id
       info {
         name
         description
@@ -21,6 +23,7 @@ query getBundle($id: ID!) {
     }
     bundle {
       item {
+        id
         info {
           name
           description

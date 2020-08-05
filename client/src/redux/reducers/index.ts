@@ -1,5 +1,4 @@
-// import { combineReducers } from "redux";
-const { combineReducers } = require("redux");
+import { combineReducers } from "redux";
 import { routerReducer } from "react-router-redux";
 import viewReducer from "./viewReducer";
 import cartReducer from "./cartReducer";

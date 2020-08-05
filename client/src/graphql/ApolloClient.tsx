@@ -7,6 +7,7 @@ import {
   concat,
   InMemoryCache,
 } from "@apollo/client";
+// import { persistCache } from "apollo-cache-persist";
 
 const token = localStorage.getItem(process.env.LOCAL_STORAGE_USER || "");
 
@@ -21,13 +22,25 @@ const authMiddleware = new ApolloLink((operation, forward) => {
   return forward(operation);
 });
 
-const cache = new InMemoryCache();
+const cache = new InMemoryCache({
+  typePolicies: {
+    Query: {
+      fields: {
+        Product(existingData, { args, toReference }) {
+          console.log(existingData);
+          return (
+            existingData || toReference({ __typename: "Product", id: args.id })
+          );
+        },
+      },
+    },
+  },
+});
 
 const client = new ApolloClient({
   cache,
   link: token ? concat(authMiddleware, httpLink) : httpLink,
 });
-
 export default function ({ children }: { children: ReactNode }): ReactElement {
   return <ApolloProvider client={client}>{children}</ApolloProvider>;
 }

@@ -1,4 +1,5 @@
-import React, { ReactElement } from "react";
+import React, { useState, ReactElement } from "react";
+import { createPortal } from "react-dom";
 
 import { ThumbnailUrl } from "../lib/";
 import Slider from "./Slider";
@@ -12,6 +13,20 @@ interface Props {
 }
 
 const Gallery = ({ images, bullets }: Props): ReactElement => {
+  const [fullscreen, setFullscreen] = useState<number>(0);
+
+  if (fullscreen)
+    return createPortal(
+      <img
+        className={styles.fullscreen}
+        src={ThumbnailUrl(images, fullscreen, fullscreen)}
+        onClick={() => setFullscreen(0)}
+        alt=""
+        draggable="false"
+      />,
+      document.getElementById("fullscreen")
+    );
+
   return (
     <section className={styles.container}>
       <div className={styles.wrapper}>
@@ -20,6 +35,7 @@ const Gallery = ({ images, bullets }: Props): ReactElement => {
             <img
               key={image.id}
               src={ThumbnailUrl(image, i)}
+              onClick={() => setFullscreen(i)}
               alt=""
               draggable="false"
             />

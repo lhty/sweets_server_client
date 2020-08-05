@@ -24,7 +24,7 @@ export default function Card({
   const constructorWindowState = useSelector<RootState, string>(
     (state) => state.view.consructorWindow
   );
-  const cart = useSelector<RootState, string>((state) => state.cart.cart);
+  const cart = useSelector((state: RootState) => state.cart.cart);
   const dispatch = useDispatch();
 
   const skeletonStyle = useSpring({

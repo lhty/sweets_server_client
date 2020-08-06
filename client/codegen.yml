@@ -1,7 +1,7 @@
 overwrite: true
 schema: http://localhost:3000/graphql
 generates:
-  ./src/graphql/queryTypes.d.ts:
+  ./src/app/graphql/queryTypes.d.ts:
     plugins:
       - add: "/* tslint:disable */"
       - typescript

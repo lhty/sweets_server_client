@@ -1,4 +1,5 @@
 const path = require("path");
+const package = require("./package.json");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCssAssetWebpackPlugin = require("optimize-css-assets-webpack-plugin");
 const TerserWebpackPlugin = require("terser-webpack-plugin");
@@ -13,9 +14,24 @@ const Plugins = () => [
   new HtmlWebpackPlugin({
     template: path.join(__dirname, "static", "index.html"),
     minify: {
-      collapseWhitespace: !isDev,
+      minifyJS: true,
+      minifyCSS: true,
+      removeComments: true,
+      useShortDoctype: true,
+      collapseWhitespace: true,
+      collapseInlineTagWhitespace: true,
     },
     favicon: path.join(__dirname, "static", "favicon.ico"),
+    append: {
+      head: `<script src="//cdn.polyfill.io/v3/polyfill.min.js"></script>`,
+    },
+    meta: {
+      title: package.name,
+      description: package.description,
+      keywords: Array.isArray(package.keywords)
+        ? package.keywords.join(",")
+        : undefined,
+    },
   }),
   new CleanWebpackPlugin(),
   new MiniCssExtractPlugin({
@@ -27,8 +43,21 @@ const Minify = () => {
   const config = {
     usedExports: !isDev,
     splitChunks: {
-      chunks: "all",
+      name: true,
+      cacheGroups: {
+        commons: {
+          chunks: "initial",
+          minChunks: 2,
+        },
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          chunks: "all",
+          filename: isDev ? "vendor.[hash].js" : "vendor.[contenthash].js",
+          priority: -10,
+        },
+      },
     },
+    runtimeChunk: true,
   };
 
   if (!isDev) {
@@ -37,7 +66,6 @@ const Minify = () => {
       new TerserWebpackPlugin(),
     ];
   }
-
   return config;
 };
 
@@ -46,53 +74,60 @@ module.exports = {
   mode: process.env.NODE_ENV,
   devServer: {
     port: process.env.PORT,
-    hot: isDev,
+    hot: true,
+    inline: true,
     compress: true,
-    watchContentBase: true,
-    open: false,
-    historyApiFallback: true,
+    historyApiFallback: {
+      disableDotRule: true,
+    },
+    stats: "minimal",
+    clientLogLevel: "warning",
   },
-  devtool: isDev ? "source-map" : "",
+  devtool: isDev ? "cheap-module-eval-source-map" : "hidden-source-map",
+  node: {
+    fs: "empty",
+    net: "empty",
+  },
   entry: {
-    app: path.join(__dirname, "src", "index.tsx"),
+    app: path.join(__dirname, "src/app", "index.tsx"),
   },
   output: {
     filename: "[name].[hash].js",
     path: path.resolve(__dirname, "build"),
     publicPath: "/",
   },
+  target: "web",
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".d.ts", ".css", ".svg", ".graphql"],
   },
   module: {
     rules: [
+      // .ts, .tsx
       {
-        test: /\.(ts|js)x?$/,
-        loaders: ["babel-loader", "ts-loader"],
-        exclude: /node_modules/,
+        test: /\.tsx?$/,
+        use: isDev
+          ? ["react-hot-loader/webpack", "awesome-typescript-loader"]
+          : "awesome-typescript-loader?module=es6",
       },
-      {
-        test: /\.js$/,
-        use: ["source-map-loader"],
-        enforce: "pre",
-      },
+      // pcss
       {
         test: /\.css$/,
         use: [
           isDev ? "style-loader" : MiniCssExtractPlugin.loader,
           {
             loader: "css-loader",
-            options: {
+            query: {
               sourceMap: isDev,
               importLoaders: 1,
               modules: {
-                localIdentName: !isDev ? "[hash:base64]" : "[name]__[local]",
+                localIdentName: !isDev ? "[hash:base64:5]" : "[local]__[name]",
               },
             },
           },
           {
             loader: "postcss-loader",
             options: {
+              ident: "postcss",
               sourceMap: isDev,
               config: {
                 path: require.resolve("./postcss.config.js"),
@@ -101,6 +136,8 @@ module.exports = {
           },
         ],
       },
+      // static assets
+      { test: /\.html$/, use: "html-loader" },
       {
         test: /\.svg$/,
         use: ["@svgr/webpack", "url-loader"],
@@ -116,6 +153,7 @@ module.exports = {
           },
         ],
       },
+      // graphql
       {
         test: /\.(graphql|gql)$/,
         exclude: /node_modules/,

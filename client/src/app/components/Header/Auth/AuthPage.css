@@ -1,0 +1,35 @@
+.Auth {
+  position: fixed;
+  z-index: -1;
+  top: 45px;
+  left: 0;
+  padding: 2ch 1ch;
+  @mixin pattern1 var(--headerbg), 10px;
+
+  & .toggle {
+    color: var(--text-main);
+    background: transparent;
+    outline: none;
+    border: none;
+    box-sizing: border-box;
+    font-size: 1.5rem;
+    transition: 1.5s ease;
+  }
+
+  & .form {
+    display: flex;
+    flex-flow: column wrap;
+
+    & input {
+      font-size: 1rem;
+      background-color: var(--nav-element-color4);
+      box-sizing: border-box;
+      border: none;
+      border-radius: 5px;
+      margin: 1ch 0;
+      padding: 1ch;
+      text-align: center;
+      transition: 1s ease;
+    }
+  }
+}

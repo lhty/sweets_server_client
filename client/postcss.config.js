@@ -6,7 +6,7 @@ module.exports = {
     require("autoprefixer"),
     require("css-mqpacker"),
     require("postcss-mixins")({
-      mixinsDir: path.join(__dirname, "./src/styles"),
+      mixinsDir: path.join(__dirname, "./src/app/styles"),
     }),
     require("cssnano")({
       preset: [

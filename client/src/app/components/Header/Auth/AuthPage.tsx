@@ -1,6 +1,8 @@
 import React, { ReactElement, useState } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as styles from "./AuthPage.css";
+
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as yup from "yup";
 
 // import { SyncOutlined } from "@ant-design/icons";
 
@@ -26,32 +28,43 @@ const AuthPage = ({}: Props): ReactElement => {
 };
 
 const Login = () => {
+  const validationSchema = yup.object({
+    email: yup
+      .string()
+      .email("Неправильный email")
+      .required("Обязателньое поле"),
+    password: yup.string().required("Обязателньое поле").min(5),
+  });
+
   return (
     <Formik
       initialValues={{ email: "", password: "" }}
-      validate={(values) => {
-        const errors = { email: "", password: "" };
-        if (!values.email) {
-          errors.email = "Обязателньое поле";
-        } else if (
-          !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-        ) {
-          errors.email = "Неправильный email";
-        }
-        return errors;
-      }}
+      validateOnChange={true}
+      validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
-        console.log(values);
-        setTimeout(() => {
-          setSubmitting(false);
-        }, 400);
+        setSubmitting(true);
+        // make async call
+        console.log("submit: ", values);
+        setSubmitting(false);
       }}
     >
-      {({ isSubmitting }) => (
-        <Form className={styles.form}>
-          <Field type="email" name="email" />
+      {({ values, isSubmitting, handleSubmit, handleChange, handleBlur }) => (
+        <Form onSubmit={handleSubmit} className={styles.form}>
+          <Field
+            type="email"
+            name="email"
+            value={values.email}
+            onChange={handleChange}
+            onBlur={handleBlur}
+          />
           <ErrorMessage name="email" component="div" />
-          <Field type="password" name="password" />
+          <Field
+            type="password"
+            name="password"
+            value={values.password}
+            onChange={handleChange}
+            onBlur={handleBlur}
+          />
           <ErrorMessage name="password" component="div" />
           <button type="submit" disabled={isSubmitting}>
             Войти

@@ -1,11 +1,13 @@
-import React, { useState, ReactElement } from "react";
+import React, { useState, useRef, ReactElement } from "react";
 import { createPortal } from "react-dom";
 
 import { ThumbnailUrl } from "../lib";
 import Slider from "./Slider";
 
 import * as styles from "./Gallery.css";
-import { UploadFile } from "../../graphql/queryTypes";
+import { UploadFile } from "../../@types/queryTypes";
+
+import useClickOPutside from "../hooks/useClickOutside";
 
 interface Props {
   images: UploadFile[];
@@ -14,13 +16,16 @@ interface Props {
 
 const Gallery = ({ images, bullets }: Props): ReactElement => {
   const [fullscreen, setFullscreen] = useState<number>(0);
+  const fullscreenRef = useRef();
+
+  useClickOPutside(fullscreenRef, () => setFullscreen(0));
 
   if (fullscreen)
     return createPortal(
       <img
+        ref={fullscreenRef}
         className={styles.fullscreen}
         src={ThumbnailUrl(images, fullscreen, fullscreen)}
-        onClick={() => setFullscreen(0)}
         alt=""
         draggable="false"
       />,

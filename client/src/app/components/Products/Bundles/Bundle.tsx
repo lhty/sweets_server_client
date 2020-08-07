@@ -8,7 +8,7 @@ import Gallery from "../../Shared/Gallery";
 
 import * as styles from "./Bundle.css";
 import { DoubleLeftOutlined } from "@ant-design/icons";
-import { Item } from "../../../graphql/queryTypes";
+import { Item } from "../../../@types/queryTypes";
 
 interface Props {}
 

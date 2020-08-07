@@ -1,4 +1,4 @@
-import { Product } from "../../graphql/queryTypes";
+import { Product } from "../../@types/queryTypes";
 
 const initial: Product | {} = {};
 

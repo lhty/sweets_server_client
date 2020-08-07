@@ -1,4 +1,4 @@
-import { UploadFile } from "../../graphql/queryTypes";
+import { UploadFile } from "../../@types/queryTypes";
 
 export const ThumbnailUrl = (
   images: UploadFile | UploadFile[],

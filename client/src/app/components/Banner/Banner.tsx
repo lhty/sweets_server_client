@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
 
-import { Banner } from "../../graphql/queryTypes";
+import { Banner } from "../../@types/queryTypes";
 import { makeStrShorter } from "../lib";
 
 import * as styles from "./Banner.css";

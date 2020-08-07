@@ -1,5 +1,5 @@
 import * as actions from "../constant/user";
-import { UsersPermissionsRole } from "../../graphql/queryTypes";
+import { UsersPermissionsRole } from "../../@types/queryTypes";
 
 export const logIn = (user: UsersPermissionsRole) => ({
   type: actions.LOG_IN,

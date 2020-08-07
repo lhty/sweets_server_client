@@ -1,10 +1,10 @@
-import { Product } from "../../graphql/queryTypes";
+import { Product } from "../../@types/queryTypes";
 import * as actions from "../constant/cart";
 
 const initial: {
-  cart: Product[] | [];
+  list: Product[] | [];
 } = {
-  cart: [],
+  list: [],
 };
 
 type actionType = {
@@ -15,7 +15,7 @@ type actionType = {
 export default function cartReducer(state = initial, action: actionType) {
   switch (action.type) {
     case actions.ADD_TO_CART:
-      return { ...state, cart: [...state.cart, action.payload] };
+      return { ...state, list: [...state.list, action.payload] };
 
     default:
       return state;

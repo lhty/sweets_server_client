@@ -8,7 +8,7 @@ import { useSpring, animated as a } from "react-spring";
 import * as styles from "./Card.css";
 
 import { ThumbnailUrl, makeStrShorter } from "../lib";
-import { Product } from "../../graphql/queryTypes";
+import { Product } from "../../@types/queryTypes";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 
 interface Props {
@@ -25,7 +25,7 @@ export default function Card({
     (state) => state.view.consructorWindow
   );
   const cart: Array<Product> = useSelector(
-    (state: RootState) => state.cart.cart
+    (state: RootState) => state.cart.list
   );
   const dispatch = useDispatch();
 

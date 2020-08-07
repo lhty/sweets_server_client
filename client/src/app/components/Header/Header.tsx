@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { useRef, ReactElement } from "react";
 import { useHistory } from "react-router-dom";
 
 import { ReactComponent as TitleText } from "../../../assets/title.svg";
@@ -14,15 +14,20 @@ import AuthPage from "./Auth/AuthPage";
 import Cart from "./Cart";
 import CartPage from "./Cart/CartPage";
 
+import useClickOutside from "../hooks/useClickOutside";
+
 interface Props {}
 
 export default function Header({}: Props): ReactElement {
   const isOpen = useSelector<RootState>((state) => state.view.headerPopup);
   const dispatch = useDispatch();
   const history = useHistory();
+  const headerRef = useRef();
+
+  useClickOutside(headerRef, () => dispatch(ToggleHeaderPopup(null)));
 
   return (
-    <header className={styles.header}>
+    <header ref={headerRef} className={styles.header}>
       <div className={styles.wrapper}>
         <Auth
           Handler={() =>
@@ -47,14 +52,16 @@ export default function Header({}: Props): ReactElement {
   );
 }
 
-const Title = ({ Handler }: { Handler: () => void }) => (
-  <div
-    onClick={() => {
-      Handler();
-      window.pageYOffset === 0 ? null : window.scrollTo(0, 0);
-    }}
-  >
-    <TitleText className={styles.header_title} />
-    <Logo className={styles.header_logo} />
-  </div>
-);
+const Title = ({ Handler }: { Handler: () => void }) => {
+  return (
+    <div
+      onClick={() => {
+        Handler();
+        window.pageYOffset === 0 ? null : window.scrollTo(0, 0);
+      }}
+    >
+      <TitleText className={styles.header_title} />
+      <Logo className={styles.header_logo} />
+    </div>
+  );
+};

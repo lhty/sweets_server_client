@@ -4,7 +4,7 @@ import { Route, Switch } from "react-router-dom";
 
 import Bundles from "./Bundles";
 import Bundle from "./Bundle";
-import { Product } from "../../../graphql/queryTypes";
+import { Product } from "../../../@types/queryTypes";
 
 interface Props {
   bundles: Product[];

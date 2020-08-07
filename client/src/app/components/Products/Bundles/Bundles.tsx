@@ -6,7 +6,7 @@ import * as styles from "./Bundles.css";
 
 import Card from "../../Shared/Card";
 import Slider from "../../Shared/Slider";
-import { Product } from "../../../graphql/queryTypes";
+import { Product } from "../../../@types/queryTypes";
 
 interface Props {
   bundles: Product[];

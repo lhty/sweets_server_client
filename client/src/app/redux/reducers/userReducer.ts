@@ -1,4 +1,4 @@
-import { UsersPermissionsRole } from "../../graphql/queryTypes";
+import { UsersPermissionsRole } from "../../@types/queryTypes";
 
 const initial: UsersPermissionsRole | {} = {};
 

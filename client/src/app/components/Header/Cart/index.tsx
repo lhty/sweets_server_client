@@ -4,16 +4,13 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/reducers";
 
 import { ShoppingCartOutlined } from "@ant-design/icons";
-import { Product } from "../../../@types/queryTypes";
 
 interface Props {
   Handler: () => void;
 }
 
 export default function index({ Handler }: Props): ReactElement {
-  const cart: Array<Product> = useSelector(
-    (state: RootState) => state.cart.list
-  );
+  const cart = useSelector((state: RootState) => state.cart.list);
 
   return (
     <div

@@ -5,6 +5,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 
 import { useSpring, animated as a } from "react-spring";
+import { LoadingOutlined } from "@ant-design/icons";
 
 // import { SyncOutlined } from "@ant-design/icons";
 
@@ -58,13 +59,14 @@ const Login = ({ btnHandler }: { btnHandler: () => void }) => {
         setSubmitting(true);
         // make async call
         console.log("submit: ", values);
-        setSubmitting(false);
+        setTimeout(() => setSubmitting(false), 5000);
       }}
     >
       {({ values, isSubmitting, handleSubmit, handleChange, handleBlur }) => (
         <Form onSubmit={handleSubmit} className={styles.form}>
           <button
             type="button"
+            disabled={isSubmitting}
             className={styles.form_signup}
             onClick={btnHandler}
           >
@@ -75,6 +77,7 @@ const Login = ({ btnHandler }: { btnHandler: () => void }) => {
             type="email"
             name="email"
             placeholder="email"
+            disabled={isSubmitting}
             value={values.email}
             onChange={handleChange}
             onBlur={handleBlur}
@@ -84,12 +87,13 @@ const Login = ({ btnHandler }: { btnHandler: () => void }) => {
             type="password"
             name="password"
             placeholder="пароль"
+            disabled={isSubmitting}
             value={values.password}
             onChange={handleChange}
             onBlur={handleBlur}
           />
           <button type="submit" disabled={isSubmitting}>
-            Войти
+            {isSubmitting ? <LoadingOutlined /> : "Войти"}
           </button>
         </Form>
       )}

@@ -19,7 +19,7 @@ import useClickOutside from "../hooks/useClickOutside";
 interface Props {}
 
 export default function Header({}: Props): ReactElement {
-  const isOpen = useSelector<RootState>((state) => state.view.headerPopup);
+  const isOpen = useSelector((state: RootState) => state.view.headerPopup);
   const dispatch = useDispatch();
   const history = useHistory();
   const headerRef = useRef();

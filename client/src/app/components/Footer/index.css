@@ -1,6 +1,5 @@
 footer {
   grid-column: 1 / span 2;
-  @mixin pattern4 var(--headerbg);
   display: flex;
   justify-content: center;
   color: var(--text-main);

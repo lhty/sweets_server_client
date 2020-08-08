@@ -1,22 +1,25 @@
 import { Product } from "../../@types/queryTypes";
 import * as actions from "../constant/cart";
+import { CartActionTypes } from "../actions/cart";
 
-const initial: {
-  list: Product[] | [];
-} = {
-  list: [],
+type CartStateType = {
+  list: Array<Product>;
 };
 
-type actionType = {
-  type: string;
-  payload: Product;
-};
+const InitialState: CartStateType = { list: [] };
 
-export default function cartReducer(state = initial, action: actionType) {
+export default function cartReducer(
+  state = InitialState,
+  action: CartActionTypes
+): CartStateType {
   switch (action.type) {
     case actions.ADD_TO_CART:
       return { ...state, list: [...state.list, action.payload] };
-
+    case actions.REMOVE_FROM_CART:
+      return {
+        ...state,
+        list: state.list.filter(({ id }) => id !== action.payload),
+      };
     default:
       return state;
   }

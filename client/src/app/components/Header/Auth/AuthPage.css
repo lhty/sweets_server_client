@@ -4,13 +4,18 @@
   top: 45px;
   left: 0;
   padding: 2ch 1ch;
-  @mixin pattern1 var(--headerbg), 0 0 10px 10px;
+  @mixin pattern1 var(--headerbg), 0 10px 10px 10px;
   box-shadow: 0 20px 40px -10px rgb(0 0 0 / 0.2);
   overflow: hidden;
 
   & .form {
     display: flex;
     flex-flow: column wrap;
+
+    & button:disabled {
+      cursor: wait;
+      filter: grayscale(1);
+    }
 
     & button:first-of-type {
       color: var(--text-main);
@@ -45,10 +50,16 @@
       padding: 0.5ch;
       text-align: center;
       transition: 0.5s ease;
+
+      &:disabled {
+        cursor: wait;
+        filter: grayscale(1);
+      }
     }
     & button:last-of-type {
       background-color: var(--nav-element-color5);
       color: var(--text-alt);
+      cursor: pointer;
       border: none;
       outline: none;
       box-sizing: border-box;

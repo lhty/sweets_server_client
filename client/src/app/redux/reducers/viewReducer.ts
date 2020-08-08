@@ -1,16 +1,20 @@
 import * as actions from "../constant/view";
+import { ViewActionTypes } from "../actions/view";
 
-export interface IviewState {
+type ViewStateType = {
   consructorWindow: number;
   headerPopup: string | null;
-}
+};
 
-const initial: IviewState = {
+const initial: ViewStateType = {
   consructorWindow: 0,
   headerPopup: null,
 };
 
-export default function viewReducer(state = initial, action: any) {
+export default function viewReducer(
+  state = initial,
+  action: ViewActionTypes
+): ViewStateType {
   switch (action.type) {
     case actions.TOGGLE_CONSTRUCTOR:
       return { ...state, consructorWindow: action.payload };

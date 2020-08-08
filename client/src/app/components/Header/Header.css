@@ -5,12 +5,13 @@
   z-index: 10000;
 
   & .wrapper {
-    @mixin pattern4 var(--headerbg);
     background-position-y: 170%;
     display: flex;
     justify-content: space-between;
     padding: 5px;
-    box-shadow: 0 10px 40px -10px rgb(0 0 0 / 0.1);
+
+    /* @mixin pattern4 var(--headerbg);
+    box-shadow: 0 10px 40px -10px rgb(0 0 0 / 0.1); */
 
     & svg {
       cursor: pointer;
@@ -26,7 +27,7 @@
   }
   &_title {
     position: absolute;
-    top: 10px;
+    top: 15px;
     left: 50%;
     transform: translateX(calc(-50% + 10px));
     z-index: 1;
@@ -35,6 +36,6 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    top: 0;
+    top: 3px;
   }
 }

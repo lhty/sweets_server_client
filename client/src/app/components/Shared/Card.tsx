@@ -21,17 +21,18 @@ export default function Card({
   select = () => {},
 }: Props): React.ReactElement {
   const [loading, setLoading] = useState(true);
-  const constructorWindowState = useSelector<RootState, string>(
-    (state) => state.view.consructorWindow
+  const constructorWindowState = useSelector(
+    (state: RootState) => state.view.consructorWindow
   );
-  const cart: Array<Product> = useSelector(
-    (state: RootState) => state.cart.list
-  );
+  const cart = useSelector((state: RootState) => state.cart.list);
   const dispatch = useDispatch();
 
   const skeletonStyle = useSpring({
     opacity: loading ? 1 : 0,
   });
+
+  const handleSelect = () => select(bundle.id, bundle.info.name);
+  const handleAddToCart = () => dispatch(AddToCart(bundle));
 
   return (
     <div className={styles.wrapper}>
@@ -39,7 +40,7 @@ export default function Card({
   // @ts-ignore */}
       <a.div style={skeletonStyle} className={styles.skeleton} />
       <img
-        onClick={() => select(bundle.id, bundle.info.name)}
+        onClick={handleSelect}
         src={ThumbnailUrl(bundle.info.image)}
         onLoad={() => setLoading(false)}
         draggable="false"
@@ -48,18 +49,19 @@ export default function Card({
       <div className={styles.content}>
         <h2 className={styles.title}>{bundle.info.name}</h2>
         {!constructorWindowState && (
-          <>
-            {!cart.includes(bundle) && (
-              <ShoppingCartOutlined
-                onClick={() => dispatch(AddToCart(bundle))}
-              />
-            )}
-            <div className={styles.desc}>
-              {bundle.info.description?.length > 100
-                ? makeStrShorter(bundle.info.description, 100)
-                : bundle.info.description}
-            </div>
-          </>
+          <div className={styles.desc}>
+            {bundle.info.description?.length > 100
+              ? makeStrShorter(bundle.info.description, 100)
+              : bundle.info.description}
+            <ShoppingCartOutlined
+              style={
+                cart.includes(bundle)
+                  ? { opacity: `0.5`, cursor: "default" }
+                  : {}
+              }
+              onClick={cart.includes(bundle) ? null : handleAddToCart}
+            />
+          </div>
         )}
         <div className={styles.price}>{bundle.price.overall}₽</div>
       </div>

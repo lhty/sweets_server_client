@@ -1,6 +1,6 @@
 import * as actions from "../constant/view";
 
-interface ChangeConstructorWidth {
+interface ChangeConstructorWidthType {
   type: typeof actions.TOGGLE_CONSTRUCTOR;
   payload: number;
 }
@@ -10,7 +10,7 @@ export const ChangeConstructorWidth = (size: number) => ({
   payload: size,
 });
 
-interface ToggleHeaderPopup {
+interface ToggleHeaderPopupType {
   type: typeof actions.TOGGLE_POPUP;
   payload: "auth" | "cart" | null;
 }
@@ -20,4 +20,6 @@ export const ToggleHeaderPopup = (popup: "auth" | "cart" | null) => ({
   payload: popup,
 });
 
-export type ViewActionTypes = ChangeConstructorWidth | ToggleHeaderPopup;
+export type ViewActionTypes =
+  | ChangeConstructorWidthType
+  | ToggleHeaderPopupType;

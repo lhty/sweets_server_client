@@ -1,13 +1,14 @@
-.Cart {
-  position: fixed;
+.cartPage {
+  position: absolute;
   z-index: -1;
-  top: 45px;
+  top: 0;
   right: 0;
-  padding: 2ch 1ch;
-  @mixin pattern1 var(--headerbg), 0 0 10px 10px;
+  padding: 5ch 1ch 1ch;
+  @mixin pattern1 var(--headerbg);
+  border-radius: 0 0 0 10px;
+  @mixin M {
+    right: 15px;
+    border-radius: 10px 30px 10px 10px;
+  }
   box-shadow: 0 20px 40px -10px rgb(0 0 0 / 0.2);
-  overflow: hidden;
-
-  min-height: 400px;
-  min-width: 400px;
 }

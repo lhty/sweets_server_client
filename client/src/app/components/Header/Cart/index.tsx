@@ -1,23 +1,23 @@
 import React, { ReactElement } from "react";
 
-import { useSelector } from "react-redux";
-import { RootState } from "../../../redux/reducers";
-
+import CartPage from "./CartPage";
 import { ShoppingCartOutlined } from "@ant-design/icons";
+import { Product } from "../../../@types/queryTypes";
 
 interface Props {
   Handler: () => void;
+  isOpen: string;
+  cart: Product[];
 }
 
-export default function index({ Handler }: Props): ReactElement {
-  const cart = useSelector((state: RootState) => state.cart.list);
-
+export default function index({ Handler, isOpen, cart }: Props): ReactElement {
   return (
-    <div
-      style={{ filter: cart.length ? `none` : `grayscale(1)` }}
-      onClick={cart.length ? Handler : null}
-    >
-      <ShoppingCartOutlined />
-    </div>
+    <>
+      <ShoppingCartOutlined
+        style={{ filter: cart.length ? `none` : `grayscale(1)` }}
+        onClick={cart.length ? Handler : null}
+      />
+      {isOpen === "cart" && <CartPage cart={cart} />}
+    </>
   );
 }

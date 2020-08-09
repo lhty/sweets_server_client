@@ -1,18 +1,20 @@
 import React, { ReactElement } from "react";
 import * as styles from "./CartPage.css";
 
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../../redux/reducers";
+import { useDispatch } from "react-redux";
+
 import { RemoveFromCart } from "../../../redux/actions/cart";
+import { Product } from "../../../@types/queryTypes";
 
-interface Props {}
+interface Props {
+  cart: Product[];
+}
 
-function CartPage({}: Props): ReactElement {
-  const cart = useSelector((state: RootState) => state.cart.list);
+function CartPage({ cart }: Props): ReactElement {
   const dispatch = useDispatch();
-  console.log(cart);
+
   return (
-    <div className={styles.Cart}>
+    <div className={styles.cartPage}>
       {cart.map((prod) => (
         <div key={prod.id} onClick={() => dispatch(RemoveFromCart(prod.id))}>
           {prod.info.name}

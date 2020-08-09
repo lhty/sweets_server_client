@@ -10,9 +10,7 @@ import { ToggleHeaderPopup } from "../../redux/actions/view";
 import { RootState } from "../../redux/reducers";
 
 import Auth from "./Auth";
-import AuthPage from "./Auth/AuthPage";
 import Cart from "./Cart";
-import CartPage from "./Cart/CartPage";
 
 import useClickOutside from "../hooks/useClickOutside";
 
@@ -20,6 +18,8 @@ interface Props {}
 
 export default function Header({}: Props): ReactElement {
   const isOpen = useSelector((state: RootState) => state.view.headerPopup);
+  const cart = useSelector((state: RootState) => state.cart.list);
+  const user = useSelector((state: RootState) => state.user.user);
   const dispatch = useDispatch();
   const history = useHistory();
   const headerRef = useRef();
@@ -28,26 +28,26 @@ export default function Header({}: Props): ReactElement {
 
   return (
     <header ref={headerRef} className={styles.header}>
-      <div className={styles.wrapper}>
-        <Auth
-          Handler={() =>
-            dispatch(ToggleHeaderPopup(isOpen === "auth" ? null : "auth"))
-          }
-        />
-        <Title
-          Handler={() => {
-            dispatch(ToggleHeaderPopup(null));
-            history.replace("/");
-          }}
-        />
-        <Cart
-          Handler={() =>
-            dispatch(ToggleHeaderPopup(isOpen === "cart" ? null : "cart"))
-          }
-        />
-      </div>
-      {isOpen === "auth" && <AuthPage />}
-      {isOpen === "cart" && <CartPage />}
+      <Auth
+        Handler={() =>
+          dispatch(ToggleHeaderPopup(isOpen === "auth" ? null : "auth"))
+        }
+        isOpen={isOpen}
+        user={user}
+      />
+      <Title
+        Handler={() => {
+          dispatch(ToggleHeaderPopup(null));
+          history.replace("/");
+        }}
+      />
+      <Cart
+        Handler={() =>
+          dispatch(ToggleHeaderPopup(isOpen === "cart" ? null : "cart"))
+        }
+        isOpen={isOpen}
+        cart={cart}
+      />
     </header>
   );
 }
@@ -60,8 +60,8 @@ const Title = ({ Handler }: { Handler: () => void }) => {
         window.pageYOffset === 0 ? null : window.scrollTo(0, 0);
       }}
     >
-      <TitleText className={styles.header_title} />
       <Logo className={styles.header_logo} />
+      <TitleText className={styles.header_title} />
     </div>
   );
 };

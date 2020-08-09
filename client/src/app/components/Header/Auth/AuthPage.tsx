@@ -25,7 +25,7 @@ const AuthPage = ({}: Props): ReactElement => {
   const [AnimatedLogin, AnimatedSignup] = [a(Login), a(Signup)];
 
   return (
-    <div className={styles.Auth}>
+    <>
       {toggleState === "login" ? (
         <AnimatedLogin
           style={{ transform }}
@@ -37,7 +37,7 @@ const AuthPage = ({}: Props): ReactElement => {
           btnHandler={() => setToggleState("login")}
         />
       )}
-    </div>
+    </>
   );
 };
 
@@ -59,7 +59,7 @@ const Login = ({ btnHandler }: { btnHandler: () => void }) => {
         setSubmitting(true);
         // make async call
         console.log("submit: ", values);
-        setTimeout(() => setSubmitting(false), 5000);
+        setTimeout(() => setSubmitting(false), 15000);
       }}
     >
       {({ values, isSubmitting, handleSubmit, handleChange, handleBlur }) => (

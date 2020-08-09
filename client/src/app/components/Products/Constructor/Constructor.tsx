@@ -37,7 +37,9 @@ export default function Constructor({}: Props): ReactElement {
       <div className={styles.toggler} onClick={handleToggleConstructor}>
         <DoubleLeftOutlined rotate={constructorWindowState ? 180 : 0} />
       </div>
-      {constructorWindowState && <div style={{ padding: "0 10px" }}>1212</div>}
+      {constructorWindowState > 0 && (
+        <div style={{ padding: "0 10px" }}>1212</div>
+      )}
     </a.div>
   );
 }

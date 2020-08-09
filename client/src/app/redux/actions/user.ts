@@ -1,7 +1,18 @@
 import * as actions from "../constant/user";
-import { UsersPermissionsRole } from "../../@types/queryTypes";
 
-export const logIn = (user: UsersPermissionsRole) => ({
+type loginDataType = {
+  email: string;
+  password: string;
+};
+
+interface logInType {
+  type: typeof actions.LOG_IN;
+  payload: loginDataType;
+}
+
+export const logIn = ({ email, password }: loginDataType) => ({
   type: actions.LOG_IN,
-  payload: user,
+  payload: { email, password },
 });
+
+export type UserActionTypes = logInType;

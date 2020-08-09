@@ -5,7 +5,7 @@ function useOnClickOutside<T extends HTMLElement = HTMLDivElement>(
   handler: () => void
 ) {
   useEffect(() => {
-    const listener = (event: Event) => {
+    const listener = (event: MouseEvent) => {
       const el = ref?.current;
       if (el && el.contains((event?.target as Node) || null)) {
         return;

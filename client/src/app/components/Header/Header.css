@@ -3,39 +3,59 @@
   position: sticky;
   top: 0;
   z-index: 10000;
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  @mixin M {
+    padding: 5px 15px;
+  }
 
-  & .wrapper {
-    background-position-y: 170%;
-    display: flex;
-    justify-content: space-between;
-    padding: 5px;
-
-    /* @mixin pattern4 var(--headerbg);
+  /* @mixin pattern4 var(--headerbg);
     box-shadow: 0 10px 40px -10px rgb(0 0 0 / 0.1); */
 
-    & svg {
-      cursor: pointer;
-    }
+  & svg {
+    cursor: pointer;
+  }
 
-    & span {
-      height: 40px;
-      width: 40px;
-      font-size: 40px;
-      align-self: center;
-      color: var(--nav-element-color3);
-    }
-  }
-  &_title {
-    position: absolute;
-    top: 15px;
-    left: 50%;
-    transform: translateX(calc(-50% + 10px));
-    z-index: 1;
-  }
   &_logo {
     position: absolute;
+    z-index: -2;
     left: 50%;
     transform: translateX(-50%);
     top: 3px;
+  }
+  &_title {
+    position: absolute;
+    z-index: -2;
+    top: 15px;
+    left: 50%;
+    transform: translateX(calc(-50% + 10px));
+  }
+
+  span {
+    display: flex;
+    justify-content: center;
+    color: var(--nav-element-color3);
+    text-align: center;
+    vertical-align: top;
+    border-radius: 30px;
+    @mixin pattern1 var(--headerbg), 30px;
+    box-shadow: 3px 6px 15px -10px rgba(0, 0, 0, 0.2);
+
+    &:first-of-type {
+      width: 40px;
+      height: 40px;
+      font-size: 32px;
+    }
+
+    &:last-of-type {
+      width: 42px;
+      height: 42px;
+      font-size: 37px;
+    }
+
+    & svg {
+      align-self: center;
+    }
   }
 }

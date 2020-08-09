@@ -15,10 +15,12 @@ interface Props {
 }
 
 const Gallery = ({ images, bullets }: Props): ReactElement => {
-  const [fullscreen, setFullscreen] = useState<number>(0);
+  const [fullscreen, setFullscreen] = useState<number>();
   const fullscreenRef = useRef();
 
-  useClickOPutside(fullscreenRef, () => setFullscreen(0));
+  const handleToggleOffFullscreen = () => setFullscreen(0);
+
+  useClickOPutside(fullscreenRef, handleToggleOffFullscreen);
 
   if (fullscreen)
     return createPortal(

@@ -1,11 +1,24 @@
 import React, { ReactElement } from "react";
 
-import { UserOutlined } from "@ant-design/icons";
+import AuthPage from "./AuthPage";
 
-export default function ({ Handler }: { Handler: () => void }): ReactElement {
+import { UserOutlined } from "@ant-design/icons";
+import { UsersPermissionsRole } from "../../../@types/queryTypes";
+
+interface Props {
+  Handler: () => void;
+  isOpen: string;
+  user: UsersPermissionsRole | boolean;
+}
+
+export default function ({ Handler, isOpen, user }: Props): ReactElement {
   return (
     <>
-      <UserOutlined onClick={Handler} />
+      <UserOutlined
+        style={{ filter: user ? `none` : `grayscale(1)` }}
+        onClick={Handler}
+      />
+      {isOpen === "auth" && <AuthPage />}
     </>
   );
 }

@@ -23,7 +23,7 @@ body {
   font-family: "Roboto", sans-serif;
   color: var(--text-main);
   @mixin pattern3 var(--layoutbg-main);
-  background-position-y: 170%;
+  background-position-y: 190%;
 }
 
 body::-webkit-scrollbar {

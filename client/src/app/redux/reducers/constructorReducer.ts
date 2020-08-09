@@ -1,5 +1,4 @@
 import {
-  Product,
   Tags,
   ComponentInfoInfo,
   ComponentDimensionsDimensions,

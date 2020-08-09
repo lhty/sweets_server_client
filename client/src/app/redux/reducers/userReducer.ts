@@ -1,10 +1,21 @@
+import * as actions from "../constant/user";
 import { UsersPermissionsRole } from "../../@types/queryTypes";
+import { UserActionTypes } from "../actions/user";
 
-const initial: UsersPermissionsRole | {} = {};
+type UserStateType = {
+  loading: boolean;
+  error: boolean;
+  user: UsersPermissionsRole | boolean;
+};
 
-export default function viewReducer(state = initial, action: any) {
+const initial = { user: false, loading: false, error: false };
+
+export default function viewReducer(
+  state = initial,
+  action: UserActionTypes
+): UserStateType {
   switch (action.type) {
-    case false:
+    case actions.LOG_IN:
       return state;
     default:
       return state;

@@ -56,7 +56,7 @@ export default function Card({
             <ShoppingCartOutlined
               style={
                 cart.includes(bundle)
-                  ? { opacity: `0.5`, cursor: "default" }
+                  ? { filter: `grayscale(1)`, cursor: "default" }
                   : {}
               }
               onClick={cart.includes(bundle) ? null : handleAddToCart}

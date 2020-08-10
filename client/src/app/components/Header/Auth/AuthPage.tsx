@@ -1,53 +1,54 @@
 import React, { ReactElement, useState } from "react";
 import * as styles from "./AuthPage.css";
 
+import * as logIn from "./logIn.graphql";
+import { useMutation } from "@apollo/client";
+
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/reducers";
+
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 
-import { useSpring, animated as a } from "react-spring";
 import { LoadingOutlined } from "@ant-design/icons";
 
 // import { SyncOutlined } from "@ant-design/icons";
 
-interface Props {}
+interface Props {
+  loading?: boolean;
+  error?: boolean;
+}
 
-const AuthPage = ({}: Props): ReactElement => {
+const AuthPage = ({ loading, error }: Props): ReactElement => {
   const [toggleState, setToggleState] = useState("login");
-
-  const { transform, opacity } = useSpring({
-    opacity: toggleState === "login" ? 1 : 0,
-    transform: `perspective(600px) rotateX(${
-      toggleState === "login" ? 180 : 0
-    }deg)`,
-    config: { mass: 5, tension: 500, friction: 80 },
-  });
-
-  const [AnimatedLogin, AnimatedSignup] = [a(Login), a(Signup)];
 
   return (
     <>
       {toggleState === "login" ? (
-        <AnimatedLogin
-          style={{ transform }}
-          btnHandler={() => setToggleState("signup")}
-        />
+        <Login btnHandler={() => setToggleState("signup")} />
       ) : (
-        <AnimatedSignup
-          style={{ transform }}
-          btnHandler={() => setToggleState("login")}
-        />
+        <Signup btnHandler={() => setToggleState("login")} />
       )}
     </>
   );
 };
 
 const Login = ({ btnHandler }: { btnHandler: () => void }) => {
+  const { error: onError, loading: onLoading } = useSelector(
+    (state: RootState) => state.user
+  );
+  const [login] = useMutation(logIn);
+
   const validationSchema = yup.object({
     email: yup
       .string()
-      .email("Неправильный email")
-      .required("Обязателньое поле"),
-    password: yup.string().required("Обязательное поле").min(5),
+      .email("Неправильный email.")
+      .required("Обязателньое поле."),
+    password: yup
+      .string()
+      .required("Обязателньое поле.")
+      .min(6, "Слишком короткий пароль.")
+      .matches(/[A-Za-z0-9]/, "Только латинские буквы и цифры."),
   });
 
   return (
@@ -55,18 +56,28 @@ const Login = ({ btnHandler }: { btnHandler: () => void }) => {
       initialValues={{ email: "", password: "" }}
       validateOnChange={true}
       validationSchema={validationSchema}
-      onSubmit={(values, { setSubmitting }) => {
-        setSubmitting(true);
-        // make async call
-        console.log("submit: ", values);
-        setTimeout(() => setSubmitting(false), 15000);
+      onSubmit={async ({ email, password }) => {
+        const {
+          data: {
+            login: { jwt, user },
+          },
+        } = await login({
+          variables: {
+            input: {
+              identifier: email,
+              password: password,
+              provider: "local",
+            },
+          },
+        });
+        console.log(jwt, user);
       }}
     >
-      {({ values, isSubmitting, handleSubmit, handleChange, handleBlur }) => (
+      {({ values, handleSubmit, handleChange, handleBlur }) => (
         <Form onSubmit={handleSubmit} className={styles.form}>
           <button
             type="button"
-            disabled={isSubmitting}
+            disabled={onLoading}
             className={styles.form_signup}
             onClick={btnHandler}
           >
@@ -77,7 +88,7 @@ const Login = ({ btnHandler }: { btnHandler: () => void }) => {
             type="email"
             name="email"
             placeholder="email"
-            disabled={isSubmitting}
+            disabled={onLoading}
             value={values.email}
             onChange={handleChange}
             onBlur={handleBlur}
@@ -87,13 +98,17 @@ const Login = ({ btnHandler }: { btnHandler: () => void }) => {
             type="password"
             name="password"
             placeholder="пароль"
-            disabled={isSubmitting}
+            disabled={onLoading}
             value={values.password}
             onChange={handleChange}
             onBlur={handleBlur}
           />
-          <button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? <LoadingOutlined /> : "Войти"}
+          <button
+            className={styles.form_login}
+            type="submit"
+            disabled={onLoading}
+          >
+            {onLoading ? <LoadingOutlined /> : "Войти"}
           </button>
         </Form>
       )}
@@ -103,12 +118,15 @@ const Login = ({ btnHandler }: { btnHandler: () => void }) => {
 
 const Signup = ({ btnHandler }: { btnHandler: () => void }) => {
   const validationSchema = yup.object({
-    name: yup.string().required("Обязателньое поле").min(3, "Некорректное имя"),
+    name: yup
+      .string()
+      .required("Обязателньое поле.")
+      .min(3, "Некорректное имя."),
     email: yup
       .string()
-      .email("Неправильный email")
-      .required("Обязателньое поле"),
-    password: yup.string().required("Обязательное поле").min(5),
+      .email("Неправильный email.")
+      .required("Обязателньое поле."),
+    password: yup.string().required("Обязательное поле.").min(5),
   });
   return (
     <Formik
@@ -129,7 +147,7 @@ const Signup = ({ btnHandler }: { btnHandler: () => void }) => {
             className={styles.form_login}
             onClick={btnHandler}
           >
-            Войти
+            Вход
           </button>
           <Field
             type="name"
@@ -158,7 +176,11 @@ const Signup = ({ btnHandler }: { btnHandler: () => void }) => {
             onBlur={handleBlur}
           />
           <ErrorMessage name="password" component="div" />
-          <button type="submit" disabled={isSubmitting}>
+          <button
+            className={styles.form_signup}
+            type="submit"
+            disabled={isSubmitting}
+          >
             Зарегистрироваться
           </button>
         </Form>

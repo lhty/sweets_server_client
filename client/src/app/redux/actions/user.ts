@@ -6,13 +6,29 @@ type loginDataType = {
 };
 
 interface logInType {
-  type: typeof actions.LOG_IN;
+  type: typeof actions.USER_LOGIN;
   payload: loginDataType;
 }
 
 export const logIn = ({ email, password }: loginDataType) => ({
-  type: actions.LOG_IN,
+  type: actions.USER_LOGIN,
   payload: { email, password },
 });
 
-export type UserActionTypes = logInType;
+interface onLoadingType {
+  type: typeof actions.USER_LOADING;
+}
+
+export const onLoading = (): onLoadingType => ({
+  type: actions.USER_LOADING,
+});
+
+interface onErrorType {
+  type: typeof actions.USER_ERROR;
+}
+
+export const onError = (): onErrorType => ({
+  type: actions.USER_ERROR,
+});
+
+export type UserActionTypes = logInType | onLoadingType | onErrorType;

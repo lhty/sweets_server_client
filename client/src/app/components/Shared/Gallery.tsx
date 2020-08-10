@@ -27,6 +27,7 @@ const Gallery = ({ images, bullets }: Props): ReactElement => {
       <img
         ref={fullscreenRef}
         className={styles.fullscreen}
+        onClick={handleToggleOffFullscreen}
         src={ThumbnailUrl(images, fullscreen, fullscreen)}
         alt=""
         draggable="false"

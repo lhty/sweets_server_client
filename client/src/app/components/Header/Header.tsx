@@ -18,8 +18,6 @@ interface Props {}
 
 export default function Header({}: Props): ReactElement {
   const isOpen = useSelector((state: RootState) => state.view.headerPopup);
-  const cart = useSelector((state: RootState) => state.cart.list);
-  const user = useSelector((state: RootState) => state.user.user);
   const dispatch = useDispatch();
   const history = useHistory();
   const headerRef = useRef();
@@ -33,7 +31,6 @@ export default function Header({}: Props): ReactElement {
           dispatch(ToggleHeaderPopup(isOpen === "auth" ? null : "auth"))
         }
         isOpen={isOpen}
-        user={user}
       />
       <Title
         Handler={() => {
@@ -46,7 +43,6 @@ export default function Header({}: Props): ReactElement {
           dispatch(ToggleHeaderPopup(isOpen === "cart" ? null : "cart"))
         }
         isOpen={isOpen}
-        cart={cart}
       />
     </header>
   );

@@ -36,6 +36,7 @@
     display: flex;
     justify-content: center;
     color: var(--nav-element-color3);
+    outline: none;
     text-align: center;
     vertical-align: top;
     border-radius: 30px;
@@ -43,15 +44,16 @@
     box-shadow: 3px 6px 15px -10px rgba(0, 0, 0, 0.2);
 
     &:first-of-type {
-      width: 40px;
-      height: 40px;
-      font-size: 32px;
+      width: 55px;
+      height: 55px;
+      font-size: 40px;
     }
 
     &:last-of-type {
-      width: 42px;
-      height: 42px;
-      font-size: 37px;
+      width: 55px;
+      height: 55px;
+      padding-right: 4px;
+      font-size: 42px;
     }
 
     & svg {

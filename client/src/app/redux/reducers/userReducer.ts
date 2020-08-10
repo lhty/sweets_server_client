@@ -15,8 +15,12 @@ export default function viewReducer(
   action: UserActionTypes
 ): UserStateType {
   switch (action.type) {
-    case actions.LOG_IN:
+    case actions.USER_LOGIN:
       return state;
+    case actions.USER_LOADING:
+      return { ...state, loading: true };
+    case actions.USER_ERROR:
+      return { ...state, error: true };
     default:
       return state;
   }

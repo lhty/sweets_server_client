@@ -67,21 +67,22 @@
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  visibility: hidden;
-  @mixin M {
-    visibility: visible;
-  }
   & p {
     display: none;
   }
   & div {
+    width: 12px;
+    height: 12px;
     cursor: pointer;
     border-radius: 50%;
     margin: 1px;
-    opacity: 0.6;
-    width: 20px;
-    height: 20px;
-    border: 2px solid var(--text-alt);
-    background-color: var(--nav-element-color5);
+    background-color: var(--nav-element-color2);
+    @mixin M {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--text-alt);
+      opacity: 0.6;
+      background-color: var(--nav-element-color5);
+    }
   }
 }

@@ -1,5 +1,7 @@
-// import { all } from "redux-saga/effects";
+import { fork, all } from "redux-saga/effects";
+
+import { loginSaga } from "./login";
 
 export default function* rootSaga(): any {
-  // yield all([]);
+  yield all([fork(loginSaga)]);
 }

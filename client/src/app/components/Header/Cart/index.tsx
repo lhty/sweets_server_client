@@ -1,16 +1,25 @@
-import React, { ReactElement } from "react";
+import React, { useEffect, ReactElement } from "react";
 
+import { useSelector, useDispatch } from "react-redux";
 import CartPage from "./CartPage";
+
 import { ShoppingCartOutlined } from "@ant-design/icons";
-import { Product } from "../../../@types/queryTypes";
+import { RootState } from "../../../redux/reducers";
+import { ToggleHeaderPopup } from "../../../redux/actions/view";
 
 interface Props {
   Handler: () => void;
   isOpen: string;
-  cart: Product[];
 }
 
-export default function index({ Handler, isOpen, cart }: Props): ReactElement {
+export default function index({ Handler, isOpen }: Props): ReactElement {
+  const cart = useSelector((state: RootState) => state.cart.list);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!cart.length) dispatch(ToggleHeaderPopup(null));
+  }, [cart.length]);
+
   return (
     <>
       <ShoppingCartOutlined

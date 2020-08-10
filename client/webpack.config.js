@@ -98,7 +98,7 @@ module.exports = {
   },
   target: "web",
   resolve: {
-    extensions: [".ts", ".tsx", ".js", ".d.ts", ".css", ".svg", ".graphql"],
+    extensions: [".ts", ".tsx", ".js", ".css", ".svg", ".graphql"],
   },
   module: {
     rules: [

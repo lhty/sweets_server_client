@@ -8,10 +8,7 @@
   align-self: center;
   padding: 5px 0;
   display: flex;
-  visibility: hidden;
-  @mixin M {
-    visibility: visible;
-  }
+
   & div {
     border-radius: 2px;
     position: relative;

@@ -15,11 +15,13 @@ function CartPage({ cart }: Props): ReactElement {
 
   return (
     <div className={styles.cartPage}>
-      {cart.map((prod) => (
-        <div key={prod.id} onClick={() => dispatch(RemoveFromCart(prod.id))}>
-          {prod.info.name}
-        </div>
-      ))}
+      <div className={styles.list}>
+        {cart.map((prod) => (
+          <div key={prod.id} onClick={() => dispatch(RemoveFromCart(prod.id))}>
+            {prod.info.name}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

@@ -1,16 +1,14 @@
 import React, { ReactElement, useState } from "react";
 import * as styles from "./AuthPage.css";
 
-import * as logIn from "./logIn.graphql";
-import { useMutation } from "@apollo/client";
-
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../redux/reducers";
 
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 
 import { LoadingOutlined } from "@ant-design/icons";
+import { logIn } from "../../../redux/actions/user";
 
 // import { SyncOutlined } from "@ant-design/icons";
 
@@ -37,7 +35,7 @@ const Login = ({ btnHandler }: { btnHandler: () => void }) => {
   const { error: onError, loading: onLoading } = useSelector(
     (state: RootState) => state.user
   );
-  const [login] = useMutation(logIn);
+  const dispatch = useDispatch();
 
   const validationSchema = yup.object({
     email: yup
@@ -56,21 +54,8 @@ const Login = ({ btnHandler }: { btnHandler: () => void }) => {
       initialValues={{ email: "", password: "" }}
       validateOnChange={true}
       validationSchema={validationSchema}
-      onSubmit={async ({ email, password }) => {
-        const {
-          data: {
-            login: { jwt, user },
-          },
-        } = await login({
-          variables: {
-            input: {
-              identifier: email,
-              password: password,
-              provider: "local",
-            },
-          },
-        });
-        console.log(jwt, user);
+      onSubmit={({ email, password }) => {
+        dispatch(logIn({ email, password }));
       }}
     >
       {({ values, handleSubmit, handleChange, handleBlur }) => (

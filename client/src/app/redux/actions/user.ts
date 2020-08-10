@@ -1,4 +1,5 @@
 import * as actions from "../constant/user";
+import { UsersPermissionsRole } from "../../@types/queryTypes";
 
 type loginDataType = {
   email: string;
@@ -13,6 +14,16 @@ interface logInType {
 export const logIn = ({ email, password }: loginDataType) => ({
   type: actions.USER_LOGIN,
   payload: { email, password },
+});
+
+interface IsetUser {
+  type: typeof actions.SET_USER;
+  payload: UsersPermissionsRole;
+}
+
+export const setUser = (user: IsetUser) => ({
+  type: actions.SET_USER,
+  payload: user,
 });
 
 interface onLoadingType {
@@ -31,4 +42,8 @@ export const onError = (): onErrorType => ({
   type: actions.USER_ERROR,
 });
 
-export type UserActionTypes = logInType | onLoadingType | onErrorType;
+export type UserActionTypes =
+  | logInType
+  | onLoadingType
+  | onErrorType
+  | IsetUser;

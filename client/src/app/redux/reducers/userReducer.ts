@@ -21,6 +21,8 @@ export default function viewReducer(
       return { ...state, loading: true };
     case actions.USER_ERROR:
       return { ...state, error: true };
+    case actions.SET_USER:
+      return { ...state, user: action.payload };
     default:
       return state;
   }

@@ -23,6 +23,8 @@ html {
     var(--nav-element-color4) 95%
   );
 
+  --nav-element-gradient2: linear-gradient(180deg, #ffffff 0%, #fe776e 85%);
+
   --accent-color1: red;
   --accent-color2: blue;
 

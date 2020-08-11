@@ -2,7 +2,7 @@ import React, { ReactElement } from "react";
 import { useParams, useHistory } from "react-router-dom";
 
 import { useQuery } from "@apollo/client";
-import * as getBundle from "../getBundle.graphql";
+import getBundle from "../getBundle.graphql";
 
 import Gallery from "../../Shared/Gallery";
 

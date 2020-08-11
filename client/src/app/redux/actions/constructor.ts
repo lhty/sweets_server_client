@@ -1,5 +1,8 @@
-import * as actions from "../constant/constructor";
 import { Box } from "../../@types/queryTypes";
+
+export enum actions {
+  CREATE_PRODUCT = "CREATE_PRODUCT",
+}
 
 interface createProduct {
   type: typeof actions.CREATE_PRODUCT;

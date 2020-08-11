@@ -35,11 +35,11 @@
   span {
     display: flex;
     justify-content: center;
-    color: var(--nav-element-color3);
     outline: none;
     text-align: center;
     vertical-align: top;
     border-radius: 30px;
+    color: var(--nav-element-color3);
     @mixin pattern1 var(--headerbg), 30px;
     box-shadow: 3px 6px 15px -10px rgba(0, 0, 0, 0.2);
 

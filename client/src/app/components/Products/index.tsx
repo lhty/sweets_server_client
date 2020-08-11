@@ -2,7 +2,7 @@ import React, { ReactElement } from "react";
 import * as styles from "./index.css";
 
 import { useQuery } from "@apollo/client";
-import * as getBundles from "./getBundles.graphql";
+import getBundles from "./getBundles.graphql";
 
 import Featured from "./Feautured";
 import Bundles from "./Bundles";

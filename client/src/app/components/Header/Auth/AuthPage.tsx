@@ -1,40 +1,55 @@
 import React, { ReactElement, useState } from "react";
 import * as styles from "./AuthPage.css";
 
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../../redux/reducers";
+import { useDispatch } from "react-redux";
 
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 
 import { LoadingOutlined } from "@ant-design/icons";
-import { logIn } from "../../../redux/actions/user";
+import { setUser, setToken } from "../../../redux/actions/user";
 
-// import { SyncOutlined } from "@ant-design/icons";
-
-interface Props {
-  loading?: boolean;
-  error?: boolean;
+interface authProps {
+  loginHandler: (obj: any) => any;
+  signupHandler: () => void;
+  isLoading: boolean;
 }
 
-const AuthPage = ({ loading, error }: Props): ReactElement => {
+const AuthPage = ({
+  loginHandler,
+  signupHandler,
+  isLoading,
+}: authProps): ReactElement => {
   const [toggleState, setToggleState] = useState("login");
 
   return (
     <>
       {toggleState === "login" ? (
-        <Login btnHandler={() => setToggleState("signup")} />
+        <Login
+          btnHandler={() => setToggleState("signup")}
+          {...{ loginHandler, isLoading }}
+        />
       ) : (
-        <Signup btnHandler={() => setToggleState("login")} />
+        <Signup
+          btnHandler={() => setToggleState("login")}
+          {...{ signupHandler, isLoading }}
+        />
       )}
     </>
   );
 };
 
-const Login = ({ btnHandler }: { btnHandler: () => void }) => {
-  const { error: onError, loading: onLoading } = useSelector(
-    (state: RootState) => state.user
-  );
+interface loginProps {
+  btnHandler: () => void;
+  loginHandler: (obj: any) => any;
+  isLoading: boolean;
+}
+
+const Login = ({
+  btnHandler,
+  loginHandler,
+  isLoading,
+}: loginProps): ReactElement => {
   const dispatch = useDispatch();
 
   const validationSchema = yup.object({
@@ -54,15 +69,27 @@ const Login = ({ btnHandler }: { btnHandler: () => void }) => {
       initialValues={{ email: "", password: "" }}
       validateOnChange={true}
       validationSchema={validationSchema}
-      onSubmit={({ email, password }) => {
-        dispatch(logIn({ email, password }));
+      onSubmit={async ({ email, password }) => {
+        const {
+          data: { login },
+        } = await loginHandler({
+          variables: {
+            input: {
+              identifier: email,
+              password: password,
+              provider: "local",
+            },
+          },
+        });
+        dispatch(setUser(login.user));
+        dispatch(setToken(login.jwt));
       }}
     >
       {({ values, handleSubmit, handleChange, handleBlur }) => (
         <Form onSubmit={handleSubmit} className={styles.form}>
           <button
             type="button"
-            disabled={onLoading}
+            disabled={isLoading}
             className={styles.form_signup}
             onClick={btnHandler}
           >
@@ -73,7 +100,7 @@ const Login = ({ btnHandler }: { btnHandler: () => void }) => {
             type="email"
             name="email"
             placeholder="email"
-            disabled={onLoading}
+            disabled={isLoading}
             value={values.email}
             onChange={handleChange}
             onBlur={handleBlur}
@@ -83,7 +110,7 @@ const Login = ({ btnHandler }: { btnHandler: () => void }) => {
             type="password"
             name="password"
             placeholder="пароль"
-            disabled={onLoading}
+            disabled={isLoading}
             value={values.password}
             onChange={handleChange}
             onBlur={handleBlur}
@@ -91,9 +118,9 @@ const Login = ({ btnHandler }: { btnHandler: () => void }) => {
           <button
             className={styles.form_login}
             type="submit"
-            disabled={onLoading}
+            disabled={isLoading}
           >
-            {onLoading ? <LoadingOutlined /> : "Войти"}
+            {isLoading ? <LoadingOutlined /> : "Войти"}
           </button>
         </Form>
       )}
@@ -101,7 +128,17 @@ const Login = ({ btnHandler }: { btnHandler: () => void }) => {
   );
 };
 
-const Signup = ({ btnHandler }: { btnHandler: () => void }) => {
+interface signupProps {
+  btnHandler: () => void;
+  signupHandler: (obj: any) => any;
+  isLoading: boolean;
+}
+
+const Signup = ({
+  btnHandler,
+  signupHandler,
+  isLoading,
+}: signupProps): ReactElement => {
   const validationSchema = yup.object({
     name: yup
       .string()

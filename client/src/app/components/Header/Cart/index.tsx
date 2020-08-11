@@ -23,7 +23,9 @@ export default function index({ Handler, isOpen }: Props): ReactElement {
   return (
     <>
       <ShoppingCartOutlined
-        style={{ filter: cart.length ? `none` : `grayscale(1)` }}
+        style={{
+          opacity: cart.length ? "1" : "0.5",
+        }}
         onClick={cart.length ? Handler : null}
       />
       {isOpen === "cart" && <CartPage cart={cart} />}

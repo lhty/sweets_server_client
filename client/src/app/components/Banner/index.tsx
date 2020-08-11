@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 
 import { useQuery } from "@apollo/client";
-import * as getBanners from "./getBanners.graphql";
+import getBanners from "./getBanners.graphql";
 import { Banner as bannerType } from "../../@types/queryTypes";
 
 import Slider from "../Shared/Slider";

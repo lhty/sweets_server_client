@@ -7,8 +7,7 @@ import {
   Box,
   AdminUser,
 } from "../../@types/queryTypes";
-import { ConstructorActionTypes } from "../actions/constructor";
-import * as actions from "../constant/constructor";
+import { actions, ConstructorActionTypes } from "../actions/constructor";
 
 type ConstructorStateType = {
   info?: ComponentInfoInfo;

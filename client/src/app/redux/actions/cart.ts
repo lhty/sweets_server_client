@@ -1,24 +1,28 @@
-import * as actions from "../constant/cart";
 import { Product } from "../../@types/queryTypes";
 
-interface AddToCart {
+export enum actions {
+  ADD_TO_CART = "ADD_TO_CART",
+  REMOVE_FROM_CART = "REMOVE_FROM_CART",
+}
+
+interface IaddToCart {
   type: typeof actions.ADD_TO_CART;
   payload: Product;
 }
 
-export const AddToCart = (product: Product): AddToCart => ({
+export const AddToCart = (product: Product): IaddToCart => ({
   type: actions.ADD_TO_CART,
   payload: product,
 });
 
-interface RemoveFromCart {
+interface IremoveFromCart {
   type: typeof actions.REMOVE_FROM_CART;
   payload: string;
 }
 
-export const RemoveFromCart = (id: string): RemoveFromCart => ({
+export const RemoveFromCart = (id: string): IremoveFromCart => ({
   type: actions.REMOVE_FROM_CART,
   payload: id,
 });
 
-export type CartActionTypes = AddToCart | RemoveFromCart;
+export type CartActionTypes = IaddToCart | IremoveFromCart;

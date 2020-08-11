@@ -7,9 +7,7 @@ import Products from "../Products";
 
 import "../../styles/main.css";
 
-interface Props {}
-
-export default function index({}: Props): ReactElement {
+export default function index(): ReactElement {
   return (
     <>
       <Header />

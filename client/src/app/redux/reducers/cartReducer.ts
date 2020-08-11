@@ -1,6 +1,5 @@
 import { Product } from "../../@types/queryTypes";
-import * as actions from "../constant/cart";
-import { CartActionTypes } from "../actions/cart";
+import { actions, CartActionTypes } from "../actions/cart";
 
 type CartStateType = {
   list: Array<Product>;

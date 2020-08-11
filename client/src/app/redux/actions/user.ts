@@ -1,49 +1,61 @@
-import * as actions from "../constant/user";
-import { UsersPermissionsRole } from "../../@types/queryTypes";
+import { UsersPermissionsMe } from "../../@types/queryTypes";
 
-type loginDataType = {
-  email: string;
-  password: string;
-};
-
-interface logInType {
-  type: typeof actions.USER_LOGIN;
-  payload: loginDataType;
+export enum actions {
+  USER_SET_USER = "USER_SET_USER",
+  USER_SET_TOKEN = "USER_SET_TOKEN",
+  USER_LOGIN = "USER_LOGIN",
+  USER_LOADING = "USER_LOADING",
+  USER_ERROR = "USER_ERROR",
+  USER_LOGOUT = "USER_LOGOUT",
 }
-
-export const logIn = ({ email, password }: loginDataType) => ({
-  type: actions.USER_LOGIN,
-  payload: { email, password },
-});
 
 interface IsetUser {
-  type: typeof actions.SET_USER;
-  payload: UsersPermissionsRole;
+  type: typeof actions.USER_SET_USER;
+  payload: UsersPermissionsMe;
 }
 
-export const setUser = (user: IsetUser) => ({
-  type: actions.SET_USER,
+export const setUser = (user: UsersPermissionsMe): IsetUser => ({
+  type: actions.USER_SET_USER,
   payload: user,
 });
 
-interface onLoadingType {
+interface IsetToken {
+  type: typeof actions.USER_SET_TOKEN;
+  payload: string;
+}
+
+export const setToken = (jwt: string): IsetToken => ({
+  type: actions.USER_SET_TOKEN,
+  payload: jwt,
+});
+
+interface IonLoadingType {
   type: typeof actions.USER_LOADING;
 }
 
-export const onLoading = (): onLoadingType => ({
+export const onLoading = (): IonLoadingType => ({
   type: actions.USER_LOADING,
 });
 
-interface onErrorType {
+interface IonErrorType {
   type: typeof actions.USER_ERROR;
 }
 
-export const onError = (): onErrorType => ({
+export const onError = (): IonErrorType => ({
   type: actions.USER_ERROR,
 });
 
+interface IonLogoutType {
+  type: typeof actions.USER_LOGOUT;
+}
+
+export const onLogout = (): IonLogoutType => ({
+  type: actions.USER_LOGOUT,
+});
+
 export type UserActionTypes =
-  | logInType
-  | onLoadingType
-  | onErrorType
-  | IsetUser;
+  | IonLoadingType
+  | IonErrorType
+  | IsetUser
+  | IsetToken
+  | IonLogoutType;

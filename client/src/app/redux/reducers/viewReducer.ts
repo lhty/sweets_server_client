@@ -1,5 +1,4 @@
-import * as actions from "../constant/view";
-import { ViewActionTypes } from "../actions/view";
+import { actions, ViewActionTypes } from "../actions/view";
 
 type ViewStateType = {
   consructorWindow: number;

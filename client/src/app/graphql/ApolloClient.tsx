@@ -1,4 +1,7 @@
-import React, { ReactElement, ReactNode } from "react";
+import React, { useEffect, ReactElement, ReactNode } from "react";
+import { useDispatch } from "react-redux";
+import { setToken } from "../redux/actions/user";
+
 import {
   ApolloClient,
   ApolloProvider,
@@ -7,40 +10,36 @@ import {
   concat,
   InMemoryCache,
 } from "@apollo/client";
-// import { persistCache } from "apollo-cache-persist";
 
-const token = localStorage.getItem(process.env.LOCAL_STORAGE_USER || "");
-
-const httpLink = new HttpLink({ uri: process.env.GRAPHQL });
-
-const authMiddleware = new ApolloLink((operation, forward) => {
-  operation.setContext({
-    headers: {
-      authorization: `Bearer ${token}`,
-    },
-  });
-  return forward(operation);
-});
-
-const cache = new InMemoryCache({
-  typePolicies: {
-    Query: {
-      fields: {
-        Product(existingData, { args, toReference }) {
-          console.log(existingData);
-          return (
-            existingData || toReference({ __typename: "Product", id: args.id })
-          );
-        },
-      },
-    },
-  },
-});
-
-const client = new ApolloClient({
-  cache,
-  link: token ? concat(authMiddleware, httpLink) : httpLink,
-});
 export default function ({ children }: { children: ReactNode }): ReactElement {
+  const token = localStorage.getItem(
+    process.env.LOCAL_STORAGE_TOKEN.toString()
+  );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (token) dispatch(setToken(token));
+  }, []);
+
+  const httpLink = new HttpLink({ uri: process.env.GRAPHQL });
+  const authMiddleware = new ApolloLink((operation, forward) => {
+    operation.setContext(
+      token
+        ? {
+            headers: {
+              authorization: `Bearer ${token}`,
+            },
+          }
+        : {}
+    );
+    return forward(operation);
+  });
+
+  const cache = new InMemoryCache({});
+  const client = new ApolloClient({
+    cache,
+    link: concat(authMiddleware, httpLink),
+  });
+
   return <ApolloProvider client={client}>{children}</ApolloProvider>;
 }

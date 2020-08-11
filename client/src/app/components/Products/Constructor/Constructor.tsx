@@ -2,7 +2,7 @@ import React, { ReactElement, useEffect } from "react";
 import { useSpring, animated as a } from "react-spring";
 // import { useDrag } from "react-use-gesture";
 
-import { ChangeConstructorWidth } from "../../../redux/actions/view";
+import { changeConstructorWidth } from "../../../redux/actions/view";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../redux/reducers";
 
@@ -30,7 +30,7 @@ export default function Constructor({}: Props): ReactElement {
   }, [constructorWindowState]);
 
   const handleToggleConstructor = () =>
-    dispatch(ChangeConstructorWidth(+constructorWindowState === 100 ? 0 : 100));
+    dispatch(changeConstructorWidth(+constructorWindowState === 100 ? 0 : 100));
 
   return (
     <a.div className={styles.container} style={wrapperStyle}>

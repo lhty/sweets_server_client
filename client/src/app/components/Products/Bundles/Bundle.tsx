@@ -38,7 +38,7 @@ export default function Bundle({}: Props): ReactElement {
       <div className={styles.inside}>
         recipe :
         {data.product.bundle.map(({ item }: { item: Item }, i: number) => (
-          <p key={i}>{item.info.name}</p>
+          <p key={i}>{item?.info.name}</p>
         ))}
       </div>
       <div className={styles.price}>

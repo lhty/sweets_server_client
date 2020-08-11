@@ -19,6 +19,7 @@
       border-radius: 15px;
       padding: 2px;
     }
+    min-height: 350px;
     border-radius: 0;
     object-fit: cover;
     padding: 0px;

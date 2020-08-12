@@ -148,7 +148,7 @@ const Signup = ({
       .string()
       .email("Неправильный email.")
       .required("Обязателньое поле."),
-    password: yup.string().required("Обязательное поле.").min(5),
+    password: yup.string().required("Обязательное поле.").min(6),
   });
   return (
     <Formik

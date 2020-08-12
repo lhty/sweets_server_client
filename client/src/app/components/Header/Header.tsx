@@ -14,9 +14,7 @@ import Cart from "./Cart";
 
 import useClickOutside from "../hooks/useClickOutside";
 
-interface Props {}
-
-export default function Header({}: Props): ReactElement {
+export default function Header(): ReactElement {
   const isOpen = useSelector((state: RootState) => state.view.headerPopup);
   const dispatch = useDispatch();
   const history = useHistory();

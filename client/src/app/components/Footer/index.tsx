@@ -2,9 +2,7 @@ import React, { ReactElement } from "react";
 
 import "./index.css";
 
-interface Props {}
-
-export default function index({}: Props): ReactElement {
+export default function index(): ReactElement {
   return (
     <footer>
       <h2>TBD</h2>

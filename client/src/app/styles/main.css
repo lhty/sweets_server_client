@@ -24,6 +24,7 @@ body {
   color: var(--text-main);
   @mixin pattern3 var(--layoutbg-main);
   background-position-y: 190%;
+  overflow-y: scroll;
 }
 
 body::-webkit-scrollbar {

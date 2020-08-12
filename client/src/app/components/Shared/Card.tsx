@@ -32,6 +32,7 @@ export default function Card({
   });
 
   const handleSelect = () => select(bundle.id, bundle.info.name);
+
   const handleAddToCart = () => dispatch(AddToCart(bundle));
 
   return (
@@ -41,6 +42,7 @@ export default function Card({
       <a.div style={skeletonStyle} className={styles.skeleton} />
       <img
         onClick={handleSelect}
+        onDragStart={(e) => e.preventDefault()}
         src={ThumbnailUrl(bundle.info.image)}
         onLoad={() => setLoading(false)}
         draggable="false"

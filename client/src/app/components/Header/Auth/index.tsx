@@ -11,7 +11,7 @@ import { RootState } from "../../../redux/reducers";
 
 import { useMutation, useLazyQuery } from "@apollo/client";
 import logInMutation from "./logIn.graphql";
-import getUser from "./me.graphql";
+import getUser from "./getUserInfo.graphql";
 
 import AuthPage from "./AuthPage";
 import ProfilePage from "./ProfilePage";

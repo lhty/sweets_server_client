@@ -9,11 +9,10 @@ import Banner from "./Banner";
 
 import * as styles from "./index.css";
 
-export default function index(): ReactElement {
+export default function index(): ReactElement | null {
   const { data, loading } = useQuery(getBanners);
 
-  if (loading) <p>Loading</p>;
-
+  if (loading) return null;
   return (
     <section className={styles.container}>
       <Slider hasBullets={styles.bullets} scaleOnDrag>

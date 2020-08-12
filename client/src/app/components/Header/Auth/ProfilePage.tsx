@@ -16,18 +16,15 @@ export default function ProfilePage({
     <div className={styles.profile}>
       <div className={styles.profile_head}>
         <h2>{user.username}</h2>
-        <button className={styles.profile_logout} onClick={handleLogout}>
+        <button className={styles.profile_head_logout} onClick={handleLogout}>
           Выйти
         </button>
       </div>
-      {user.role.id > "1" && (
-        <button
-          className={styles.profile_logout}
-          onClick={() => console.log(123)}
-        >
-          админка
-        </button>
-      )}
+      <div className={styles.profile_body}>
+        {user.role.id > "1" && (
+          <button onClick={() => console.log(123)}>Редактор</button>
+        )}
+      </div>
     </div>
   );
 }

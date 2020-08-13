@@ -5,6 +5,8 @@ import { store } from "./redux";
 import ApolloClient from "./graphql/ApolloClient";
 import RootRouter from "./routes";
 
+import "./styles/main.css";
+
 render(
   <Provider store={store}>
     <ApolloClient>

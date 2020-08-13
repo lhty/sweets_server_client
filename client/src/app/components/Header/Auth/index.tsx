@@ -11,6 +11,7 @@ import { RootState } from "../../../redux/reducers";
 
 import { useMutation, useLazyQuery } from "@apollo/client";
 import logInMutation from "./logIn.graphql";
+import signUpMutation from "./signUp.graphql";
 import getUser from "./getUserInfo.graphql";
 
 import AuthPage from "./AuthPage";
@@ -27,8 +28,8 @@ export default function ({ Handler, isOpen }: Props): ReactElement {
   const dispatch = useDispatch();
   const { user, token } = useSelector((state: RootState) => state.user);
   const [getUserData, UserData] = useLazyQuery(getUser);
-  const [tryLogin, { error, loading }] = useMutation(logInMutation);
-  const trySignup = () => {};
+  const [tryLogin, Login] = useMutation(logInMutation);
+  const [trySignUp, Signup] = useMutation(signUpMutation);
   const handleLogout = () => dispatch(onLogout());
 
   useEffect(() => {
@@ -41,13 +42,13 @@ export default function ({ Handler, isOpen }: Props): ReactElement {
   }, [token, UserData.loading]);
 
   useEffect(() => {
-    if (loading) dispatch(onLoading());
-    if (error) dispatch(onError());
-  }, [error, loading]);
+    if (Login.loading || Signup.loading) dispatch(onLoading());
+    if (Login.error || Signup.error) dispatch(onError());
+  }, [Login, Signup]);
 
   return (
     <>
-      {loading ? (
+      {Login.loading || Signup.loading ? (
         <LoadingOutlined />
       ) : (
         <UserOutlined
@@ -63,8 +64,8 @@ export default function ({ Handler, isOpen }: Props): ReactElement {
           <AuthPage
             {...{
               loginHandler: tryLogin,
-              signupHandler: trySignup,
-              isLoading: loading,
+              signupHandler: trySignUp,
+              isLoading: Login.loading || Signup.loading,
             }}
           />
         ))}

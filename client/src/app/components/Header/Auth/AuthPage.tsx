@@ -51,7 +51,6 @@ const Login = ({
   isLoading,
 }: loginProps): ReactElement => {
   const dispatch = useDispatch();
-
   const validationSchema = yup.object({
     email: yup
       .string()
@@ -139,6 +138,7 @@ const Signup = ({
   signupHandler,
   isLoading,
 }: signupProps): ReactElement => {
+  const dispatch = useDispatch();
   const validationSchema = yup.object({
     name: yup
       .string()
@@ -155,14 +155,23 @@ const Signup = ({
       initialValues={{ name: "", email: "", password: "" }}
       validateOnChange={true}
       validationSchema={validationSchema}
-      onSubmit={(values, { setSubmitting }) => {
-        setSubmitting(true);
-        // make async call
-        console.log("submit: ", values);
-        setSubmitting(false);
+      onSubmit={async ({ name, email, password }) => {
+        const {
+          data: { register },
+        } = await signupHandler({
+          variables: {
+            input: {
+              username: name,
+              email: email,
+              password: password,
+            },
+          },
+        });
+        dispatch(setUser(register.user));
+        dispatch(setToken(register.jwt));
       }}
     >
-      {({ values, isSubmitting, handleSubmit, handleChange, handleBlur }) => (
+      {({ values, handleSubmit, handleChange, handleBlur }) => (
         <Form onSubmit={handleSubmit} className={styles.form}>
           <button
             type="button"
@@ -175,6 +184,7 @@ const Signup = ({
             type="name"
             name="name"
             placeholder="Имя"
+            disabled={isLoading}
             value={values.name}
             onChange={handleChange}
             onBlur={handleBlur}
@@ -185,6 +195,7 @@ const Signup = ({
             name="email"
             placeholder="email"
             value={values.email}
+            disabled={isLoading}
             onChange={handleChange}
             onBlur={handleBlur}
           />
@@ -193,6 +204,7 @@ const Signup = ({
             type="password"
             name="password"
             placeholder="пароль"
+            disabled={isLoading}
             value={values.password}
             onChange={handleChange}
             onBlur={handleBlur}
@@ -201,7 +213,7 @@ const Signup = ({
           <button
             className={styles.form_signup}
             type="submit"
-            disabled={isSubmitting}
+            disabled={isLoading}
           >
             Зарегистрироваться
           </button>

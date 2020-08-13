@@ -38,11 +38,7 @@ const Plugins = () => [
   new MiniCssExtractPlugin({
     filename: isDev ? "[name].css" : "[name].[hash].css",
   }),
-  new ProgressBarPlugin({
-    format:
-      "  build [:bar] " + chalk.green.bold(":percent") + " (:elapsed seconds)",
-    clear: false,
-  }),
+  new ProgressBarPlugin(),
 ];
 
 const Minify = () => {

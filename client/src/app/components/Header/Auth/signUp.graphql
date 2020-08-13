@@ -1,0 +1,18 @@
+mutation signUp($input: UsersPermissionsRegisterInput!) {
+  register(input: $input) {
+    user {
+      id
+      username
+      email
+      confirmed
+      blocked
+      role {
+        id
+        name
+        description
+        type
+      }
+    }
+    jwt
+  }
+}

@@ -1,12 +1,7 @@
 import React, { useEffect, ReactElement } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
-import {
-  onLoading,
-  onError,
-  onLogout,
-  setUser,
-} from "../../../redux/actions/user";
+import { onLoading, onLogout, setUser } from "../../../redux/actions/user";
 import { RootState } from "../../../redux/reducers";
 
 import { useMutation, useLazyQuery } from "@apollo/client";
@@ -43,8 +38,7 @@ export default function ({ Handler, isOpen }: Props): ReactElement {
 
   useEffect(() => {
     if (Login.loading || Signup.loading) dispatch(onLoading());
-    if (Login.error || Signup.error) dispatch(onError());
-  }, [Login, Signup]);
+  }, [Login.loading, Signup.loading]);
 
   return (
     <>

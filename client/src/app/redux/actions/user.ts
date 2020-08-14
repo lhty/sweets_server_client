@@ -6,6 +6,7 @@ export enum actions {
   USER_LOGIN = "USER_LOGIN",
   USER_LOADING = "USER_LOADING",
   USER_ERROR = "USER_ERROR",
+  USER_RESET = "USER_RESET",
   USER_LOGOUT = "USER_LOGOUT",
 }
 
@@ -45,6 +46,14 @@ export const onError = (): IonErrorType => ({
   type: actions.USER_ERROR,
 });
 
+interface IonResetType {
+  type: typeof actions.USER_RESET;
+}
+
+export const onReset = (): IonResetType => ({
+  type: actions.USER_RESET,
+});
+
 interface IonLogoutType {
   type: typeof actions.USER_LOGOUT;
 }
@@ -56,6 +65,7 @@ export const onLogout = (): IonLogoutType => ({
 export type UserActionTypes =
   | IonLoadingType
   | IonErrorType
+  | IonResetType
   | IsetUser
   | IsetToken
   | IonLogoutType;

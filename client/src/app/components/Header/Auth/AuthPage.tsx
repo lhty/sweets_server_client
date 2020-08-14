@@ -7,7 +7,16 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 
 import { LoadingOutlined } from "@ant-design/icons";
-import { setUser, setToken } from "../../../redux/actions/user";
+import {
+  setUser,
+  setToken,
+  onError,
+  onReset,
+} from "../../../redux/actions/user";
+import {
+  UsersPermissionsRegisterInput,
+  UsersPermissionsLoginInput,
+} from "../../../@types/queryTypes";
 
 interface authProps {
   loginHandler: (obj: any) => any;
@@ -52,7 +61,7 @@ const Login = ({
 }: loginProps): ReactElement => {
   const dispatch = useDispatch();
   const validationSchema = yup.object({
-    email: yup
+    identifier: yup
       .string()
       .email("Неправильный email.")
       .required("Обязателньое поле."),
@@ -63,28 +72,37 @@ const Login = ({
       .matches(/[A-Za-z0-9]/, "Только латинские буквы и цифры."),
   });
 
+  const handleSubmit = async ({
+    identifier,
+    password,
+  }: UsersPermissionsLoginInput) => {
+    try {
+      const {
+        data: { login },
+      } = await loginHandler({
+        variables: {
+          input: {
+            identifier,
+            password,
+            provider: "local",
+          },
+        },
+      });
+      dispatch(setToken(login.jwt));
+      dispatch(setUser(login.user));
+    } catch (e) {
+      dispatch(onError());
+    }
+  };
+
   return (
     <Formik
-      initialValues={{ email: "", password: "" }}
+      initialValues={{ identifier: "", password: "" }}
       validateOnChange={true}
       validationSchema={validationSchema}
-      onSubmit={async ({ email, password }) => {
-        const {
-          data: { login },
-        } = await loginHandler({
-          variables: {
-            input: {
-              identifier: email,
-              password: password,
-              provider: "local",
-            },
-          },
-        });
-        dispatch(setUser(login.user));
-        dispatch(setToken(login.jwt));
-      }}
+      onSubmit={handleSubmit}
     >
-      {({ values, handleSubmit, handleChange, handleBlur }) => (
+      {({ values, handleSubmit, handleChange }) => (
         <Form onSubmit={handleSubmit} className={styles.form}>
           <button
             type="button"
@@ -94,15 +112,14 @@ const Login = ({
           >
             Регистрация
           </button>
-          <ErrorMessage name="email" component="div" />
+          <ErrorMessage name="identifier" component="div" />
           <Field
             type="email"
-            name="email"
+            name="identifier"
             placeholder="email"
             disabled={isLoading}
-            value={values.email}
+            value={values.identifier}
             onChange={handleChange}
-            onBlur={handleBlur}
           />
           <ErrorMessage name="password" component="div" />
           <Field
@@ -112,7 +129,6 @@ const Login = ({
             disabled={isLoading}
             value={values.password}
             onChange={handleChange}
-            onBlur={handleBlur}
           />
           <button
             className={styles.form_login}
@@ -139,8 +155,33 @@ const Signup = ({
   isLoading,
 }: signupProps): ReactElement => {
   const dispatch = useDispatch();
+
+  const handleSubmit = async ({
+    username,
+    email,
+    password,
+  }: UsersPermissionsRegisterInput) => {
+    try {
+      const {
+        data: { register },
+      } = await signupHandler({
+        variables: {
+          input: {
+            username,
+            email,
+            password,
+          },
+        },
+      });
+      dispatch(setToken(register.jwt));
+      dispatch(setUser(register.user));
+    } catch (e) {
+      dispatch(onError());
+    }
+  };
+
   const validationSchema = yup.object({
-    name: yup
+    username: yup
       .string()
       .required("Обязателньое поле.")
       .min(3, "Некорректное имя."),
@@ -152,24 +193,10 @@ const Signup = ({
   });
   return (
     <Formik
-      initialValues={{ name: "", email: "", password: "" }}
+      initialValues={{ username: "", email: "", password: "" }}
       validateOnChange={true}
       validationSchema={validationSchema}
-      onSubmit={async ({ name, email, password }) => {
-        const {
-          data: { register },
-        } = await signupHandler({
-          variables: {
-            input: {
-              username: name,
-              email: email,
-              password: password,
-            },
-          },
-        });
-        dispatch(setUser(register.user));
-        dispatch(setToken(register.jwt));
-      }}
+      onSubmit={handleSubmit}
     >
       {({ values, handleSubmit, handleChange, handleBlur }) => (
         <Form onSubmit={handleSubmit} className={styles.form}>
@@ -182,10 +209,10 @@ const Signup = ({
           </button>
           <Field
             type="name"
-            name="name"
+            name="username"
             placeholder="Имя"
             disabled={isLoading}
-            value={values.name}
+            value={values.username}
             onChange={handleChange}
             onBlur={handleBlur}
           />

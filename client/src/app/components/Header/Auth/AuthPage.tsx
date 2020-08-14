@@ -22,12 +22,14 @@ interface authProps {
   loginHandler: (obj: any) => any;
   signupHandler: () => void;
   isLoading: boolean;
+  isError: boolean;
 }
 
 const AuthPage = ({
   loginHandler,
   signupHandler,
   isLoading,
+  isError,
 }: authProps): ReactElement => {
   const [toggleState, setToggleState] = useState("login");
 
@@ -36,7 +38,7 @@ const AuthPage = ({
       {toggleState === "login" ? (
         <Login
           btnHandler={() => setToggleState("signup")}
-          {...{ loginHandler, isLoading }}
+          {...{ loginHandler, isLoading, isError }}
         />
       ) : (
         <Signup
@@ -52,12 +54,14 @@ interface loginProps {
   btnHandler: () => void;
   loginHandler: (obj: any) => any;
   isLoading: boolean;
+  isError: boolean;
 }
 
 const Login = ({
   btnHandler,
   loginHandler,
   isLoading,
+  isError,
 }: loginProps): ReactElement => {
   const dispatch = useDispatch();
   const validationSchema = yup.object({
@@ -94,6 +98,7 @@ const Login = ({
       dispatch(onError());
     }
   };
+  const hasErrors = isError;
 
   return (
     <Formik

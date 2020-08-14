@@ -21,7 +21,7 @@ interface Props {
 
 export default function ({ Handler, isOpen }: Props): ReactElement {
   const dispatch = useDispatch();
-  const { user, token } = useSelector((state: RootState) => state.user);
+  const { user, token, error } = useSelector((state: RootState) => state.user);
   const [getUserData, UserData] = useLazyQuery(getUser);
   const [tryLogin, Login] = useMutation(logInMutation);
   const [trySignUp, Signup] = useMutation(signUpMutation);
@@ -60,6 +60,7 @@ export default function ({ Handler, isOpen }: Props): ReactElement {
               loginHandler: tryLogin,
               signupHandler: trySignUp,
               isLoading: Login.loading || Signup.loading,
+              isError: error,
             }}
           />
         ))}

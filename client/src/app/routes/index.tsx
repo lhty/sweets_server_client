@@ -1,4 +1,4 @@
-import React, { Suspense, ReactElement } from "react";
+import React, { ReactElement } from "react";
 import { Router } from "react-router-dom";
 import { history } from "../redux/";
 
@@ -11,10 +11,8 @@ export default (): ReactElement => {
   return (
     <Router history={history}>
       <Header />
-      <Suspense fallback={<></>}>
-        <Banner />
-        <Products />
-      </Suspense>
+      <Banner />
+      <Products />
       <Footer />
     </Router>
   );

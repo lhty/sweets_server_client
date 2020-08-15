@@ -111,12 +111,12 @@ const Login = ({
         <Form
           onSubmit={handleSubmit}
           onFocus={handleDropErrors}
-          className={styles.form}
+          className={styles.auth}
         >
           <button
             type="button"
             disabled={isLoading || isError}
-            className={styles.form_signup}
+            className={styles.auth_signup}
             onClick={btnHandler}
           >
             Регистрация
@@ -140,7 +140,7 @@ const Login = ({
             onChange={handleChange}
           />
           <button
-            className={styles.form_login}
+            className={styles.auth_login}
             type="submit"
             disabled={isLoading || isError}
           >
@@ -208,10 +208,10 @@ const Signup = ({
       onSubmit={handleSubmit}
     >
       {({ values, handleSubmit, handleChange, handleBlur }) => (
-        <Form onSubmit={handleSubmit} className={styles.form}>
+        <Form onSubmit={handleSubmit} className={styles.auth}>
           <button
             type="button"
-            className={styles.form_login}
+            className={styles.auth_login}
             onClick={btnHandler}
           >
             Вход
@@ -247,7 +247,7 @@ const Signup = ({
           />
           <ErrorMessage name="password" component="div" />
           <button
-            className={styles.form_signup}
+            className={styles.auth_signup}
             type="submit"
             disabled={isLoading}
           >

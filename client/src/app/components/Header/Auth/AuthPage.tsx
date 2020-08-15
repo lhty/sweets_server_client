@@ -98,7 +98,7 @@ const Login = ({
       dispatch(onError());
     }
   };
-  const hasErrors = isError;
+  const handleDropErrors = () => isError && dispatch(onReset());
 
   return (
     <Formik
@@ -108,10 +108,14 @@ const Login = ({
       onSubmit={handleSubmit}
     >
       {({ values, handleSubmit, handleChange }) => (
-        <Form onSubmit={handleSubmit} className={styles.form}>
+        <Form
+          onSubmit={handleSubmit}
+          onFocus={handleDropErrors}
+          className={styles.form}
+        >
           <button
             type="button"
-            disabled={isLoading}
+            disabled={isLoading || isError}
             className={styles.form_signup}
             onClick={btnHandler}
           >
@@ -138,7 +142,7 @@ const Login = ({
           <button
             className={styles.form_login}
             type="submit"
-            disabled={isLoading}
+            disabled={isLoading || isError}
           >
             {isLoading ? <LoadingOutlined /> : "Войти"}
           </button>

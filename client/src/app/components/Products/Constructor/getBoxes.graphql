@@ -1,0 +1,25 @@
+query getBoxes($start: Int, $limit: Int) {
+  boxes(sort: "id:desc", start: $start, limit: $limit) {
+    id
+    tags {
+      id
+    }
+    countmin
+    countmax
+    price {
+      additional
+      discount
+      overall
+    }
+    info {
+      name
+      description
+    }
+    dimensions {
+      width
+      breadth
+      height
+      weight
+    }
+  }
+}

@@ -43,7 +43,7 @@ const AuthPage = ({
       ) : (
         <Signup
           btnHandler={() => setToggleState("login")}
-          {...{ signupHandler, isLoading }}
+          {...{ signupHandler, isLoading, isError }}
         />
       )}
     </>
@@ -67,13 +67,13 @@ const Login = ({
   const validationSchema = yup.object({
     identifier: yup
       .string()
-      .email("Неправильный email.")
-      .required("Обязателньое поле."),
+      .email("*неправильный email")
+      .required("*обязателньое поле"),
     password: yup
       .string()
-      .required("Обязателньое поле.")
-      .min(6, "Слишком короткий пароль.")
-      .matches(/[A-Za-z0-9]/, "Только латинские буквы и цифры."),
+      .required("*обязателньое поле")
+      .min(6, "*слишком короткий пароль")
+      .matches(/[A-Za-z0-9]/, "*только латинские буквы и цифры"),
   });
 
   const handleSubmit = async ({
@@ -121,7 +121,10 @@ const Login = ({
           >
             Регистрация
           </button>
-          <ErrorMessage name="identifier" component="div" />
+          <ErrorMessage
+            name="identifier"
+            render={(msg) => <div className={styles.auth_error}>{msg}</div>}
+          />
           <Field
             type="email"
             name="identifier"
@@ -130,7 +133,10 @@ const Login = ({
             value={values.identifier}
             onChange={handleChange}
           />
-          <ErrorMessage name="password" component="div" />
+          <ErrorMessage
+            name="password"
+            render={(msg) => <div className={styles.auth_error}>{msg}</div>}
+          />
           <Field
             type="password"
             name="password"
@@ -144,7 +150,13 @@ const Login = ({
             type="submit"
             disabled={isLoading || isError}
           >
-            {isLoading ? <LoadingOutlined /> : "Войти"}
+            {isLoading ? (
+              <LoadingOutlined />
+            ) : !isError ? (
+              "Войти"
+            ) : (
+              "Неправильные данные"
+            )}
           </button>
         </Form>
       )}
@@ -156,12 +168,14 @@ interface signupProps {
   btnHandler: () => void;
   signupHandler: (obj: any) => any;
   isLoading: boolean;
+  isError: boolean;
 }
 
 const Signup = ({
   btnHandler,
   signupHandler,
   isLoading,
+  isError,
 }: signupProps): ReactElement => {
   const dispatch = useDispatch();
 
@@ -189,16 +203,21 @@ const Signup = ({
     }
   };
 
+  const handleDropErrors = () => isError && dispatch(onReset());
+
   const validationSchema = yup.object({
     username: yup
       .string()
-      .required("Обязателньое поле.")
-      .min(3, "Некорректное имя."),
+      .required("*обязателньое поле")
+      .min(3, "*некорректное имя"),
     email: yup
       .string()
-      .email("Неправильный email.")
-      .required("Обязателньое поле."),
-    password: yup.string().required("Обязательное поле.").min(6),
+      .email("*неправильный email")
+      .required("*обязателньое поле"),
+    password: yup
+      .string()
+      .required("*обязателньое поле")
+      .min(6, "*слишком короткий пароль"),
   });
   return (
     <Formik
@@ -207,15 +226,24 @@ const Signup = ({
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      {({ values, handleSubmit, handleChange, handleBlur }) => (
-        <Form onSubmit={handleSubmit} className={styles.auth}>
+      {({ values, handleSubmit, handleChange }) => (
+        <Form
+          onSubmit={handleSubmit}
+          onFocus={handleDropErrors}
+          className={styles.auth}
+        >
           <button
             type="button"
             className={styles.auth_login}
             onClick={btnHandler}
+            disabled={isLoading || isError}
           >
             Вход
           </button>
+          <ErrorMessage
+            name="name"
+            render={(msg) => <div className={styles.auth_error}>{msg}</div>}
+          />
           <Field
             type="name"
             name="username"
@@ -223,9 +251,11 @@ const Signup = ({
             disabled={isLoading}
             value={values.username}
             onChange={handleChange}
-            onBlur={handleBlur}
           />
-          <ErrorMessage name="name" component="div" />
+          <ErrorMessage
+            name="email"
+            render={(msg) => <div className={styles.auth_error}>{msg}</div>}
+          />
           <Field
             type="email"
             name="email"
@@ -233,9 +263,11 @@ const Signup = ({
             value={values.email}
             disabled={isLoading}
             onChange={handleChange}
-            onBlur={handleBlur}
           />
-          <ErrorMessage name="email" component="div" />
+          <ErrorMessage
+            name="password"
+            render={(msg) => <div className={styles.auth_error}>{msg}</div>}
+          />
           <Field
             type="password"
             name="password"
@@ -243,15 +275,19 @@ const Signup = ({
             disabled={isLoading}
             value={values.password}
             onChange={handleChange}
-            onBlur={handleBlur}
           />
-          <ErrorMessage name="password" component="div" />
           <button
             className={styles.auth_signup}
             type="submit"
-            disabled={isLoading}
+            disabled={isLoading || isError}
           >
-            Зарегистрироваться
+            {isLoading ? (
+              <LoadingOutlined />
+            ) : !isError ? (
+              "Зарегистрироваться"
+            ) : (
+              "Пользователь существует"
+            )}
           </button>
         </Form>
       )}

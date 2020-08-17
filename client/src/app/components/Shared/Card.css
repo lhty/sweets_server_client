@@ -44,7 +44,7 @@
       content: "";
       display: block;
       position: absolute;
-      background-color: var(--blockbg-main);
+      background-color: var(--layoutbg-main);
     }
 
     &:before {
@@ -78,7 +78,7 @@
     width: 200%;
     height: 200%;
     position: absolute;
-    background-color: var(--blockbg-main);
+    background-color: var(--layoutbg-main);
     transform: rotate(-5deg);
     top: -25px;
     z-index: -1;

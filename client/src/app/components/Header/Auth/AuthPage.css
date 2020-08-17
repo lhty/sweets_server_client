@@ -58,6 +58,7 @@
   }
 
   & input {
+    position: relative;
     font-size: 1rem;
     background-color: var(--nav-color1);
     box-sizing: border-box;
@@ -68,16 +69,20 @@
     text-align: center;
     transition: 0.5s ease;
 
-    &_error {
-      background-color: var(--errorbg-main);
-      color: var(--errorbg-font);
-    }
-
     &:disabled {
       cursor: wait;
       filter: grayscale(1);
     }
   }
+  &_error {
+    font-size: 0.7rem;
+    color: var(--errorbg-font-alt);
+  }
+  & span {
+    color: red;
+    font-size: 1rem;
+  }
+
   & button:last-of-type {
     border: none;
     outline: none;

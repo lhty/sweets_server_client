@@ -4,10 +4,18 @@ import { useParams, useHistory } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import getBundle from "../getBundle.graphql";
 
+import { useSelector, useDispatch } from "react-redux";
+import { AddToCart } from "../../../redux/actions/cart";
+import { RootState } from "../../../redux/reducers";
+
 import Gallery from "../../Shared/Gallery";
 
 import * as styles from "./Bundle.css";
-import { DoubleLeftOutlined } from "@ant-design/icons";
+import {
+  DoubleLeftOutlined,
+  CheckOutlined,
+  ShoppingCartOutlined,
+} from "@ant-design/icons";
 import { Item } from "../../../@types/queryTypes";
 
 interface Props {}
@@ -16,6 +24,10 @@ export default function Bundle({}: Props): ReactElement {
   const history = useHistory();
   const { id } = useParams();
   const { data, loading } = useQuery(getBundle, { variables: { id } });
+
+  const cart = useSelector((state: RootState) => state.cart.list);
+  const dispatch = useDispatch();
+  const handleAddToCart = () => dispatch(AddToCart(data.product));
 
   if (loading) return <></>;
 
@@ -26,7 +38,7 @@ export default function Bundle({}: Props): ReactElement {
         <Gallery images={data.product.info.image} bullets={styles.bullets} />
       </div>
       <div className={styles.desc}>
-        description :<h2>{data.product.info.name}</h2>
+        <h2>{data.product.info.name}</h2>
         <p>{data.product.info.description}</p>
       </div>
       <div className={styles.dimensions}>
@@ -42,7 +54,14 @@ export default function Bundle({}: Props): ReactElement {
         ))}
       </div>
       <div className={styles.price}>
-        price :<p>{data.product.price.overall} ₽</p>
+        <p>{data.product.price.overall} ₽</p>
+        {cart.includes(data.product) ? (
+          <CheckOutlined
+            style={{ cursor: "default", filter: "hue-rotate(100deg)" }}
+          />
+        ) : (
+          <ShoppingCartOutlined onClick={handleAddToCart} />
+        )}
       </div>
     </section>
   );

@@ -1,6 +1,4 @@
 import React, { ReactElement, useEffect } from "react";
-import { useSpring, animated as a } from "react-spring";
-// import { useDrag } from "react-use-gesture";
 
 import { changeConstructorWidth } from "../../../redux/actions/view";
 import { useSelector, useDispatch } from "react-redux";
@@ -17,29 +15,9 @@ export default function Constructor({}: Props): ReactElement {
   );
   const dispatch = useDispatch();
 
-  const [wrapperStyle, set] = useSpring(() => ({
-    width: `${constructorWindowState}%`,
-  }));
-
-  useEffect(() => {
-    set({ width: `${constructorWindowState}%` });
-
-    return () => {
-      set({ width: `0%` });
-    };
-  }, [constructorWindowState]);
-
-  const handleToggleConstructor = () =>
-    dispatch(changeConstructorWidth(+constructorWindowState === 100 ? 0 : 100));
-
   return (
-    <a.div className={styles.container} style={wrapperStyle}>
-      <div className={styles.toggler} onClick={handleToggleConstructor}>
-        <DoubleLeftOutlined rotate={constructorWindowState ? 180 : 0} />
-      </div>
-      {constructorWindowState > 0 && (
-        <div style={{ padding: "0 10px" }}>1212</div>
-      )}
-    </a.div>
+    <div className={styles.container}>
+      <div style={{ padding: "0 10px" }}>1212</div>
+    </div>
   );
 }

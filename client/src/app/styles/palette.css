@@ -31,7 +31,7 @@ html {
   --headerbg: #fff;
 
   /* //  BLOCK */
-  --blockbg-main: #fff;
+  --blockbg-main: #ffffff4a;
   --blockbg-alt: #000;
 
   /* //  TEXT */
@@ -45,5 +45,6 @@ html {
 
   /* //  ERROR */
   --errorbg-main: #e03030;
+  --errorbg-font-alt: #e63946;
   --errorbg-font: #fff;
 }

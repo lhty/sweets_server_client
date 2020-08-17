@@ -9,7 +9,7 @@ import * as styles from "./Card.css";
 
 import { ThumbnailUrl, makeStrShorter } from "../lib";
 import { Product } from "../../@types/queryTypes";
-import { ShoppingCartOutlined } from "@ant-design/icons";
+import { ShoppingCartOutlined, CheckOutlined } from "@ant-design/icons";
 
 interface Props {
   bundle: Product;
@@ -55,14 +55,14 @@ export default function Card({
             {bundle.info.description?.length > 100
               ? makeStrShorter(bundle.info.description, 100)
               : bundle.info.description}
-            <ShoppingCartOutlined
-              style={
-                cart.includes(bundle)
-                  ? { filter: `grayscale(1)`, cursor: "default" }
-                  : {}
-              }
-              onClick={cart.includes(bundle) ? null : handleAddToCart}
-            />
+
+            {cart.includes(bundle) ? (
+              <CheckOutlined
+                style={{ cursor: "default", filter: "hue-rotate(100deg)" }}
+              />
+            ) : (
+              <ShoppingCartOutlined onClick={handleAddToCart} />
+            )}
           </div>
         )}
         <div className={styles.price}>{bundle.price.overall}₽</div>

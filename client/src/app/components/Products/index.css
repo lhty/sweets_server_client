@@ -1,5 +1,7 @@
 .main {
+  position: relative;
   overflow: hidden;
   grid-column: 1 / span 2;
   display: flex;
+  flex-flow: column;
 }

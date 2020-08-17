@@ -1,6 +1,5 @@
 .container {
   width: 100%;
-  padding: 1.5em;
 }
 .wrapper {
   /* @mixin pattern5 var(--nav-element-color6), 10px; */

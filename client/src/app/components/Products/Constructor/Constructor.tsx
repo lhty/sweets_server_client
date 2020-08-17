@@ -1,23 +1,25 @@
-import React, { ReactElement, useEffect } from "react";
+import React, { ReactElement } from "react";
 
-import { changeConstructorWidth } from "../../../redux/actions/view";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../../redux/reducers";
+import { useSpring, animated as a } from "react-spring";
 
 import * as styles from "./Constructor.css";
-import { DoubleLeftOutlined } from "@ant-design/icons";
 
-interface Props {}
+import { Boxes } from "./Boxes";
+import { Items } from "./Items";
 
-export default function Constructor({}: Props): ReactElement {
-  const constructorWindowState = useSelector(
-    (state: RootState) => state.view.consructorWindow
-  );
-  const dispatch = useDispatch();
+interface Props {
+  windowWidth: number;
+}
+
+export default function Constructor({ windowWidth }: Props): ReactElement {
+  const currentWidth = useSpring({
+    width: `${windowWidth}%`,
+  });
 
   return (
-    <div className={styles.container}>
-      <div style={{ padding: "0 10px" }}>1212</div>
-    </div>
+    <a.div style={currentWidth} className={styles.container}>
+      <Items />
+      {/* <Boxes /> */}
+    </a.div>
   );
 }

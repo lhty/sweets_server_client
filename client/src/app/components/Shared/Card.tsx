@@ -8,22 +8,21 @@ import { useSpring, animated as a } from "react-spring";
 import * as styles from "./Card.css";
 
 import { ThumbnailUrl, makeStrShorter } from "../lib";
-import { Product } from "../../@types/queryTypes";
+import { Product, Item, Box } from "../../@types/queryTypes";
 import { ShoppingCartOutlined, CheckOutlined } from "@ant-design/icons";
 
 interface Props {
-  bundle: Product;
-  select?: (id: string, title: string) => void;
+  input: Product | Item | Box;
+  showDescription?: boolean;
+  select?: (...args: string[]) => void;
 }
 
 export default function Card({
-  bundle,
-  select = () => {},
+  input,
+  showDescription = false,
+  select,
 }: Props): React.ReactElement {
   const [loading, setLoading] = useState(true);
-  const constructorWindowState = useSelector(
-    (state: RootState) => state.view.consructorWindow
-  );
   const cart = useSelector((state: RootState) => state.cart.list);
   const dispatch = useDispatch();
 
@@ -31,43 +30,45 @@ export default function Card({
     opacity: loading ? 1 : 0,
   });
 
-  const handleSelect = () => select(bundle.id, bundle.info.name);
+  const isBundle = input.__typename === "Product";
 
-  const handleAddToCart = () => dispatch(AddToCart(bundle));
+  const handleSelect = () =>
+    isBundle ? select(input.id, input.info.name) : select(input.id);
+
+  const handleAddToCart = () =>
+    isBundle ? dispatch(AddToCart(input as Product)) : () => {};
 
   return (
     <div className={styles.wrapper}>
       {/* react-spring issue#653
-  // @ts-ignore */}
+       // @ts-ignore */}
       <a.div style={skeletonStyle} className={styles.skeleton} />
       <img
         onClick={handleSelect}
         onDragStart={(e) => e.preventDefault()}
-        src={ThumbnailUrl(bundle.info.image)}
+        src={ThumbnailUrl(input.info.image)}
         onLoad={() => setLoading(false)}
         draggable="false"
         alt=""
       />
       <div className={styles.content}>
-        <h2 className={styles.title}>{bundle.info.name}</h2>
-        {!constructorWindowState && (
+        <h2 className={styles.title}>{input.info.name}</h2>
+        {showDescription && (
           <div className={styles.desc}>
-            {bundle.info.description?.length > 100
-              ? makeStrShorter(bundle.info.description, 100)
-              : bundle.info.description}
-
-            {cart.includes(bundle) ? (
-              <CheckOutlined
-                style={{ cursor: "default", filter: "hue-rotate(100deg)" }}
-              />
-            ) : (
-              <ShoppingCartOutlined onClick={handleAddToCart} />
-            )}
+            {input.info.description?.length > 100
+              ? makeStrShorter(input.info.description, 100)
+              : input.info.description}
           </div>
         )}
-        <div className={styles.price}>{bundle.price.overall}₽</div>
+        {isBundle && cart.includes(input as Product) ? (
+          <CheckOutlined
+            style={{ cursor: "default", filter: "hue-rotate(100deg)" }}
+          />
+        ) : (
+          <ShoppingCartOutlined onClick={handleAddToCart} />
+        )}
+        <div className={styles.price}>{input.price.overall}₽</div>
       </div>
-      {/* <div className={styles.success}></div> */}
     </div>
   );
 }

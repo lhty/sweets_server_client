@@ -22,7 +22,12 @@ export default function Bundles({ bundles }: Props): ReactElement {
     <section className={styles.container}>
       <Slider hasBullets={styles.bullets} itemsPerPage={10}>
         {bundles.map((bundle) => (
-          <Card key={bundle.id} bundle={bundle} select={handleSelectBundle} />
+          <Card
+            key={bundle.id}
+            input={bundle}
+            select={handleSelectBundle}
+            showDescription
+          />
         ))}
       </Slider>
     </section>

@@ -19,6 +19,10 @@ query getBoxes($start: Int, $limit: Int) {
     info {
       name
       description
+      image {
+        id
+        url
+      }
     }
     dimensions {
       width

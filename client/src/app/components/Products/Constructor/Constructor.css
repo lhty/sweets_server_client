@@ -1,15 +1,6 @@
 .container {
-  position: relative;
-  @mixin pattern1 var(--nav-element-color2);
-  & .toggler {
-    position: absolute;
-    right: 0;
-    top: 0;
-    cursor: pointer;
-
-    & span {
-      font-size: 4rem;
-      color: var(--nav-element-color5);
-    }
-  }
+  position: absolute;
+  right: 0;
+  @mixin pattern5 var(--nav-element-color4), 15px 0 0 15px;
+  box-shadow: 0 5px 7px 0 rgba(0, 0, 0, 0.15);
 }

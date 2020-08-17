@@ -4,6 +4,8 @@ import { useQuery } from "@apollo/client";
 import { Item } from "../../../@types/queryTypes";
 import getItems from "./getItems.graphql";
 
+import Card from "../../Shared/Card";
+
 export const Items = () => {
   const { data, loading } = useQuery(getItems);
   const items: Item[] = data?.items;
@@ -11,7 +13,7 @@ export const Items = () => {
     <>
       {!loading &&
         data &&
-        items.map((item) => <div key={item.id}>{item.info.name}</div>)}
+        items.map((item) => <Card key={item.id} input={item} />)}
     </>
   );
 };

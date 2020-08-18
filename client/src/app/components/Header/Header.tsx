@@ -1,7 +1,9 @@
+// @ts-nocheck react-spring issue #653
 import React, { useRef, useEffect, useState, ReactElement } from "react";
 import { useHistory } from "react-router-dom";
 
 import { ReactComponent as TitleTextSvg } from "../../../assets/title.svg";
+import { ReactComponent as DescSvg } from "../../../assets/desc.svg";
 import { ReactComponent as LogoSvg } from "../../../assets/heart.svg";
 import * as styles from "./Header.css";
 
@@ -15,7 +17,6 @@ import Auth from "./Auth";
 import Cart from "./Cart";
 
 import useClickOutside from "../hooks/useClickOutside";
-import { SmallDashOutlined } from "@ant-design/icons";
 
 export default function Header(): ReactElement {
   const isOpen = useSelector((state: RootState) => state.view.headerPopup);
@@ -92,20 +93,20 @@ const Title = ({
   Handler: () => void;
   offset: number;
 }) => {
-  const { s, top, opacity } = useSpring({
-    top: offset ? -3 : 7,
+  const { s, opacity } = useSpring({
     s: offset,
     opacity: offset ? 0 : 1,
   });
 
   const Logo = a(LogoSvg);
   const TitleText = a(TitleTextSvg);
+  const Desc = a(DescSvg);
 
   return (
     <a.div
       style={{
         position: "relative",
-        top,
+        top: offset ? -3 : 7,
         transform: s.to((s) => `scale(${1.3 - Math.min(s / 10, 0.5)})`),
       }}
       onClick={() => {
@@ -114,8 +115,11 @@ const Title = ({
       }}
     >
       <Logo className={styles.header_logo} />
-      {/* @ts-ignore */}
-      <TitleText style={{ opacity }} className={styles.header_title} />
+      <TitleText
+        style={{ top: offset ? 15 : 10 }}
+        className={styles.header_title}
+      />
+      <Desc style={{ opacity }} className={styles.header_description} />
     </a.div>
   );
 };

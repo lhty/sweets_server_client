@@ -1,4 +1,5 @@
 .header {
+  @mixin pattern4 var(--headerbg);
   grid-column: 1 / span 2;
   position: sticky;
   top: 0;
@@ -6,24 +7,23 @@
   display: flex;
   justify-content: space-between;
 
-  @mixin pattern4 var(--headerbg);
-
   & svg {
+    position: absolute;
     cursor: pointer;
   }
 
   &_logo {
-    position: absolute;
-    z-index: -2;
     left: 50%;
     transform: translateX(-50%);
   }
   &_title {
-    position: absolute;
-    z-index: -2;
-    top: 10px;
     left: 50%;
     transform: translateX(calc(-50% + 10px));
+  }
+  &_description {
+    top: 40px;
+    left: 50%;
+    transform: translateX(calc(-50% - 3px));
   }
 
   & span {

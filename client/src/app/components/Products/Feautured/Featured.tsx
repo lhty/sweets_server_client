@@ -19,7 +19,7 @@ export default function Featured({ bundle }: Props): ReactElement {
     >
       <div className={styles.wrapper}>
         <h2>{bundle.info.name}</h2>
-        <h2>{bundle.price.overall} руб</h2>
+        <h2>{bundle.price.overall}₽</h2>
       </div>
     </section>
   );

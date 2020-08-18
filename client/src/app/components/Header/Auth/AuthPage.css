@@ -9,8 +9,6 @@
   @mixin pattern1 var(--headerbg);
   border-radius: 0 0 10px 0;
   @mixin M {
-    top: 5px;
-    left: 15px;
     border-radius: 30px 10px 10px 10px;
   }
   overflow: hidden;

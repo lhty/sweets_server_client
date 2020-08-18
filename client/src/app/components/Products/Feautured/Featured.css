@@ -1,7 +1,15 @@
 .container {
   width: 100%;
+  box-shadow: 0 3px 7px 0 rgba(0, 0, 0, 0.15);
 }
 .wrapper {
-  /* @mixin pattern5 var(--nav-element-color6), 10px; */
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
   height: 100%;
+
+  & h2 {
+    font-size: 2rem;
+    color: var(--text-alt);
+  }
 }

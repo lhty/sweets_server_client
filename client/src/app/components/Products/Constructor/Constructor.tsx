@@ -18,8 +18,8 @@ export default function Constructor({ windowWidth }: Props): ReactElement {
 
   return (
     <a.div style={currentWidth} className={styles.container}>
-      <Items />
-      {/* <Boxes /> */}
+      {/* <Items /> */}
+      <Boxes />
     </a.div>
   );
 }

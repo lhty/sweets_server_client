@@ -12,7 +12,7 @@ export const ThumbnailUrl = (
         return "/uploads/";
       case size <= 800:
         return "/uploads/small_";
-      case size > 1920:
+      case size > 1680:
         return "/uploads/large_";
       default:
         return "/uploads/medium_";

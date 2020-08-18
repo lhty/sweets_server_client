@@ -15,8 +15,8 @@ export default function Banner({ banner }: Props): ReactElement {
       <div className={styles.content}>
         <h2>{banner?.info?.name}</h2>
         <p>
-          {banner.info.description.length > 199
-            ? makeStrShorter(banner.info.description, 199)
+          {banner.info.description.length > 600
+            ? makeStrShorter(banner.info.description, 600)
             : banner.info.description}
         </p>
       </div>

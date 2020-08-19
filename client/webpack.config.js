@@ -53,7 +53,6 @@ const Minify = () => {
         },
         vendors: {
           test: /[\\/]node_modules[\\/]/,
-          filename: isDev ? "vendor.[hash].js" : "vendor.[contenthash].js",
           priority: -10,
         },
       },

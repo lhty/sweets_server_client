@@ -9,7 +9,6 @@ type UserStateType = {
 };
 
 const initial = { user: false, loading: false, error: false, token: "" };
-
 const localStorageName = process.env.LOCAL_STORAGE_TOKEN;
 
 export default function viewReducer(

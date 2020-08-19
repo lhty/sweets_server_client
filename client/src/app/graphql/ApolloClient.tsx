@@ -12,9 +12,7 @@ import {
 } from "@apollo/client";
 
 export default function ({ children }: { children: ReactNode }): ReactElement {
-  const token = localStorage.getItem(
-    process.env.LOCAL_STORAGE_TOKEN.toString()
-  );
+  const token = localStorage.getItem(process.env.LOCAL_STORAGE_TOKEN);
   const dispatch = useDispatch();
 
   useEffect(() => {

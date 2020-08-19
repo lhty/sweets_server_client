@@ -45,10 +45,11 @@ const Minify = () => {
   const config = {
     usedExports: !isDev,
     splitChunks: {
+      chunks: "async",
       cacheGroups: {
         common: {
           name: "common-components",
-          test: /[\\/]components[\\/]common[\\/]/,
+          test: /[\\/]components[\\/]/,
           enforce: true,
         },
         vendors: {
@@ -57,7 +58,6 @@ const Minify = () => {
         },
       },
     },
-    runtimeChunk: true,
   };
 
   if (!isDev) {

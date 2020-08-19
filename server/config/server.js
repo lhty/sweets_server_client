@@ -6,5 +6,5 @@ module.exports = ({ env }) => ({
       secret: env("ADMIN_JWT_SECRET"),
     },
   },
-  url: process.env.HOST,
+  // url: env("HOST"),
 });

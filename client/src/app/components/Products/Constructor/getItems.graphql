@@ -8,15 +8,18 @@ query getBoxes($start: Int, $limit: Int) {
     materials {
       id
       info {
+        id
         name
       }
     }
     price {
+      id
       additional
       discount
       overall
     }
     info {
+      id
       name
       description
       image {
@@ -25,6 +28,7 @@ query getBoxes($start: Int, $limit: Int) {
       }
     }
     dimensions {
+      id
       width
       breadth
       height

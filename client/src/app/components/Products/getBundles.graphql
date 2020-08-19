@@ -17,12 +17,14 @@ fragment Product on Product {
   box {
     id
     info {
+      id
       name
       description
     }
     countmin
     countmax
     price {
+      id
       overall
     }
   }
@@ -30,18 +32,21 @@ fragment Product on Product {
     item {
       id
       info {
+        id
         name
         description
       }
     }
   }
   dimensions {
+    id
     weight
     width
     breadth
     height
   }
   price {
+    id
     discount
     overall
   }

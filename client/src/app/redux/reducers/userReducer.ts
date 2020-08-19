@@ -10,6 +10,8 @@ type UserStateType = {
 
 const initial = { user: false, loading: false, error: false, token: "" };
 
+const localStorageName = process.env.LOCAL_STORAGE_TOKEN;
+
 export default function viewReducer(
   state = initial,
   action: UserActionTypes
@@ -30,14 +32,9 @@ export default function viewReducer(
       };
     case actions.USER_SET_TOKEN:
       const newToken = action.payload;
-      let token = localStorage.getItem(
-        process.env.LOCAL_STORAGE_TOKEN.toString()
-      );
+      let token = localStorage.getItem(localStorageName);
       if (!token || token !== newToken) {
-        localStorage.setItem(
-          process.env.LOCAL_STORAGE_TOKEN.toString(),
-          newToken
-        );
+        localStorage.setItem(localStorageName, newToken);
         token = newToken;
       }
       return {
@@ -45,7 +42,7 @@ export default function viewReducer(
         token,
       };
     case actions.USER_LOGOUT:
-      localStorage.removeItem(process.env.LOCAL_STORAGE_TOKEN.toString());
+      localStorage.removeItem(localStorageName);
       return { ...state, user: false, loading: false, error: false, token: "" };
     default:
       return state;

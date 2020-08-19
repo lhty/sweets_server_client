@@ -2,6 +2,7 @@ query getBundle($id: ID!) {
   product(id: $id) {
     id
     info {
+      id
       name
       description
       image {
@@ -12,12 +13,14 @@ query getBundle($id: ID!) {
     box {
       id
       info {
+        id
         name
         description
       }
       countmin
       countmax
       price {
+        id
         overall
       }
     }
@@ -25,18 +28,21 @@ query getBundle($id: ID!) {
       item {
         id
         info {
+          id
           name
           description
         }
       }
     }
     dimensions {
+      id
       weight
       width
       breadth
       height
     }
     price {
+      id
       discount
       overall
     }

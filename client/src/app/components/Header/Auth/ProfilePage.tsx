@@ -1,4 +1,7 @@
 import React, { ReactElement } from "react";
+
+import { useHistory } from "react-router-dom";
+
 import * as styles from "./ProfilePage.css";
 import { UsersPermissionsMe } from "../../../@types/queryTypes";
 
@@ -11,6 +14,7 @@ export default function ProfilePage({
   user,
   handleLogout,
 }: Props): ReactElement | null {
+  const history = useHistory();
   if (typeof user === "boolean") return null;
   return (
     <div className={styles.profile}>
@@ -21,8 +25,10 @@ export default function ProfilePage({
         </button>
       </div>
       <div className={styles.profile_body}>
-        {user.role.id > "1" && (
-          <button onClick={() => console.log(123)}>Редактор</button>
+        {user.role.type === "admin" && (
+          <button onClick={() => history.replace("/dashboard")}>
+            Редактор
+          </button>
         )}
       </div>
     </div>

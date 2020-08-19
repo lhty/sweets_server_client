@@ -45,15 +45,14 @@ const Minify = () => {
   const config = {
     usedExports: !isDev,
     splitChunks: {
-      name: true,
       cacheGroups: {
-        commons: {
-          chunks: "initial",
-          minChunks: 2,
+        common: {
+          name: "common-components",
+          test: /[\\/]components[\\/]common[\\/]/,
+          enforce: true,
         },
         vendors: {
           test: /[\\/]node_modules[\\/]/,
-          chunks: "all",
           filename: isDev ? "vendor.[hash].js" : "vendor.[contenthash].js",
           priority: -10,
         },
@@ -109,7 +108,7 @@ module.exports = {
         test: /\.tsx?$/,
         use: isDev
           ? ["react-hot-loader/webpack", "awesome-typescript-loader"]
-          : "awesome-typescript-loader?module=es6",
+          : "awesome-typescript-loader",
       },
       // pcss
       {

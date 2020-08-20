@@ -1,1 +1,0 @@
-mutation createBox ($input:createBoxInput)

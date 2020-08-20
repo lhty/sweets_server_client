@@ -1,0 +1,13 @@
+.container {
+  width: 50%;
+  margin: 0 auto;
+
+  & .drop {
+    @mixin roundedCard 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    padding: 2ch;
+  }
+}

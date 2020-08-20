@@ -1,0 +1,7 @@
+mutation addBox($input: createBoxInput) {
+  createBox(input: $input) {
+    box {
+      id
+    }
+  }
+}

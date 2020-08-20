@@ -114,7 +114,14 @@ const Title = ({
         window.pageYOffset === 0 ? null : window.scrollTo(0, 0);
       }}
     >
-      <Logo className={styles.header_logo} />
+      <Logo
+        style={{
+          filter: `drop-shadow(3px 4px 3px rgb(0 0 0 / ${
+            0.12 - offset / 1000
+          }))`,
+        }}
+        className={styles.header_logo}
+      />
       <TitleText
         style={{ top: offset ? 15 : 10 }}
         className={styles.header_title}

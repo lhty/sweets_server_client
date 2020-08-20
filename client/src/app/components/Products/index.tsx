@@ -11,7 +11,7 @@ import Featured from "./Feautured";
 import Sort from "./Sort";
 import Bundles from "./Bundles/Bundles";
 import Bundle from "./Bundles/Bundle";
-const Editor = lazy(() => import("../Editor"));
+const Editor = lazy(() => import("../Dashboard"));
 import Constructor from "./Constructor";
 
 export default (): ReactElement => {

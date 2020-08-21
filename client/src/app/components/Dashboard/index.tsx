@@ -1,4 +1,8 @@
-import React, { useCallback } from "react";
+import React, { useState } from "react";
+
+import { useMutation } from "@apollo/client";
+import uploadFiles from "./uploadFiles.graphql";
+import singlefile from "./single.graphql";
 
 import * as styles from "./Dashboard.css";
 import { FileAddOutlined } from "@ant-design/icons";
@@ -8,31 +12,52 @@ import { useDropzone } from "react-dropzone";
 import * as yup from "yup";
 
 export default function () {
-  const onDrop = useCallback((acceptedFiles) => {
-    if (acceptedFiles.length === 0) {
-      return;
-    }
-    formik.handleChange(formik.values.files.concat(acceptedFiles));
-  }, []);
-  const { getRootProps, getInputProps } = useDropzone({ onDrop });
+  const [image, setImage] = useState(null);
+  const [sendFiles, sendFilesresult] = useMutation(singlefile);
 
-  const formik = useFormik({
+  const {
+    values: { files },
+    setFieldValue,
+    handleSubmit,
+  } = useFormik({
     initialValues: {
       files: [],
     },
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: async (values) => {
+      try {
+        const {
+          data: { id },
+        } = await sendFiles({
+          variables: {
+            // files: values.files,
+            file: image,
+          },
+        });
+        console.log(id);
+      } catch (e) {
+        console.log(e);
+      }
     },
     validationSchema: yup.object().shape({
       recaptcha: yup.array(),
     }),
   });
-  console.log(formik.values);
+  console.log(image);
+  const onDrop = (acceptedFiles: any) => {
+    setImage(acceptedFiles[0]);
+    return setFieldValue("files", [...files, ...acceptedFiles]);
+  };
+
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop,
+    accept: "image/*",
+  });
+
   return (
     <div className={styles.container}>
       <form
         style={{ display: "flex", flexFlow: "column wrap" }}
-        onSubmit={formik.handleSubmit}
+        onSubmit={handleSubmit}
       >
         <div className={styles.drop} {...getRootProps()}>
           <input {...getInputProps()} />
@@ -41,6 +66,9 @@ export default function () {
         </div>
         <button type="submit">Submit</button>
       </form>
+      {files.map((file, i) => (
+        <p key={i}>{file.name}</p>
+      ))}
     </div>
   );
 }

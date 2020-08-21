@@ -2,8 +2,18 @@
   width: 50%;
   margin: 0 auto;
 
+  & button {
+    width: fit-content;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    background-color: var(--nav-element-color5);
+    color: var(--text-alt);
+  }
+
   & .drop {
-    @mixin roundedCard 15px;
+    @mixin pattern5 var(--nav-element-color5);
+    color: var(--text-alt);
     display: flex;
     justify-content: center;
     align-items: center;

@@ -1,5 +1,0 @@
-mutation uploadMutation($file: [Upload]!) {
-  multipleUpload(files: $file) {
-    id
-  }
-}

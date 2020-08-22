@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { useMutation } from "@apollo/client";
 import uploadFiles from "./uploadFiles.graphql";
-import singlefile from "./single.graphql";
 
 import * as styles from "./Dashboard.css";
 import { FileAddOutlined } from "@ant-design/icons";
@@ -12,8 +11,7 @@ import { useDropzone } from "react-dropzone";
 import * as yup from "yup";
 
 export default function () {
-  const [image, setImage] = useState(null);
-  const [sendFiles, sendFilesresult] = useMutation(singlefile);
+  const [sendFiles, sendFilesresult] = useMutation(uploadFiles);
 
   const {
     values: { files },
@@ -26,14 +24,13 @@ export default function () {
     onSubmit: async (values) => {
       try {
         const {
-          data: { id },
+          data: { multipleUpload },
         } = await sendFiles({
           variables: {
-            // files: values.files,
-            file: image,
+            files,
           },
         });
-        console.log(id);
+        console.log(multipleUpload);
       } catch (e) {
         console.log(e);
       }
@@ -42,11 +39,9 @@ export default function () {
       recaptcha: yup.array(),
     }),
   });
-  console.log(image);
-  const onDrop = (acceptedFiles: any) => {
-    setImage(acceptedFiles[0]);
-    return setFieldValue("files", [...files, ...acceptedFiles]);
-  };
+
+  const onDrop = (acceptedFiles: any) =>
+    setFieldValue("files", [...files, ...acceptedFiles]);
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,

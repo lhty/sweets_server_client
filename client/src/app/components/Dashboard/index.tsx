@@ -11,14 +11,22 @@ import { useDropzone } from "react-dropzone";
 import * as yup from "yup";
 
 export default function () {
-  const [sendFiles, sendFilesresult] = useMutation(uploadFiles);
+  const [sendFiles] = useMutation(uploadFiles);
 
   const {
-    values: { files },
+    values: { name, description, box, additional, discount, bundle, files },
     setFieldValue,
     handleSubmit,
+    handleChange,
+    handleReset,
   } = useFormik({
     initialValues: {
+      name: "",
+      description: "",
+      box: "",
+      additional: 0,
+      discount: "",
+      bundle: [],
       files: [],
     },
     onSubmit: async (values) => {
@@ -30,13 +38,14 @@ export default function () {
             files,
           },
         });
-        console.log(multipleUpload);
+        console.log(multipleUpload.map((upload: { id: string }) => upload.id));
+        handleReset(values);
       } catch (e) {
         console.log(e);
       }
     },
-    validationSchema: yup.object().shape({
-      recaptcha: yup.array(),
+    validationSchema: yup.object({
+      files: yup.array(),
     }),
   });
 
@@ -50,20 +59,47 @@ export default function () {
 
   return (
     <div className={styles.container}>
-      <form
-        style={{ display: "flex", flexFlow: "column wrap" }}
-        onSubmit={handleSubmit}
-      >
-        <div className={styles.drop} {...getRootProps()}>
-          <input {...getInputProps()} />
-          <FileAddOutlined style={{ fontSize: "5rem" }} />
-          <p>Drag 'n' drop some files here, or click to select files</p>
+      <form onSubmit={handleSubmit}>
+        <div className={styles.details}>
+          <input
+            onChange={handleChange}
+            type="text"
+            value={name}
+            name="name"
+            placeholder="название"
+          />
+          <input
+            onChange={handleChange}
+            type="text"
+            value={description}
+            name="description"
+            placeholder="описание"
+          />
         </div>
-        <button type="submit">Submit</button>
+        <div className={styles.create}></div>
+        <div className={styles.drop} {...getRootProps()}>
+          <input name="files" {...getInputProps()} />
+          <FileAddOutlined />
+        </div>
+        <ul>
+          {files.map((file, i) => (
+            <li
+              onClick={() =>
+                setFieldValue(
+                  "files",
+                  files.filter((_, _i) => i !== _i)
+                )
+              }
+              key={i}
+            >
+              {file.name + " " + Math.round(file.size / 1000)} kB
+            </li>
+          ))}
+        </ul>
+        <button type="submit" disabled={!files.length}>
+          Submit
+        </button>
       </form>
-      {files.map((file, i) => (
-        <p key={i}>{file.name}</p>
-      ))}
     </div>
   );
 }

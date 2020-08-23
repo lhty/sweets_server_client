@@ -5,7 +5,6 @@ import { setToken } from "../redux/actions/user";
 import {
   ApolloClient,
   ApolloProvider,
-  HttpLink,
   ApolloLink,
   InMemoryCache,
 } from "@apollo/client";
@@ -20,9 +19,10 @@ export default function ({ children }: { children: ReactNode }): ReactElement {
     if (token) dispatch(setToken(token));
   }, []);
 
-  const apiEndpoint = { uri: process.env.GRAPHQL };
-  const uploadLink = createUploadLink(apiEndpoint);
-  const httpLink = new HttpLink(apiEndpoint);
+  const uploadLink = createUploadLink({
+    uri: process.env.GRAPHQL,
+  });
+
   const authLink: any = setContext((_, { headers, ...context }) => {
     return {
       headers: {
@@ -36,7 +36,7 @@ export default function ({ children }: { children: ReactNode }): ReactElement {
   const cache = new InMemoryCache();
   const client = new ApolloClient({
     cache,
-    link: ApolloLink.from([authLink, uploadLink, httpLink]),
+    link: ApolloLink.from([authLink, uploadLink]),
   });
 
   return <ApolloProvider client={client}>{children}</ApolloProvider>;

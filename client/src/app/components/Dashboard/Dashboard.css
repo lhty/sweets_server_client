@@ -1,23 +1,74 @@
 .container {
-  width: 50%;
+  width: 100%;
+  @mixin M {
+    width: 50%;
+  }
   margin: 0 auto;
 
+  & form {
+    display: flex;
+    flex-flow: column wrap;
+    & input {
+      grid-column: 1 / span 2;
+      font-size: 1rem;
+      padding: 0.2em;
+      background-color: transparent;
+      border: 1px solid var(--nav-element-color5);
+    }
+  }
+
   & button {
+    align-self: center;
     width: fit-content;
-    padding: 10px;
-    margin: 10px 0;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 10px 15px;
+    margin: 20px 0;
     border: none;
     background-color: var(--nav-element-color5);
     color: var(--text-alt);
   }
-
+  & button:disabled {
+    opacity: 0.7;
+    filter: grayscale();
+  }
+  & span {
+    font-size: 5rem;
+  }
+  & .details {
+    display: grid;
+    grid-template-columns: [column1] auto [column2] auto;
+    row-gap: 10px;
+    margin: 10px 0;
+  }
+  & .create {
+    @mixin pattern5 var(--nav-element-color5);
+    color: var(--text-alt);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2ch;
+    margin-bottom: 10px;
+  }
   & .drop {
     @mixin pattern5 var(--nav-element-color5);
     color: var(--text-alt);
     display: flex;
     justify-content: center;
     align-items: center;
-    width: fit-content;
     padding: 2ch;
+  }
+  & ul {
+    color: var(--nav-element-color5);
+    border: 1px solid var(--nav-element-color5);
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    overflow: hidden;
+    & li {
+      font-weight: bold;
+      font-size: 1.5rem;
+      padding: 5px 0;
+    }
   }
 }

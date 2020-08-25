@@ -6,7 +6,7 @@ import {
   Box,
   AdminUser,
 } from "../../@types/queryTypes";
-import { actions, ConstructorActionTypes } from "../actions/constructor";
+import { actions, ConstructorActionTypes, page } from "../actions/constructor";
 
 type ConstructorStateType = {
   info: ComponentInfoInfo;
@@ -16,6 +16,7 @@ type ConstructorStateType = {
   created_by: AdminUser;
   updated_by: AdminUser;
   tags: Array<Tags>;
+  page: page;
 };
 
 const initial: ConstructorStateType = {
@@ -26,6 +27,7 @@ const initial: ConstructorStateType = {
   created_by: null,
   updated_by: null,
   tags: null,
+  page: "start",
 };
 
 export default function constructorReducer(

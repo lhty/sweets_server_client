@@ -1,35 +1,21 @@
 import React, { ReactElement } from "react";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/reducers";
-import { changeConstructorWidth } from "../../../redux/actions/view";
-
-import { useSpring, animated as a } from "react-spring";
-
-import * as styles from "./Constructor.css";
 
 import { Boxes } from "./Boxes";
-import { Items } from "./Items";
+import { Slots } from "./Slots";
+// import { Items } from "./Items";
 
-interface Props {
-  windowWidth: number;
-}
+export default function Constructor(): ReactElement {
+  const { box, bundle } = useSelector((state: RootState) => state.bundle);
 
-export default function Constructor({ windowWidth }: Props): ReactElement {
-  const constructor = useSelector((state: RootState) => state.constructor);
-  const dispatch = useDispatch();
-  const currentWidth = useSpring({
-    width: `${windowWidth}%`,
-  });
-
-  const handleChangeWidth = () =>
-    dispatch(changeConstructorWidth(windowWidth > 0 ? 0 : 30));
-  console.log(constructor.box);
-  return (
-    <a.div style={currentWidth} className={styles.container}>
-      <button onClick={handleChangeWidth}>Toggle</button>
-      {/* <Items /> */}
-      <Boxes />
-    </a.div>
-  );
+  switch (true) {
+    case !box:
+      return <Boxes />;
+    case box:
+      return <Slots bundle={bundle} box={box} />;
+    default:
+      return <></>;
+  }
 }

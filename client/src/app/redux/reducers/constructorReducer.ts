@@ -1,7 +1,6 @@
 import {
   Tags,
   ComponentInfoInfo,
-  ComponentDimensionsDimensions,
   ComponentPricePrice,
   ComponentBundleBundle,
   Box,
@@ -10,25 +9,32 @@ import {
 import { actions, ConstructorActionTypes } from "../actions/constructor";
 
 type ConstructorStateType = {
-  info?: ComponentInfoInfo;
-  dimensions?: ComponentDimensionsDimensions;
-  price?: ComponentPricePrice;
-  bundle?: ComponentBundleBundle;
-  box?: Box;
-  created_by?: AdminUser;
-  updated_by?: AdminUser;
-  tags?: Array<Tags>;
+  info: ComponentInfoInfo;
+  price: ComponentPricePrice;
+  bundle: Array<ComponentBundleBundle> | boolean;
+  box: Box | boolean;
+  created_by: AdminUser;
+  updated_by: AdminUser;
+  tags: Array<Tags>;
 };
 
-const initial: ConstructorStateType = {};
+const initial: ConstructorStateType = {
+  info: null,
+  price: null,
+  bundle: null,
+  box: null,
+  created_by: null,
+  updated_by: null,
+  tags: null,
+};
 
 export default function constructorReducer(
   state = initial,
   action: ConstructorActionTypes
 ): ConstructorStateType {
   switch (action.type) {
-    case actions.CREATE_PRODUCT:
-      return state;
+    case actions.PICK_BOX:
+      return { ...state, box: action.payload };
     default:
       return state;
   }

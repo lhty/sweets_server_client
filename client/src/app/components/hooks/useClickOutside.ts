@@ -2,15 +2,20 @@ import { useEffect, RefObject, MutableRefObject } from "react";
 
 function useOnClickOutside<T extends HTMLElement = HTMLDivElement>(
   ref: RefObject<T>,
-  handler: () => void
+  handler: () => void,
+  condition: boolean
 ) {
   useEffect(() => {
     const listener = (event: MouseEvent) => {
       const el = ref?.current;
-      if (el && el.contains((event?.target as Node) || null)) {
+      if (!condition) {
         return;
       }
-      handler();
+      if (el && el.contains((event?.target as Node) || null)) {
+        return;
+      } else {
+        handler();
+      }
     };
     document.addEventListener(`mousedown`, listener);
     document.addEventListener(`touchstart`, listener);

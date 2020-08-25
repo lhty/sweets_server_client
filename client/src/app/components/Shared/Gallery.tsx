@@ -20,7 +20,7 @@ const Gallery = ({ images, bullets }: Props): ReactElement => {
 
   const handleToggleOffFullscreen = () => setFullscreen(0);
 
-  useClickOPutside(fullscreenRef, handleToggleOffFullscreen);
+  useClickOPutside(fullscreenRef, handleToggleOffFullscreen, fullscreen >= 0);
 
   if (fullscreen)
     return createPortal(

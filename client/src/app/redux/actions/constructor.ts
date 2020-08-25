@@ -1,17 +1,17 @@
 import { Box } from "../../@types/queryTypes";
 
 export enum actions {
-  CREATE_PRODUCT = "CREATE_PRODUCT",
+  PICK_BOX = "PICK_BOX",
 }
 
-interface createProduct {
-  type: typeof actions.CREATE_PRODUCT;
+interface pickBox {
+  type: typeof actions.PICK_BOX;
   payload: Box;
 }
 
-export const createProduct = (box: Box) => ({
-  type: actions.CREATE_PRODUCT,
+export const pickBox = (box: Box): pickBox => ({
+  type: actions.PICK_BOX,
   payload: box,
 });
 
-export type ConstructorActionTypes = createProduct;
+export type ConstructorActionTypes = pickBox;

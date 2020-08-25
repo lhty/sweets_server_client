@@ -46,7 +46,7 @@ export default function Header(): ReactElement {
     padding: scrollPosition ? 0 : 5,
   });
 
-  useClickOutside(headerRef, () => dispatch(ToggleHeaderPopup(null)));
+  useClickOutside(headerRef, () => dispatch(ToggleHeaderPopup(null)), isOpen);
 
   return (
     <a.header

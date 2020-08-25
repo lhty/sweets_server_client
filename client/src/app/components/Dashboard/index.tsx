@@ -10,6 +10,8 @@ import { useFormik } from "formik";
 import { useDropzone } from "react-dropzone";
 import * as yup from "yup";
 
+import Constructor from "../Products/Constructor/Constructor";
+
 export default function () {
   const [sendFiles] = useMutation(uploadFiles);
 
@@ -76,7 +78,9 @@ export default function () {
             placeholder="описание"
           />
         </div>
-        <div className={styles.create}></div>
+        <div className={styles.create}>
+          <Constructor />
+        </div>
         <div className={styles.drop} {...getRootProps()}>
           <input name="files" {...getInputProps()} />
           <FileAddOutlined />
@@ -96,6 +100,7 @@ export default function () {
             </li>
           ))}
         </ul>
+        <div className={styles.price}>PRICE</div>
         <button type="submit" disabled={!files.length}>
           Submit
         </button>

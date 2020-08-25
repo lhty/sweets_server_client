@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
   view: viewReducer,
   cart: cartReducer,
   user: userReducer,
-  constructor: constructorReducer,
+  bundle: constructorReducer,
 });
 
 export default rootReducer;

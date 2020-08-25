@@ -7,6 +7,7 @@ import { useGesture } from "react-use-gesture";
 interface SliderProps {
   itemsPerPage?: number;
   scaleOnDrag?: boolean;
+  grid?: boolean | string;
   hasBullets?: boolean | string;
   activeIndex?: number;
   auto?: number;
@@ -18,6 +19,7 @@ interface SliderProps {
 export default function Slider({
   itemsPerPage = 1,
   scaleOnDrag = false,
+  grid = false,
   hasBullets = false,
   activeIndex = 0,
   auto = 0,
@@ -104,7 +106,7 @@ export default function Slider({
             currentSlide === index && (
               <a.div
                 onContextMenu={(e) => e.preventDefault()}
-                className={styles.wrapper}
+                className={grid.toString()}
                 {...bind()}
                 key={index}
                 style={{

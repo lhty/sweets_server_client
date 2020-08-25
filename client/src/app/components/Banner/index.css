@@ -1,5 +1,10 @@
 .container {
   position: relative;
+  width: 100%;
+  margin: auto;
+  @mixin M {
+    width: 80%;
+  }
 }
 
 .bullets {
@@ -8,10 +13,7 @@
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  visibility: hidden;
-  @mixin M {
-    visibility: visible;
-  }
+
   & p {
     display: none;
   }

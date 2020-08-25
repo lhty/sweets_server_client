@@ -47,6 +47,11 @@
     @mixin-content;
   }
 }
+@define-mixin U {
+  @media (min-width: 2000px) {
+    @mixin-content;
+  }
+}
 
 @define-mixin deviceWidth {
   @mixin SM {

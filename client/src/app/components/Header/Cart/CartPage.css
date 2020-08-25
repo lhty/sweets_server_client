@@ -1,6 +1,5 @@
 .cartPage {
   position: absolute;
-  z-index: -1;
   top: 0;
   right: 0;
   @mixin pattern1 var(--headerbg);

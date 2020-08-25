@@ -38,16 +38,3 @@ body::-webkit-scrollbar-track {
 body::-webkit-scrollbar-thumb {
   background-color: var(--nav-element-color5);
 }
-
-body > div + div {
-  width: 100%;
-  /* @mixin M {
-    width: 85%;
-  } */
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: [column1] 60% [column2] calc(40% - 10px);
-  grid-template-rows: [header] auto [feautured] auto [main] auto [footer] 50px;
-  column-gap: 10px;
-  row-gap: 10px;
-}

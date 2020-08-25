@@ -4,7 +4,10 @@
   cursor: grab;
 }
 .content {
-  padding: 1.5em;
+  padding: 3em 0.5em;
+  @mixin M {
+    padding: 2em 0;
+  }
 
   & img {
     align-self: center;

@@ -1,5 +1,5 @@
 .wrapper {
-  @mixin roundedCard;
+  @mixin roundedCard 10px;
   width: 100%;
   position: relative;
   overflow: hidden;
@@ -10,14 +10,8 @@
   flex-flow: column;
 
   & img {
-    @mixin M {
-      border-radius: 15px;
-      padding: 2px;
-    }
-    min-height: 350px;
-    border-radius: 0;
+    min-height: 550px;
     object-fit: cover;
-    padding: 0px;
     cursor: pointer;
   }
 
@@ -28,11 +22,6 @@
     transform: translate(-50%, -50%);
     opacity: 0;
     z-index: 999;
-
-    .expanded & {
-      opacity: 1;
-      transition: opacity 0.3s 0.6s;
-    }
 
     &:before,
     &:after {
@@ -71,7 +60,7 @@
   &:before {
     content: "";
     width: 200%;
-    height: 200%;
+    height: 400%;
     position: absolute;
     background-color: var(--layoutbg-main);
     transform: rotate(-5deg);
@@ -156,7 +145,7 @@
   position: absolute;
   pointer-events: none;
   @mixin M {
-    @mixin square #cccccc, 15px 15px 0 0;
+    @mixin square #cccccc;
     padding: 2px;
   }
   @mixin square #cccccc;

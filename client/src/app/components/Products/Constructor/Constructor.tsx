@@ -1,6 +1,7 @@
 import React, { ReactElement } from "react";
 
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../../redux/reducers";
 import { changeConstructorWidth } from "../../../redux/actions/view";
 
 import { useSpring, animated as a } from "react-spring";
@@ -15,6 +16,7 @@ interface Props {
 }
 
 export default function Constructor({ windowWidth }: Props): ReactElement {
+  const constructor = useSelector((state: RootState) => state.constructor);
   const dispatch = useDispatch();
   const currentWidth = useSpring({
     width: `${windowWidth}%`,
@@ -22,7 +24,7 @@ export default function Constructor({ windowWidth }: Props): ReactElement {
 
   const handleChangeWidth = () =>
     dispatch(changeConstructorWidth(windowWidth > 0 ? 0 : 30));
-
+  console.log(constructor.box);
   return (
     <a.div style={currentWidth} className={styles.container}>
       <button onClick={handleChangeWidth}>Toggle</button>

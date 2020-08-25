@@ -1,10 +1,16 @@
 import { UploadFile } from "../../@types/queryTypes";
 
-export const ThumbnailUrl = (
-  images: UploadFile | UploadFile[],
-  index: number = 0,
-  fullscreen: number = -1
-) => {
+interface IThumbInput {
+  images: UploadFile | UploadFile[];
+  index?: number;
+  fullscreen?: number;
+}
+
+export const ThumbnailUrl = ({
+  images,
+  index = 0,
+  fullscreen = -1,
+}: IThumbInput) => {
   const size = window.innerWidth;
   const prefix = (size: number) => {
     switch (true) {
@@ -19,9 +25,18 @@ export const ThumbnailUrl = (
     }
   };
 
-  return Array.isArray(images)
-    ? process.env.API_URL + prefix(size) + images[index].url.substring(9)
-    : process.env.API_URL + prefix(size) + images.url.substring(9);
+  const slicePath = ({ url }: { url: string }) => url.substring(9);
+  const path = slicePath(Array.isArray(images) ? images[index] : images);
+
+  const src = process.env.API_URL + prefix(size) + path;
+  const original = process.env.API_URL + "/uploads/" + path;
+
+  const doesExist = (src: string) => {
+    const img = new Image();
+    img.src = src;
+    return img.width !== 0 ? src : original;
+  };
+  return doesExist(src);
 };
 
 export const makeStrShorter = (str: string, n: number): string =>

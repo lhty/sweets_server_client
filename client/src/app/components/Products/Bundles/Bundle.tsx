@@ -55,7 +55,7 @@ export default function Bundle({}: Props): ReactElement {
       </div>
       <div className={styles.price}>
         <p>{data.product.price.overall} ₽</p>
-        {cart.includes(data.product) ? (
+        {cart.find((prod) => prod.id === data.product.id) ? (
           <CheckOutlined
             style={{ cursor: "default", filter: "hue-rotate(100deg)" }}
           />

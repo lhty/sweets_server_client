@@ -46,7 +46,7 @@ export default function Card({
       <img
         onClick={handleSelect}
         onDragStart={(e) => e.preventDefault()}
-        src={ThumbnailUrl(input.info.image)}
+        src={ThumbnailUrl({ images: input.info.image })}
         onLoad={() => setLoading(false)}
         draggable="false"
         alt=""
@@ -60,7 +60,7 @@ export default function Card({
               : input.info.description}
           </div>
         )}
-        {isBundle && cart.includes(input as Product) ? (
+        {isBundle && cart.find((prod) => prod.id === input.id) ? (
           <CheckOutlined
             style={{ cursor: "default", filter: "hue-rotate(100deg)" }}
           />

@@ -4,6 +4,23 @@
   display: flex;
   flex-flow: column;
 }
+.grid {
+  --col: 1;
+  display: grid;
+  grid-template-columns: repeat(var(--col), 1fr);
+  grid-gap: 5px;
+  padding: 0;
+  @mixin SM {
+    --col: 2;
+  }
+  @mixin M {
+    --col: 3;
+    padding: 0 5px 10px;
+  }
+  @mixin L {
+    --col: 5;
+  }
+}
 .bullets {
   align-self: center;
   padding-top: 15px;

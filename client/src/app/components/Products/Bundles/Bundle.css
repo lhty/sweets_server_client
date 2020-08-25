@@ -4,22 +4,40 @@
 
   & span:first-of-type {
     position: absolute;
+    top: -57px;
+    left: -6px;
     font-size: 4rem;
     color: var(--nav-element-color5);
     z-index: 1;
   }
   & .desc {
+    position: relative;
     display: flex;
     flex-flow: column wrap;
     text-align-last: center;
-    padding: 0 1em;
+    padding: 0 0.2em;
+    @mixin M {
+      padding: 0 1em;
+    }
+
     & h2 {
       white-space: pre-line;
       font-size: 3rem;
+      padding-bottom: 25px;
     }
     & p {
       text-align: center;
     }
+  }
+  & .desc::before {
+    background-color: var(--blockbg-main);
+    border-radius: 15px 15px 0 0;
+    position: absolute;
+    content: "";
+    top: -30px;
+    left: 0;
+    width: 100%;
+    height: 30px;
   }
   & .pictures {
     height: max-content;
@@ -42,7 +60,7 @@
 
 .bullets {
   position: absolute;
-  bottom: 5px;
+  bottom: 35px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -50,8 +68,8 @@
     display: none;
   }
   & div {
-    width: 12px;
-    height: 12px;
+    width: 15px;
+    height: 15px;
     cursor: pointer;
     border-radius: 50%;
     margin: 1px;
@@ -59,7 +77,7 @@
     @mixin M {
       width: 20px;
       height: 20px;
-      border: 2px solid var(--text-alt);
+      border: 2px solid var(--nav-element-color4);
       opacity: 0.6;
       background-color: var(--nav-element-color5);
     }

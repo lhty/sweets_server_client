@@ -51,24 +51,30 @@ export default function Card({
         draggable="false"
         alt=""
       />
-      <div className={styles.content}>
-        <h2 className={styles.title}>{input.info.name}</h2>
-        {showDescription && (
-          <div className={styles.desc}>
-            {input.info.description?.length > 100
-              ? makeStrShorter(input.info.description, 100)
-              : input.info.description}
-          </div>
-        )}
-        {isBundle && cart.find((prod) => prod.id === input.id) ? (
-          <CheckOutlined
-            style={{ cursor: "default", filter: "hue-rotate(100deg)" }}
-          />
-        ) : (
-          <ShoppingCartOutlined onClick={handleAddToCart} />
-        )}
-        <div className={styles.price}>{input.price.overall}₽</div>
-      </div>
+      {isBundle ? (
+        <div className={styles.content}>
+          <h2 className={styles.title}>{input.info.name}</h2>
+          {showDescription && (
+            <div className={styles.desc}>
+              {input.info.description?.length > 100
+                ? makeStrShorter(input.info.description, 100)
+                : input.info.description}
+            </div>
+          )}
+          {cart.find((prod) => prod.id === input.id) ? (
+            <CheckOutlined
+              style={{ cursor: "default", filter: "hue-rotate(100deg)" }}
+            />
+          ) : (
+            <ShoppingCartOutlined onClick={handleAddToCart} />
+          )}
+          <div className={styles.price}>{input.price.overall}₽</div>
+        </div>
+      ) : (
+        <div className={styles.content}>
+          <div className={styles.price}>{input.price.overall}₽</div>
+        </div>
+      )}
     </div>
   );
 }

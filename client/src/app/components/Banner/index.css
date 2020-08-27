@@ -3,7 +3,7 @@
   width: 100%;
   margin: auto;
   @mixin M {
-    width: 80%;
+    width: 90%;
   }
 }
 

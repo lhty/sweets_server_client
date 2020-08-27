@@ -70,9 +70,9 @@ export default function () {
             name="name"
             placeholder="название"
           />
-          <input
+          <textarea
             onChange={handleChange}
-            type="text"
+            // type="text"
             value={description}
             name="description"
             placeholder="описание"
@@ -81,6 +81,7 @@ export default function () {
         <div className={styles.create}>
           <Constructor />
         </div>
+        <div className={styles.price}>PRICE</div>
         <div className={styles.drop} {...getRootProps()}>
           <input name="files" {...getInputProps()} />
           <FileAddOutlined />
@@ -100,7 +101,6 @@ export default function () {
             </li>
           ))}
         </ul>
-        <div className={styles.price}>PRICE</div>
         <button type="submit" disabled={!files.length}>
           Submit
         </button>

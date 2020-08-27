@@ -2,27 +2,31 @@ import {
   Tags,
   ComponentInfoInfo,
   ComponentPricePrice,
-  ComponentBundleBundle,
   Box,
   AdminUser,
+  Item,
 } from "../../@types/queryTypes";
-import { actions, ConstructorActionTypes, page } from "../actions/constructor";
+import {
+  actions,
+  ConstructorActionTypes,
+  pageType,
+} from "../actions/constructor";
 
 type ConstructorStateType = {
   info: ComponentInfoInfo;
   price: ComponentPricePrice;
-  bundle: Array<ComponentBundleBundle> | boolean;
-  box: Box | boolean;
+  set: Array<Item>;
+  box: Box;
   created_by: AdminUser;
   updated_by: AdminUser;
   tags: Array<Tags>;
-  page: page;
+  page: pageType;
 };
 
 const initial: ConstructorStateType = {
   info: null,
   price: null,
-  bundle: null,
+  set: null,
   box: null,
   created_by: null,
   updated_by: null,
@@ -36,7 +40,13 @@ export default function constructorReducer(
 ): ConstructorStateType {
   switch (action.type) {
     case actions.PICK_BOX:
-      return { ...state, box: action.payload };
+      return {
+        ...state,
+        box: action.payload,
+        set: new Array(action.payload.countmin).fill(false),
+      };
+    case actions.CHANGE_PAGE:
+      return { ...state, page: action.payload };
     default:
       return state;
   }

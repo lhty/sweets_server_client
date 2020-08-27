@@ -4,31 +4,27 @@ import { useQuery } from "@apollo/client";
 import { Box } from "../../../@types/queryTypes";
 import getBoxes from "./getBoxes.graphql";
 
+import * as styles from "./Items.css";
+
 import { useDispatch } from "react-redux";
-import { pickBox } from "../../../redux/actions/constructor";
+import { pickBox, changePage } from "../../../redux/actions/constructor";
+import Card from "../../Shared/Card";
 
 export const Boxes = () => {
   const { data, loading } = useQuery(getBoxes);
   const boxes: Box[] = data?.boxes;
   const dispatch = useDispatch();
 
-  const handleSelect = (box: Box) => dispatch(pickBox(box));
+  const handleSelect = (box: Box) => {
+    dispatch(pickBox(box));
+    dispatch(changePage("slot"));
+  };
 
   return (
-    <>
+    <div className={styles.grid}>
       {!loading &&
         data &&
-        boxes.map((box) => <BoxCard key={box.id} {...{ box, handleSelect }} />)}
-    </>
+        boxes.map((box) => <Card key={box.id} input={box} />)}
+    </div>
   );
-};
-
-const BoxCard = ({
-  box,
-  handleSelect,
-}: {
-  box: Box;
-  handleSelect: (box: Box) => void;
-}) => {
-  return <div onClick={() => handleSelect(box)}>{box.info.name}</div>;
 };

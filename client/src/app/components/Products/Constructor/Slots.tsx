@@ -1,14 +1,33 @@
 import React from "react";
 
 import * as styles from "./Slots.css";
-import { ComponentBundleBundle, Box } from "../../../@types/queryTypes";
+import { Box, Item } from "../../../@types/queryTypes";
+import { PlusSquareOutlined } from "@ant-design/icons";
 
 interface Props {
-  bundle: Array<ComponentBundleBundle> | boolean;
-  box: Box | boolean;
+  box: Box;
+  set: Array<Item>;
+  handlePickItem: () => void;
 }
 
-export const Slots = ({ bundle, box }: Props) => {
-  console.log(bundle);
-  return <div className={styles.container}>1212</div>;
+export const Slots = ({ box, set, handlePickItem }: Props) => {
+  const columns = Math.floor(box.dimensions.width / 20);
+
+  return (
+    <div
+      style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}
+      className={styles.container}
+    >
+      {set.map((slot, index) => (
+        <div className={styles.slot} key={slot.toString() + index}>
+          {!slot && (
+            <PlusSquareOutlined
+              style={{ fontSize: "5rem" }}
+              onClick={handlePickItem}
+            />
+          )}
+        </div>
+      ))}
+    </div>
+  );
 };

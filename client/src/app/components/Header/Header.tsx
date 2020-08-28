@@ -52,11 +52,11 @@ export default function Header(): ReactElement {
     <a.header
       style={{
         backgroundColor: offset.to(
-          (offset) => `rgba(253, 241, 236, ${offset / 250}) `
+          (offset) => `rgba(253, 241, 236, ${offset / 200}) `
         ),
         boxShadow: offset.to(
           (offset) =>
-            `0 10px 40px -10px rgb(0 0 0 / ${Math.min(offset / 1000, 0.5)})`
+            `0 10px 40px -10px rgb(0 0 0 / ${Math.min(offset / 1000, 0.3)})`
         ),
         padding,
       }}

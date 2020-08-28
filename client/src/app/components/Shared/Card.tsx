@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../redux/reducers";
-import { AddToCart } from "../../redux/actions/cart";
 
 import { useSpring, animated as a } from "react-spring";
 import * as styles from "./Card.css";
@@ -11,32 +10,31 @@ import { ThumbnailUrl, makeStrShorter } from "../lib";
 import { Product, Item, Box } from "../../@types/queryTypes";
 import { ShoppingCartOutlined, CheckOutlined } from "@ant-design/icons";
 
+type inputType = Product | Item | Box;
 interface Props {
-  input: Product | Item | Box;
+  input: inputType;
   showDescription?: boolean;
-  select?: (...args: string[]) => void;
+  select?: (id: string | inputType, name?: string) => void;
+  add?: (input: inputType) => void;
 }
 
 export default function Card({
   input,
   showDescription = false,
   select,
+  add,
 }: Props): React.ReactElement {
   const [loading, setLoading] = useState(true);
   const cart = useSelector((state: RootState) => state.cart.list);
-  const dispatch = useDispatch();
 
   const skeletonStyle = useSpring({
     opacity: loading ? 1 : 0,
   });
 
   const isBundle = input.__typename === "Product";
-
   const handleSelect = () =>
-    isBundle ? select(input.id, input.info.name) : select(input.id);
-
-  const handleAddToCart = () =>
-    isBundle ? dispatch(AddToCart(input as Product)) : () => {};
+    isBundle ? select(input.id, input.info.name) : select(input);
+  const handleAddToCart = () => add(input);
 
   return (
     <div className={styles.wrapper}>

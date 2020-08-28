@@ -4,6 +4,9 @@ import { useHistory } from "react-router-dom";
 
 import * as styles from "./Bundles.css";
 
+import { useDispatch } from "react-redux";
+import { AddToCart } from "../../../redux/actions/cart";
+
 import Card from "../../Shared/Card";
 import Slider from "../../Shared/Slider";
 import { Product } from "../../../@types/queryTypes";
@@ -13,10 +16,12 @@ interface Props {
 }
 
 export default function Bundles({ bundles }: Props): ReactElement {
+  const dispatch = useDispatch();
   const history = useHistory();
 
   const handleSelectBundle = (id: string, title: string) =>
     history.push(`${id}/${title}`);
+  const handleAddToCart = (product: Product) => dispatch(AddToCart(product));
 
   return (
     <section className={styles.container}>
@@ -26,6 +31,7 @@ export default function Bundles({ bundles }: Props): ReactElement {
             key={bundle.id}
             input={bundle}
             select={handleSelectBundle}
+            add={handleAddToCart}
             showDescription
           />
         ))}

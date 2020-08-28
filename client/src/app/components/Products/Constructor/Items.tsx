@@ -8,14 +8,21 @@ import getItems from "./getItems.graphql";
 
 import Card from "../../Shared/Card";
 
-export const Items = () => {
+interface IItems {
+  select: (item: Item) => void;
+}
+
+export const Items = ({ select }: IItems) => {
   const { data, loading } = useQuery(getItems);
   const items: Item[] = data?.items;
+
   return (
     <div className={styles.grid}>
       {!loading &&
         data &&
-        items.map((item) => <Card key={item.id} input={item} />)}
+        items.map((item) => (
+          <Card key={item.id} input={item} select={select} />
+        ))}
     </div>
   );
 };

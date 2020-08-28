@@ -1,11 +1,12 @@
-import { Box } from "../../@types/queryTypes";
+import { Box, Item } from "../../@types/queryTypes";
 
 export enum actions {
   CHANGE_PAGE = "CHANGE_PAGE",
   PICK_BOX = "PICK_BOX",
+  VIEW_ITEM_DETAILS = "VIEW_ITEM_DETAILS",
 }
 
-export type pageType = "start" | "box" | "slot" | "items" | "item";
+export type pageType = "start" | "box" | "slot" | "items" | "details";
 
 interface IchangePage {
   type: typeof actions.CHANGE_PAGE;
@@ -27,4 +28,14 @@ export const pickBox = (box: Box): IpickBox => ({
   payload: box,
 });
 
-export type ConstructorActionTypes = IchangePage | IpickBox;
+interface IviewItemDetails {
+  type: typeof actions.VIEW_ITEM_DETAILS;
+  payload: Item;
+}
+
+export const viewItemDetails = (item: Item): IviewItemDetails => ({
+  type: actions.VIEW_ITEM_DETAILS,
+  payload: item,
+});
+
+export type ConstructorActionTypes = IchangePage | IpickBox | IviewItemDetails;

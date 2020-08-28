@@ -6,25 +6,21 @@ import getBoxes from "./getBoxes.graphql";
 
 import * as styles from "./Items.css";
 
-import { useDispatch } from "react-redux";
-import { pickBox, changePage } from "../../../redux/actions/constructor";
 import Card from "../../Shared/Card";
 
-export const Boxes = () => {
+interface IBoxes {
+  select: (box: Box) => void;
+}
+
+export const Boxes = ({ select }: IBoxes) => {
   const { data, loading } = useQuery(getBoxes);
   const boxes: Box[] = data?.boxes;
-  const dispatch = useDispatch();
-
-  const handleSelect = (box: Box) => {
-    dispatch(pickBox(box));
-    dispatch(changePage("slot"));
-  };
 
   return (
     <div className={styles.grid}>
       {!loading &&
         data &&
-        boxes.map((box) => <Card key={box.id} input={box} />)}
+        boxes.map((box) => <Card key={box.id} input={box} select={select} />)}
     </div>
   );
 };

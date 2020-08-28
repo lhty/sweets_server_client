@@ -21,6 +21,7 @@ type ConstructorStateType = {
   updated_by: AdminUser;
   tags: Array<Tags>;
   page: pageType;
+  details: Item;
 };
 
 const initial: ConstructorStateType = {
@@ -32,6 +33,7 @@ const initial: ConstructorStateType = {
   updated_by: null,
   tags: null,
   page: "start",
+  details: null,
 };
 
 export default function constructorReducer(
@@ -47,6 +49,8 @@ export default function constructorReducer(
       };
     case actions.CHANGE_PAGE:
       return { ...state, page: action.payload };
+    case actions.VIEW_ITEM_DETAILS:
+      return { ...state, details: action.payload };
     default:
       return state;
   }

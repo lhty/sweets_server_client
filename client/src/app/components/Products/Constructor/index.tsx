@@ -13,10 +13,10 @@ interface Props {}
 
 export default function index({}: Props): ReactElement {
   const dispatch = useDispatch();
+
   const constructorWindowState = useSelector(
     (state: RootState) => state.view.consructorWindow
   );
-
   const currentWidth = useSpring({
     width: `${constructorWindowState}%`,
   });

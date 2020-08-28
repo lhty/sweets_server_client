@@ -1,0 +1,21 @@
+.container {
+}
+
+.bullets {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  & p {
+    display: none;
+  }
+  & div {
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    border-radius: 50%;
+    margin: 1px;
+    background-color: var(--nav-element-color2);
+  }
+}

@@ -7,10 +7,10 @@ import { PlusSquareOutlined } from "@ant-design/icons";
 interface Props {
   box: Box;
   set: Array<Item>;
-  handlePickItem: () => void;
+  select: (page: string) => void;
 }
 
-export const Slots = ({ box, set, handlePickItem }: Props) => {
+export const Slots = ({ box, set, select }: Props) => {
   const columns = Math.floor(box.dimensions.width / 20);
 
   return (
@@ -23,7 +23,7 @@ export const Slots = ({ box, set, handlePickItem }: Props) => {
           {!slot && (
             <PlusSquareOutlined
               style={{ fontSize: "5rem" }}
-              onClick={handlePickItem}
+              onClick={() => select("items")}
             />
           )}
         </div>

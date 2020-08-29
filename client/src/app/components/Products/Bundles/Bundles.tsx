@@ -32,7 +32,6 @@ export default function Bundles({ bundles }: Props): ReactElement {
             input={bundle}
             select={handleSelectBundle}
             add={handleAddToCart}
-            showDescription
           />
         ))}
       </Slider>

@@ -13,7 +13,7 @@ export default function Featured({ bundle }: Props): ReactElement {
     <section
       className={styles.container}
       style={{
-        background: `center url(${ThumbnailUrl({
+        background: `url(${ThumbnailUrl({
           images: bundle.info.image,
         })})`,
         backgroundSize: "cover",

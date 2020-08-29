@@ -15,45 +15,68 @@ import { Boxes } from "./Boxes";
 import { Slots } from "./Slots";
 import { Items } from "./Items";
 import { Details } from "./Details";
+import Nav from "./Nav";
+import { Receipt } from "./Receipt";
 
-export default function Constructor(): ReactElement {
+export default (): ReactElement => {
   const dispatch = useDispatch();
-
   const { box, set, page, details } = useSelector(
     (state: RootState) => state.bundle
   );
 
-  const handleSelectPage = (page: pageType) => {
-    dispatch(changePage(page));
+  const handlers = {
+    handleSelectPage: (page: pageType) => {
+      dispatch(changePage(page));
+    },
+    handleSelectBox: (box: Box) => {
+      dispatch(pickBox(box));
+      handlers.handleSelectPage("slot");
+    },
+    handleViewItemDetails: (item: Item) => {
+      dispatch(viewItemDetails(item));
+      handlers.handleSelectPage("details");
+    },
   };
 
-  const handleSelectBox = (box: Box) => {
-    dispatch(pickBox(box));
-    handleSelectPage("slot");
-  };
+  return (
+    <>
+      <Nav {...{ page }} />
+      <Constructor {...{ handlers, box, set, page, details }} />
+      <Receipt {...{ box, set }} />
+    </>
+  );
+};
 
-  const handleViewItemDetails = (item: Item) => {
-    dispatch(viewItemDetails(item));
-    handleSelectPage("details");
-  };
+interface IConstructor {
+  handlers: any;
+  box: Box;
+  set: Item[];
+  page: pageType;
+  details: Box | Item;
+}
 
+const Constructor = ({
+  handlers,
+  box,
+  set,
+  page,
+  details,
+}: IConstructor): ReactElement => {
   switch (page) {
-    case "start":
-      return (
-        <PlaySquareOutlined
-          onClick={() => dispatch(changePage("box"))}
-          style={{ fontSize: "5rem" }}
-        />
-      );
     case "box":
-      return <Boxes select={handleSelectBox} />;
+      return <Boxes select={handlers.handleSelectBox} />;
     case "slot":
-      return <Slots {...{ box, set, select: handleSelectPage }} />;
+      return <Slots {...{ box, set, select: handlers.handleSelectPage }} />;
     case "items":
-      return <Items select={handleViewItemDetails} />;
+      return <Items select={handlers.handleViewItemDetails} />;
     case "details":
       return <Details {...{ item: details }} />;
     default:
-      return <></>;
+      return (
+        <PlaySquareOutlined
+          onClick={() => handlers.handleSelectPage("box")}
+          style={{ fontSize: "5rem" }}
+        />
+      );
   }
-}
+};

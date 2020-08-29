@@ -4,7 +4,7 @@ import * as styles from "./index.css";
 import { useQuery } from "@apollo/client";
 import getBundles from "./getBundles.graphql";
 
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch, Redirect, useLocation } from "react-router-dom";
 
 import useGetRole from "../hooks/useGetRole";
 import Featured from "./Feautured";
@@ -22,7 +22,7 @@ export default (): ReactElement => {
     () => data?.products[Math.floor(Math.random() * data.products.length)],
     [data]
   );
-
+  const location = useLocation();
   return (
     <>
       <Featured bundle={featured} />
@@ -40,7 +40,7 @@ export default (): ReactElement => {
               <Editor />
             </AuthRoute>
           </Switch>
-          <Constructor />
+          {location.pathname !== "/dashboard" && <Constructor />}
         </main>
       )}
     </>

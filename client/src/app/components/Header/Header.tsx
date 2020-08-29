@@ -43,7 +43,6 @@ export default function Header(): ReactElement {
 
   const { offset, padding } = useSpring({
     offset: scrollPosition,
-    padding: scrollPosition ? 0 : 5,
   });
 
   useClickOutside(headerRef, () => dispatch(ToggleHeaderPopup(null)), isOpen);

@@ -24,7 +24,6 @@
     font-size: 1rem;
     font-weight: bold;
     padding: 10px 15px;
-    margin: 20px 0;
     border: none;
     background-color: var(--nav-element-color5);
     color: var(--text-alt);
@@ -45,37 +44,30 @@
   & .create {
     @mixin pattern5 var(--nav-element-color5);
     color: var(--text-alt);
-    display: flex;
-    justify-content: center;
-    align-items: center;
     padding: 1ch;
-    margin-bottom: 10px;
-  }
-  & .price {
-    @mixin pattern5 var(--nav-element-color5);
-    color: var(--text-alt);
-    padding: 2ch;
-    margin-bottom: 10px;
   }
   & .drop {
     @mixin pattern5 var(--nav-element-color5);
     color: var(--text-alt);
     display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 2ch;
-  }
-  & ul {
-    color: var(--nav-element-color5);
-    border: 1px solid var(--nav-element-color5);
-    display: flex;
-    flex-flow: column wrap;
-    align-items: center;
-    overflow: hidden;
-    & li {
-      font-weight: bold;
-      font-size: 1.5rem;
-      padding: 5px 0;
+    flex-flow: column;
+    padding: 0 2ch;
+    margin: 2ch 0;
+
+    & span {
+      margin: 20px 0;
+    }
+
+    & ul {
+      width: 100%;
+      display: flex;
+      flex-flow: column wrap;
+      align-items: center;
+      overflow: hidden;
+      & li {
+        font-weight: bold;
+        font-size: 1.5rem;
+      }
     }
   }
 }

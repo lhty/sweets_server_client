@@ -6,7 +6,7 @@ export enum actions {
   VIEW_ITEM_DETAILS = "VIEW_ITEM_DETAILS",
 }
 
-export type pageType = "start" | "box" | "slot" | "items" | "details";
+export type pageType = "box" | "slot" | "items" | "details";
 
 interface IchangePage {
   type: typeof actions.CHANGE_PAGE;

@@ -3,10 +3,10 @@ import React from "react";
 import * as styles from "./Details.css";
 import Gallery from "../../Shared/Gallery";
 
-import { Item } from "../../../@types/queryTypes";
+import { Item, Box } from "../../../@types/queryTypes";
 
 interface IDetails {
-  item: Item;
+  item: Item | Box;
 }
 
 export const Details = ({ item }: IDetails) => {

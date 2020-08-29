@@ -1,0 +1,6 @@
+.price {
+  display: flex;
+  justify-content: space-evenly;
+  color: var(--text-alt);
+  padding: 2ch;
+}

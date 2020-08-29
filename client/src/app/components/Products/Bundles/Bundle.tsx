@@ -30,7 +30,6 @@ export default function Bundle({}: Props): ReactElement {
   const handleAddToCart = () => dispatch(AddToCart(data.product));
 
   if (loading) return <></>;
-  console.log(data);
   return (
     <section className={styles.container}>
       <DoubleLeftOutlined onClick={() => history.push("/")} />

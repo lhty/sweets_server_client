@@ -81,26 +81,26 @@ export default function () {
         <div className={styles.create}>
           <Constructor />
         </div>
-        <div className={styles.price}>PRICE</div>
         <div className={styles.drop} {...getRootProps()}>
           <input name="files" {...getInputProps()} />
           <FileAddOutlined />
+          <ul>
+            {files.map((file, i) => (
+              <li
+                onClick={() =>
+                  setFieldValue(
+                    "files",
+                    files.filter((_, _i) => i !== _i)
+                  )
+                }
+                key={i}
+              >
+                {file.name + " " + Math.round(file.size / 1000)} kB
+              </li>
+            ))}
+          </ul>
         </div>
-        <ul>
-          {files.map((file, i) => (
-            <li
-              onClick={() =>
-                setFieldValue(
-                  "files",
-                  files.filter((_, _i) => i !== _i)
-                )
-              }
-              key={i}
-            >
-              {file.name + " " + Math.round(file.size / 1000)} kB
-            </li>
-          ))}
-        </ul>
+
         <button type="submit" disabled={!files.length}>
           Submit
         </button>

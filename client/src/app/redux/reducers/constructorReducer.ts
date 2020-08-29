@@ -32,7 +32,7 @@ const initial: ConstructorStateType = {
   created_by: null,
   updated_by: null,
   tags: null,
-  page: "start",
+  page: null,
   details: null,
 };
 

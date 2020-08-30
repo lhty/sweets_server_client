@@ -83,7 +83,7 @@ export default function () {
         </div>
         <div className={styles.drop} {...getRootProps()}>
           <input name="files" {...getInputProps()} />
-          <FileAddOutlined />
+          <FileAddOutlined style={{ fontSize: "5rem" }} />
           <ul>
             {files.map((file, i) => (
               <li

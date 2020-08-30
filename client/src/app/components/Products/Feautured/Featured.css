@@ -2,6 +2,7 @@
   width: 100%;
   grid-column: 1 / span 2;
   overflow: hidden;
+  background-size: cover;
 }
 .wrapper {
   position: relative;

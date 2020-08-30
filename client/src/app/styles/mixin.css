@@ -64,7 +64,7 @@
 
 @define-mixin roundedCard $v {
   border-radius: $v;
-  background-color: hsla(0, 0%, 100%, 0.3);
+  background-color: hsla(0, 0%, 100%, 0.75);
 }
 
 @define-mixin square $c, $b {

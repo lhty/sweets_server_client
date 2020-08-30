@@ -32,9 +32,6 @@
     opacity: 0.7;
     filter: grayscale();
   }
-  & span {
-    font-size: 5rem;
-  }
   & .details {
     display: grid;
     grid-template-columns: [column1] auto [column2] auto;
@@ -42,9 +39,10 @@
     margin: 10px 0;
   }
   & .create {
+    display: flex;
+    flex-flow: column wrap;
     @mixin pattern5 var(--nav-element-color5);
     color: var(--text-alt);
-    padding: 1ch;
   }
   & .drop {
     @mixin pattern5 var(--nav-element-color5);

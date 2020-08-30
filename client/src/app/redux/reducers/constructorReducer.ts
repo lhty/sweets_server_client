@@ -51,6 +51,8 @@ export default function constructorReducer(
       return { ...state, page: action.payload };
     case actions.VIEW_ITEM_DETAILS:
       return { ...state, details: action.payload };
+    case actions.RESET:
+      return initial;
     default:
       return state;
   }

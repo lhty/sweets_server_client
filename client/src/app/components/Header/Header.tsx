@@ -92,8 +92,9 @@ const Title = ({
   Handler: () => void;
   offset: number;
 }) => {
-  const { s, opacity } = useSpring({
+  const { s, opacity, y } = useSpring({
     s: offset,
+    y: offset ? -3 : 11,
     opacity: offset ? 0 : 1,
   });
 
@@ -105,7 +106,7 @@ const Title = ({
     <a.div
       style={{
         position: "relative",
-        top: offset ? -3 : 7,
+        top: y,
         transform: s.to((s) => `scale(${1.3 - Math.min(s / 10, 0.5)})`),
       }}
       onClick={() => {

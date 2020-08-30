@@ -4,6 +4,7 @@ export enum actions {
   CHANGE_PAGE = "CHANGE_PAGE",
   PICK_BOX = "PICK_BOX",
   VIEW_ITEM_DETAILS = "VIEW_ITEM_DETAILS",
+  RESET = "RESET",
 }
 
 export type pageType = "box" | "slot" | "items" | "details";
@@ -38,4 +39,16 @@ export const viewItemDetails = (item: Item): IviewItemDetails => ({
   payload: item,
 });
 
-export type ConstructorActionTypes = IchangePage | IpickBox | IviewItemDetails;
+interface IconstructorReset {
+  type: typeof actions.RESET;
+}
+
+export const constructorReset = () => ({
+  type: actions.RESET,
+});
+
+export type ConstructorActionTypes =
+  | IchangePage
+  | IpickBox
+  | IviewItemDetails
+  | IconstructorReset;

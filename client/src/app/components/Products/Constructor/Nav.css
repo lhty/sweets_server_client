@@ -1,4 +1,9 @@
 .container {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+
+  &_controls {
+    font-size: 2rem;
+  }
 }

@@ -40,7 +40,7 @@ export default (): ReactElement => {
 
   return (
     <>
-      <Nav {...{ page }} />
+      <Nav {...{ handlers, box, set, page }} />
       <Constructor {...{ handlers, box, set, page, details }} />
       <Receipt {...{ box, set }} />
     </>
@@ -75,7 +75,7 @@ const Constructor = ({
       return (
         <PlaySquareOutlined
           onClick={() => handlers.handleSelectPage("box")}
-          style={{ fontSize: "5rem" }}
+          style={{ fontSize: "5rem", margin: "20px" }}
         />
       );
   }

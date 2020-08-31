@@ -9,6 +9,7 @@ import {
 import {
   actions,
   ConstructorActionTypes,
+  constructorPage,
   pageType,
 } from "../actions/constructor";
 
@@ -32,7 +33,7 @@ const initial: ConstructorStateType = {
   created_by: null,
   updated_by: null,
   tags: null,
-  page: null,
+  page: "initial",
   details: null,
 };
 

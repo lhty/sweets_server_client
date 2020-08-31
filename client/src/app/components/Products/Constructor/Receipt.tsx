@@ -6,17 +6,18 @@ import { Box, Item } from "../../../@types/queryTypes";
 interface Props {
   box: Box;
   set: Item[];
+  page: string;
 }
 
-export const Receipt = ({ box, set }: Props) => {
-  if (!box) return null;
+export const Receipt = ({ box, set, page }: Props) => {
+  if (!box || page === "initial") return null;
   return (
     <div className={styles.price}>
-      <h2>{box.price.overall} руб</h2>
+      <h2>box : {box.price.overall}₽</h2>
       {set.some((entry) => entry) && (
         <h2>
-          +{set.reduce((total, { price }) => (total += price.overall), 0)}
-          руб
+          + Items :
+          {set.reduce((total, { price }) => (total += price.overall), 0)}₽
         </h2>
       )}
     </div>

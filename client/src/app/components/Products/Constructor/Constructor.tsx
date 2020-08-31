@@ -3,9 +3,9 @@ import React, { ReactElement } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   changePage,
-  pageType,
   pickBox,
   viewItemDetails,
+  pageType,
 } from "../../../redux/actions/constructor";
 import { RootState } from "../../../redux/reducers";
 import { Box, Item } from "../../../@types/queryTypes";
@@ -42,7 +42,7 @@ export default (): ReactElement => {
     <>
       <Nav {...{ handlers, box, set, page }} />
       <Constructor {...{ handlers, box, set, page, details }} />
-      <Receipt {...{ box, set }} />
+      <Receipt {...{ page, box, set }} />
     </>
   );
 };
@@ -51,7 +51,7 @@ interface IConstructor {
   handlers: any;
   box: Box;
   set: Item[];
-  page: pageType;
+  page: string;
   details: Box | Item;
 }
 

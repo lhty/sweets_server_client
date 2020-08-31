@@ -1,22 +1,30 @@
 import React from "react";
-import { pageType } from "../../../redux/actions/constructor";
 
 import * as styles from "./Nav.css";
 import { DoubleLeftOutlined, DoubleRightOutlined } from "@ant-design/icons";
 import { Box, Item } from "../../../@types/queryTypes";
+import { constructorPage } from "../../../redux/actions/constructor";
 
 interface Props {
-  page: pageType;
+  page: string;
   handlers?: any;
   box?: Box;
   set?: Item[];
 }
 
 export default ({ handlers, box, set, page }: Props) => {
-  if (!page) return null;
+  const handleChangePage = () => {
+    const currentIndex = constructorPage[page as keyof typeof constructorPage];
+    handlers.handleSelectPage(constructorPage[Math.max(currentIndex - 1, 0)]);
+  };
   return (
     <div className={styles.container}>
-      <DoubleLeftOutlined className={styles.container_controls} />
+      {page !== "initial" && (
+        <DoubleLeftOutlined
+          onClick={handleChangePage}
+          className={styles.container_controls}
+        />
+      )}
       <Nav {...{ page }} />
     </div>
   );

@@ -4,6 +4,7 @@
   align-items: center;
 
   &_controls {
+    cursor: pointer;
     font-size: 2rem;
   }
 }

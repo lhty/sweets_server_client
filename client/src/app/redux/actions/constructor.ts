@@ -7,7 +7,14 @@ export enum actions {
   RESET = "RESET",
 }
 
-export type pageType = "box" | "slot" | "items" | "details";
+export enum constructorPage {
+  "initial",
+  "box",
+  "slot",
+  "items",
+  "details",
+}
+export type pageType = keyof typeof constructorPage;
 
 interface IchangePage {
   type: typeof actions.CHANGE_PAGE;

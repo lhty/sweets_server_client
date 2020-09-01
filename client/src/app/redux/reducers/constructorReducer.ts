@@ -22,7 +22,7 @@ type ConstructorStateType = {
   updated_by: AdminUser;
   tags: Array<Tags>;
   page: pageType;
-  details: Item;
+  details: Item | Box;
 };
 
 const initial: ConstructorStateType = {

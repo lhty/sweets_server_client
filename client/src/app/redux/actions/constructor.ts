@@ -38,12 +38,12 @@ export const pickBox = (box: Box): IpickBox => ({
 
 interface IviewItemDetails {
   type: typeof actions.VIEW_ITEM_DETAILS;
-  payload: Item;
+  payload: Item | Box;
 }
 
-export const viewItemDetails = (item: Item): IviewItemDetails => ({
+export const viewItemDetails = (input: Item | Box): IviewItemDetails => ({
   type: actions.VIEW_ITEM_DETAILS,
-  payload: item,
+  payload: input,
 });
 
 interface IconstructorReset {

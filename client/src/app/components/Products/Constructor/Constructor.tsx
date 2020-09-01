@@ -32,8 +32,8 @@ export default (): ReactElement => {
       dispatch(pickBox(box));
       handlers.handleSelectPage("slot");
     },
-    handleViewItemDetails: (item: Item) => {
-      dispatch(viewItemDetails(item));
+    handleViewItemDetails: (input: Item | Box) => {
+      dispatch(viewItemDetails(input));
       handlers.handleSelectPage("details");
     },
   };
@@ -64,13 +64,20 @@ const Constructor = ({
 }: IConstructor): ReactElement => {
   switch (page) {
     case "box":
-      return <Boxes select={handlers.handleSelectBox} />;
+      return (
+        <Boxes
+          {...{
+            select: handlers.handleViewItemDetails,
+            add: handlers.handleSelectBox,
+          }}
+        />
+      );
     case "slot":
       return <Slots {...{ box, set, select: handlers.handleSelectPage }} />;
     case "items":
       return <Items select={handlers.handleViewItemDetails} />;
     case "details":
-      return <Details {...{ item: details }} />;
+      return <Details {...{ input: details }} />;
     default:
       return (
         <PlaySquareOutlined

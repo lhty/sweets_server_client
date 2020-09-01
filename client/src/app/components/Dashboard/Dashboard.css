@@ -8,13 +8,23 @@
   & form {
     display: flex;
     flex-flow: column wrap;
+    font-size: 1rem;
+
     & input,
     textarea {
       grid-column: 1 / span 2;
-      font-size: 1rem;
-      padding: 0.2em;
-      background-color: transparent;
-      border: 1px solid var(--nav-element-color5);
+      padding: 1ch;
+      border: none;
+      background-color: var(--nav-element-color5);
+      color: var(--text-alt);
+
+      &::placeholder {
+        color: var(--text-alt);
+      }
+    }
+    & textarea {
+      height: 20ch;
+      resize: none;
     }
   }
 

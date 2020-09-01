@@ -9,10 +9,11 @@ import * as styles from "./Items.css";
 import Card from "../../Shared/Card";
 
 interface IBoxes {
-  select: (box: Box) => void;
+  add?: (box: Box) => void;
+  select?: (box: Box) => void;
 }
 
-export const Boxes = ({ select }: IBoxes) => {
+export const Boxes = ({ add, select }: IBoxes) => {
   const { data, loading } = useQuery(getBoxes);
   const boxes: Box[] = data?.boxes;
 
@@ -20,7 +21,9 @@ export const Boxes = ({ select }: IBoxes) => {
     <div className={styles.grid}>
       {!loading &&
         data &&
-        boxes.map((box) => <Card key={box.id} input={box} select={select} />)}
+        boxes.map((box) => (
+          <Card key={box.id} input={box} {...{ add, select }} />
+        ))}
     </div>
   );
 };

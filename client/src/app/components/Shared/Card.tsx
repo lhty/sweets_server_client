@@ -14,7 +14,12 @@ import {
   ComponentInfoInfo,
   ComponentDimensionsDimensions,
 } from "../../@types/queryTypes";
-import { ShoppingCartOutlined, CheckOutlined } from "@ant-design/icons";
+import {
+  ShoppingCartOutlined,
+  CheckOutlined,
+  PlusCircleOutlined,
+  CheckCircleOutlined,
+} from "@ant-design/icons";
 
 type inputType = Product | Item | Box;
 interface Props {
@@ -30,6 +35,7 @@ export default function Card({
 }: Props): React.ReactElement {
   const [loading, setLoading] = useState(true);
   const cart = useSelector((state: RootState) => state.cart.list);
+  const { box } = useSelector((state: RootState) => state.bundle);
 
   const skeletonStyle = useSpring({
     opacity: loading ? 1 : 0,
@@ -43,7 +49,7 @@ export default function Card({
 
   const handleSelect = () =>
     typeOfInput.isBundle ? select(input.id, input.info.name) : select(input);
-  const handleAddToCart = () => add(input);
+  const handleAdd = () => add(input);
 
   return (
     <div className={styles.wrapper}>
@@ -66,7 +72,15 @@ export default function Card({
               style={{ cursor: "default", filter: "hue-rotate(100deg)" }}
             />
           ) : (
-            <ShoppingCartOutlined onClick={handleAddToCart} />
+            <ShoppingCartOutlined onClick={handleAdd} />
+          ))}
+        {typeOfInput.isBox &&
+          (box && box.id === input.id ? (
+            <CheckCircleOutlined
+              style={{ cursor: "default", filter: "hue-rotate(100deg)" }}
+            />
+          ) : (
+            <PlusCircleOutlined onClick={handleAdd} />
           ))}
         <div className={styles.price}>{input.price.overall}₽</div>
       </div>

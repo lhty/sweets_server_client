@@ -2,9 +2,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 1ch 0;
 
   &_controls {
     cursor: pointer;
-    font-size: 2rem;
+    font-size: 3rem;
   }
 }

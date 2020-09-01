@@ -15,27 +15,43 @@ interface Props {
 export default ({ handlers, box, set, page }: Props) => {
   const handleChangePage = () => {
     const currentIndex = constructorPage[page as keyof typeof constructorPage];
-    handlers.handleSelectPage(constructorPage[Math.max(currentIndex - 1, 0)]);
+    handlers.handleSelectPage(
+      box || page === "box"
+        ? constructorPage[Math.max(currentIndex - 1, 0)]
+        : "box"
+    );
   };
   return (
     <div className={styles.container}>
       {page !== "initial" && (
-        <DoubleLeftOutlined
-          onClick={handleChangePage}
-          className={styles.container_controls}
-        />
+        <>
+          <DoubleLeftOutlined
+            onClick={handleChangePage}
+            className={styles.container_controls}
+          />
+          <div>
+            {set?.filter(Boolean).length}
+            {box?.countmin}
+          </div>
+        </>
       )}
-      <Nav {...{ page }} />
+
+      <Nav {...{ page, box, set, handlers }} />
     </div>
   );
 };
 
-const Nav = ({ page, box, set }: Props) => {
+const Nav = ({ page, box, set, handlers }: Props) => {
   switch (page) {
     case "box":
       return (
         <>
-          {box && <DoubleRightOutlined className={styles.container_controls} />}
+          {box && (
+            <DoubleRightOutlined
+              onClick={() => handlers.handleSelectPage("slot")}
+              className={styles.container_controls}
+            />
+          )}
         </>
       );
     case "slot":
@@ -47,12 +63,8 @@ const Nav = ({ page, box, set }: Props) => {
         </>
       );
     case "items":
-      return <p>choose items & Sort tbd</p>;
+      return <p>Sort tbd</p>;
     default:
-      return (
-        <p>
-          {set?.filter(Boolean).length}/{box?.countmin}
-        </p>
-      );
+      return <></>;
   }
 };

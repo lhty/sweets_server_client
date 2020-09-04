@@ -1,9 +1,3 @@
-query getBundles($start: Int, $limit: Int) {
-  products(sort: "id:desc", start: $start, limit: $limit) {
-    ...Product
-  }
-}
-
 fragment Product on Product {
   id
   info {

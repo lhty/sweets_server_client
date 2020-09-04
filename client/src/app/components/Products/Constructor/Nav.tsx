@@ -24,18 +24,11 @@ export default ({ handlers, box, set, page }: Props) => {
   return (
     <div className={styles.container}>
       {page !== "initial" && (
-        <>
-          <DoubleLeftOutlined
-            onClick={handleChangePage}
-            className={styles.container_controls}
-          />
-          <div>
-            {set?.filter(Boolean).length}
-            {box?.countmin}
-          </div>
-        </>
+        <DoubleLeftOutlined
+          onClick={handleChangePage}
+          className={styles.container_controls}
+        />
       )}
-
       <Nav {...{ page, box, set, handlers }} />
     </div>
   );
@@ -57,6 +50,9 @@ const Nav = ({ page, box, set, handlers }: Props) => {
     case "slot":
       return (
         <>
+          <p className={styles.container_info}>
+            {box && set?.filter(Boolean).length + " / " + set?.length}
+          </p>
           {set?.filter(Boolean).length >= box?.countmin && (
             <DoubleRightOutlined className={styles.container_controls} />
           )}

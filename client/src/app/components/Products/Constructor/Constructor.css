@@ -9,5 +9,15 @@
     position: absolute;
     top: -40px;
     right: 0;
+    outline: none;
+    box-sizing: border-box;
+    border-radius: 3px;
+    padding: 0.5ch;
+    font-size: 1rem;
+    font-weight: 700;
+    background-color: var(--nav-element-color5);
+    color: var(--text-alt);
+    border: none;
+    box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.2);
   }
 }

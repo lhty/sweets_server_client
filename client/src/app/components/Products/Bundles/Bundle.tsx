@@ -2,7 +2,7 @@ import React, { ReactElement } from "react";
 import { useParams, useHistory } from "react-router-dom";
 
 import { useQuery } from "@apollo/client";
-import getBundle from "../getBundle.graphql";
+import getBundle from "../../../graphql/queries/getBundle.graphql";
 
 import { useSelector, useDispatch } from "react-redux";
 import { AddToCart } from "../../../redux/actions/cart";

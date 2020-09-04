@@ -2,19 +2,21 @@
   width: 100%;
 
   & .wrapper {
-    position: relative;
     display: flex;
     overflow: hidden;
 
     & img {
+      cursor: grab;
       width: 100%;
     }
   }
 }
 .fullscreen {
+  cursor: zoom-out;
   width: 100%;
   position: absolute;
   z-index: 10000;
+  left: 0;
   top: 50%;
   transform: translateY(-50%);
 }

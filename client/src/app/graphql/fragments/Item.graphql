@@ -1,0 +1,36 @@
+fragment Item on Item {
+  id
+  tags {
+    id
+  }
+  letter
+  materials {
+    id
+    info {
+      id
+      name
+    }
+  }
+  price {
+    id
+    additional
+    discount
+    overall
+  }
+  info {
+    id
+    name
+    description
+    image {
+      id
+      url
+    }
+  }
+  dimensions {
+    id
+    width
+    breadth
+    height
+    weight
+  }
+}

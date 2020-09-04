@@ -11,6 +11,11 @@
     }
   }
 
+  &_images {
+    position: relative;
+    max-height: 450px;
+    overflow: hidden;
+  }
   &_info {
     & h2 {
       text-align: center;

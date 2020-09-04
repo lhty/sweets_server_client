@@ -8,9 +8,10 @@ import { MinusCircleOutlined, PlusCircleOutlined } from "@ant-design/icons";
 
 interface IDetails {
   input: Item | Box;
+  handlers: any;
 }
 
-export const Details = ({ input }: IDetails) => {
+export const Details = ({ input, handlers }: IDetails) => {
   const types = {
     isBox: input.__typename === "Box",
     isItem: input.__typename === "Item",
@@ -23,12 +24,22 @@ export const Details = ({ input }: IDetails) => {
         {types.isItem && (
           <>
             <MinusCircleOutlined />
+            <p>{}</p>
             <PlusCircleOutlined />
           </>
         )}
-        {types.isBox && <button>Добавить</button>}
+        {types.isBox && (
+          <button
+            style={{ margin: "0 auto" }}
+            onClick={() => handlers.handleSelectBox(input)}
+          >
+            Добавить
+          </button>
+        )}
       </div>
-      <Gallery images={input.info.image} bullets={styles.bullets} />
+      <div className={styles.container_images}>
+        <Gallery images={input.info.image} bullets={styles.bullets} />
+      </div>
       <div className={styles.container_info}>
         <h2>{input.info.name}</h2>
         <p>{input.info.description}</p>

@@ -1,0 +1,30 @@
+fragment Box on Box {
+  id
+  tags {
+    id
+  }
+  countmin
+  countmax
+  price {
+    id
+    additional
+    discount
+    overall
+  }
+  info {
+    id
+    name
+    description
+    image {
+      id
+      url
+    }
+  }
+  dimensions {
+    id
+    width
+    breadth
+    height
+    weight
+  }
+}

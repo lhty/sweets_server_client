@@ -2,7 +2,7 @@ import React from "react";
 
 import { useQuery } from "@apollo/client";
 import { Box } from "../../../@types/queryTypes";
-import getBoxes from "./getBoxes.graphql";
+import getBoxes from "../../../graphql/queries/getBoxes.graphql";
 
 import * as styles from "./Items.css";
 

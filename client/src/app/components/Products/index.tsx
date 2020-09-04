@@ -2,7 +2,7 @@ import React, { lazy, ReactElement, useMemo } from "react";
 import * as styles from "./index.css";
 
 import { useQuery } from "@apollo/client";
-import getBundles from "./getBundles.graphql";
+import getBundles from "../../graphql/queries/getBundles.graphql";
 
 import { Route, Switch, Redirect, useLocation } from "react-router-dom";
 
@@ -28,7 +28,7 @@ export default (): ReactElement => {
       <Featured bundle={featured} />
       {!loading && data && (
         <main className={styles.main}>
-          <Sort />
+          {location.pathname !== "/dashboard" && <Sort />}
           <Switch>
             <Route exact path="/">
               <Bundles {...{ bundles }} />

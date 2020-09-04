@@ -4,7 +4,7 @@ import * as styles from "./Items.css";
 
 import { useQuery } from "@apollo/client";
 import { Item } from "../../../@types/queryTypes";
-import getItems from "./getItems.graphql";
+import getItems from "../../../graphql/queries/getItems.graphql";
 
 import Card from "../../Shared/Card";
 

@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useMutation } from "@apollo/client";
-import uploadFiles from "./uploadFiles.graphql";
+import uploadFiles from "../../graphql/mutations/uploadFiles.graphql";
 
 import * as styles from "./Dashboard.css";
 import { FileAddOutlined } from "@ant-design/icons";

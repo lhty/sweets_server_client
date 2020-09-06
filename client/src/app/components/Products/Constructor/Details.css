@@ -4,10 +4,68 @@
   &_add {
     display: flex;
     justify-content: space-between;
-    padding-bottom: 1ch;
+    height: 50px;
+
+    &_range {
+      position: relative;
+      width: 100%;
+    }
+    &_bar {
+      background-color: var(--text-alt);
+      height: 2px;
+      position: relative;
+      top: 22px;
+      width: 100%;
+    }
+    &_handle {
+      cursor: pointer;
+      position: relative;
+      width: 50px;
+      bottom: 5px;
+
+      & path {
+        fill: var(--text-alt);
+      }
+    }
+    &_knob {
+      background-color: var(--text-alt);
+      height: 16px;
+      left: 23px;
+      position: absolute;
+      top: 17px;
+      width: 4px;
+    }
+    &_count {
+      color: var(--text-main);
+      font-family: "sans-serif";
+      font-weight: 800;
+      left: 0;
+      position: relative;
+      text-align: center;
+      top: -37px;
+      user-select: none;
+    }
 
     & span {
-      font-size: 3rem;
+      font-size: 46px;
+
+      &:first-of-type {
+        margin-right: 5px;
+      }
+      &:last-of-type {
+        margin-left: 5px;
+      }
+    }
+
+    & button {
+      background-color: var(--text-underline3);
+      border-radius: 3px;
+      padding: 0.5ch;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-main);
+      border: none;
+      box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.2);
     }
   }
 

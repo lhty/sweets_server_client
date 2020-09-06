@@ -2,11 +2,11 @@
   width: 100%;
 
   & .wrapper {
+    cursor: pointer;
     display: flex;
     overflow: hidden;
 
     & img {
-      cursor: grab;
       width: 100%;
     }
   }

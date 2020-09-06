@@ -25,7 +25,13 @@ export default function Bundles({ bundles }: Props): ReactElement {
 
   return (
     <section className={styles.container}>
-      <Slider hasBullets={styles.bullets} grid={styles.grid} itemsPerPage={10}>
+      <Slider
+        hasBullets={styles.bullets}
+        grid={styles.grid}
+        itemsPerPage={
+          window.innerWidth <= 640 ? 4 : window.innerWidth <= 768 ? 6 : 10
+        }
+      >
         {bundles.map((bundle) => (
           <Card
             key={bundle.id}

@@ -26,7 +26,9 @@ export default function index({}: Props): ReactElement {
 
   return (
     <a.div style={currentWidth} className={styles.container}>
-      <button onClick={handleChangeWidth}>Toggle</button>
+      <button className={styles.container_toggler} onClick={handleChangeWidth}>
+        Toggle
+      </button>
       <Constructor />
     </a.div>
   );

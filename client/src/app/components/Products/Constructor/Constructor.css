@@ -5,7 +5,7 @@
   top: 50px;
   height: 100%;
 
-  & button {
+  &_toggler {
     position: absolute;
     top: -40px;
     right: 0;

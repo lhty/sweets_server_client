@@ -13,6 +13,7 @@ import {
   Box,
   ComponentInfoInfo,
   ComponentDimensionsDimensions,
+  UploadFile,
 } from "../../@types/queryTypes";
 import {
   ShoppingCartOutlined,
@@ -37,7 +38,7 @@ export default function Card({
   const cart = useSelector((state: RootState) => state.cart.list);
   const { box } = useSelector((state: RootState) => state.bundle);
 
-  const skeletonStyle = useSpring({
+  const loaderStyle = useSpring({
     opacity: loading ? 1 : 0,
   });
 
@@ -53,20 +54,21 @@ export default function Card({
 
   return (
     <div className={styles.wrapper}>
-      {/* react-spring issue#653
+      <div className={styles.select} onClick={handleSelect}>
+        {/* react-spring issue#653
        // @ts-ignore */}
-      <a.div style={skeletonStyle} className={styles.skeleton} />
-      <img
-        onClick={handleSelect}
-        onDragStart={(e) => e.preventDefault()}
-        src={ThumbnailUrl({ images: input.info.image })}
-        onLoad={() => setLoading(false)}
-        draggable="false"
-        alt=""
-      />
+        <a.div style={loaderStyle} className={styles.skeleton} />
+        <img
+          onDragStart={(e) => e.preventDefault()}
+          src={ThumbnailUrl({ images: input.info.image })}
+          onLoad={() => setLoading(false)}
+          draggable="false"
+          alt=""
+        />
+      </div>
       <div className={styles.content}>
         <Description {...{ type: input.__typename, ...input }} />
-        {typeOfInput.isBundle &&
+        {/* {typeOfInput.isBundle &&
           (cart.find((prod) => prod.id === input.id) ? (
             <CheckOutlined
               style={{ cursor: "default", filter: "hue-rotate(100deg)" }}
@@ -81,7 +83,7 @@ export default function Card({
             />
           ) : (
             <PlusCircleOutlined onClick={handleAdd} />
-          ))}
+          ))} */}
         <div className={styles.price}>{input.price.overall}₽</div>
       </div>
     </div>

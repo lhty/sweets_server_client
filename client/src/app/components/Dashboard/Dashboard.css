@@ -1,6 +1,6 @@
 .container {
   width: 100%;
-  @mixin M {
+  @mixin L {
     width: 50%;
   }
   margin: 0 auto;

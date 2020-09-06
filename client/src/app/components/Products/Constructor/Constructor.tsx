@@ -77,7 +77,7 @@ const Constructor = ({
     case "items":
       return <Items select={handlers.handleViewItemDetails} />;
     case "details":
-      return <Details {...{ input: details, handlers }} />;
+      return <Details {...{ input: details, set, handlers }} />;
     default:
       return (
         <PlaySquareOutlined

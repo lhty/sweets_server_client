@@ -8,6 +8,11 @@
     cursor: pointer;
     font-size: 3rem;
   }
+  &_add {
+    border: 2px solid;
+    border-radius: 11px;
+    margin-right: 5px;
+  }
 
   &_info {
     position: absolute;

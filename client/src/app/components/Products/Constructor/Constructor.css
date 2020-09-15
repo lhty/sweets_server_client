@@ -1,5 +1,5 @@
 .container {
-  @mixin roundedCard 10px;
+  @mixin roundedCard;
   position: absolute;
   right: 0;
   top: 50px;

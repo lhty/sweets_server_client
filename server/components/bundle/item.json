@@ -8,6 +8,9 @@
   "attributes": {
     "item": {
       "model": "item"
+    },
+    "letter": {
+      "type": "string"
     }
   }
 }

@@ -4,6 +4,7 @@ fragment Item on Item {
     id
   }
   letter
+  is_editable
   materials {
     id
     info {

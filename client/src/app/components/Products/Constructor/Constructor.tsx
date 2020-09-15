@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { useState, ReactElement } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -6,9 +6,16 @@ import {
   pickBox,
   viewItemDetails,
   pageType,
+  changeQuantity,
+  addItemsToSet,
+  RemoveItemFromSet,
 } from "../../../redux/actions/constructor";
 import { RootState } from "../../../redux/reducers";
-import { Box, Item } from "../../../@types/queryTypes";
+import {
+  Box,
+  ComponentBundleItemInput,
+  Item,
+} from "../../../@types/queryTypes";
 
 import { PlaySquareOutlined } from "@ant-design/icons";
 import { Boxes } from "./Boxes";
@@ -18,30 +25,49 @@ import { Details } from "./Details";
 import Nav from "./Nav";
 import { Receipt } from "./Receipt";
 
-export default (): ReactElement => {
+export default ({
+  onSubmit,
+}: {
+  onSubmit?: (arr: Array<ComponentBundleItemInput>) => void;
+}): ReactElement => {
   const dispatch = useDispatch();
-  const { box, set, page, details } = useSelector(
+  const { box, set, page, details, quantity } = useSelector(
     (state: RootState) => state.bundle
   );
 
+  const [selectedSlot, selectSlot] = useState(0);
+
   const handlers = {
-    handleSelectPage: (page: pageType) => {
+    handleSelectPage(page: pageType) {
       dispatch(changePage(page));
     },
-    handleSelectBox: (box: Box) => {
+    handleSelectBox(box: Box) {
       dispatch(pickBox(box));
       handlers.handleSelectPage("slot");
     },
-    handleViewItemDetails: (input: Item | Box) => {
+    handleViewItemDetails(input: Item | Box) {
       dispatch(viewItemDetails(input));
       handlers.handleSelectPage("details");
+    },
+    handlechangeQuantity(quantity: string) {
+      dispatch(changeQuantity(quantity));
+    },
+    handleAddItemsToSet(input: Item, quantity: string) {
+      dispatch(addItemsToSet(input, quantity, selectedSlot));
+    },
+    handleRemoveItemFromSet(id: number) {
+      dispatch(RemoveItemFromSet(id));
+    },
+    handleSubmitSet(set: Array<Item>) {
+      const data = set.map((item) => ({ item: item.id, letter: item.letter }));
+      onSubmit(data);
     },
   };
 
   return (
     <>
-      <Nav {...{ handlers, box, set, page }} />
-      <Constructor {...{ handlers, box, set, page, details }} />
+      <Nav {...{ handlers, details, box, set, quantity, page }} />
+      <Constructor {...{ handlers, box, set, page, selectSlot, details }} />
       <Receipt {...{ page, box, set }} />
     </>
   );
@@ -50,9 +76,10 @@ export default (): ReactElement => {
 interface IConstructor {
   handlers: any;
   box: Box;
-  set: Item[];
+  set: Array<Item>;
   page: string;
   details: Box | Item;
+  selectSlot: (n: number) => void;
 }
 
 const Constructor = ({
@@ -61,6 +88,7 @@ const Constructor = ({
   set,
   page,
   details,
+  selectSlot,
 }: IConstructor): ReactElement => {
   switch (page) {
     case "box":
@@ -73,7 +101,7 @@ const Constructor = ({
         />
       );
     case "slot":
-      return <Slots {...{ box, set, select: handlers.handleSelectPage }} />;
+      return <Slots {...{ box, set, selectSlot, handlers }} />;
     case "items":
       return <Items select={handlers.handleViewItemDetails} />;
     case "details":

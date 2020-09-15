@@ -54,9 +54,14 @@
   }
   & .price {
     width: 30%;
-
+    display: flex;
+    font-size: 2rem;
+    & h2 {
+      align-self: center;
+    }
     & span {
-      position: relative;
+      font-size: 3rem;
+      position: unset;
     }
   }
 }

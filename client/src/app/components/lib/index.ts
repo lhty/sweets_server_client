@@ -1,21 +1,24 @@
 import { UploadFile } from "../../@types/queryTypes";
 
 interface IThumbInput {
-  images: UploadFile | UploadFile[];
+  source: UploadFile | UploadFile[];
   index?: number;
   fullscreen?: number;
+  size?: number | "thumb";
 }
 
 export const ThumbnailUrl = ({
-  images,
+  source,
   index = 0,
   fullscreen = -1,
+  size = window.innerWidth,
 }: IThumbInput) => {
-  const size = window.innerWidth;
-  const prefix = (size: number) => {
+  const prefix = (size: number | "thumb") => {
     switch (true) {
       case fullscreen >= 0:
         return "/uploads/";
+      case size === "thumb":
+        return "/uploads/thumbnail_";
       case size <= 800:
         return "/uploads/small_";
       case size > 1680:
@@ -26,7 +29,7 @@ export const ThumbnailUrl = ({
   };
 
   const slicePath = ({ url }: { url: string }) => url.substring(9);
-  const path = slicePath(Array.isArray(images) ? images[index] : images);
+  const path = slicePath(Array.isArray(source) ? source[index] : source);
 
   const src = process.env.API_URL + prefix(size) + path;
   const original = process.env.API_URL + "/uploads/" + path;

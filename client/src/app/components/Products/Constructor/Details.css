@@ -4,7 +4,7 @@
   &_add {
     display: flex;
     justify-content: space-between;
-    height: 50px;
+    margin-bottom: 1ch;
 
     &_range {
       position: relative;
@@ -14,40 +14,54 @@
       background-color: var(--text-alt);
       height: 2px;
       position: relative;
-      top: 22px;
+      top: 50%;
+      transform: translateY(-50%);
       width: 100%;
     }
     &_handle {
       cursor: pointer;
       position: relative;
-      width: 50px;
+      width: 0px;
+      display: flex;
+      justify-content: center;
       bottom: 5px;
 
       & path {
         fill: var(--text-alt);
       }
     }
-    &_knob {
-      background-color: var(--text-alt);
-      height: 16px;
-      left: 23px;
+    &_circle {
       position: absolute;
-      top: 17px;
-      width: 4px;
+      top: -9px;
+      left: -24px;
+    }
+    &_knob {
+      position: absolute;
+      background-color: var(--text-alt);
+      height: 13px;
+      top: 50%;
+      width: 2px;
     }
     &_count {
-      color: var(--text-main);
+      color: var(--nav-element-color5);
       font-family: "sans-serif";
       font-weight: 800;
-      left: 0;
-      position: relative;
       text-align: center;
-      top: -37px;
       user-select: none;
+
+      &_inactive {
+        position: absolute;
+        top: -10px;
+        color: var(var(--text-alt));
+      }
+    }
+
+    &_input {
+      width: 100%;
     }
 
     & span {
-      font-size: 46px;
+      font-size: 26px;
 
       &:first-of-type {
         margin-right: 5px;
@@ -75,9 +89,11 @@
     overflow: hidden;
   }
   &_info {
+    word-break: break-all;
     & h2 {
       text-align: center;
       font-size: 2rem;
+      margin: 1ch 0;
     }
   }
   &_price {

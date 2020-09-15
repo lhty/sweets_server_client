@@ -10,6 +10,14 @@
   display: flex;
   flex-flow: column;
 
+  & .add {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 3rem;
+    color: white;
+  }
+
   & img {
     min-height: 550px;
     max-height: 600px;
@@ -71,7 +79,7 @@
   }
 
   & .title {
-    font-size: 1.5rem;
+    font-size: clamp(1em, 1.5rem, 2rem);
     line-height: 1.4rem;
     font-weight: 900;
     text-transform: uppercase;
@@ -80,29 +88,6 @@
 
   & .desc {
     font-size: 0.8rem;
-  }
-
-  & span:first-of-type {
-    @mixin M {
-      @mixin square var(--nav-element-color5), 50% 0 15px 0;
-    }
-    @mixin square var(--nav-element-color5), 50% 0 0 0;
-    position: absolute;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    bottom: -20px;
-    right: -20px;
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
-    font-size: 30px;
-    color: var(--text-alt);
-    transition: all 0.3s ease;
-    transform: translate(-50%, -50%);
-    cursor: pointer;
-    /* box-shadow: 0 5px 7px 0 rgba(0, 0, 0, 0.15); */
   }
 
   & .price {

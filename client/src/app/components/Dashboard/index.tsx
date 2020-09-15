@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { useMutation } from "@apollo/client";
 import uploadFiles from "../../graphql/mutations/uploadFiles.graphql";
@@ -14,6 +14,7 @@ import Constructor from "../Products/Constructor/Constructor";
 
 export default function () {
   const [sendFiles] = useMutation(uploadFiles);
+  const [set, constructedSet] = useState(null);
 
   const {
     values: { name, description, box, additional, discount, bundle, files },
@@ -51,8 +52,13 @@ export default function () {
     }),
   });
 
-  const onDrop = (acceptedFiles: any) =>
-    setFieldValue("files", [...files, ...acceptedFiles]);
+  const onDrop = (acceptedFiles: any) => {
+    const usedPaths = files.map(({ path }) => path);
+    const filesToAdd = acceptedFiles.filter(
+      ({ path }: { path: string }) => !usedPaths.includes(path)
+    );
+    setFieldValue("files", [...files, ...filesToAdd]);
+  };
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
@@ -72,14 +78,13 @@ export default function () {
           />
           <textarea
             onChange={handleChange}
-            // type="text"
             value={description}
             name="description"
             placeholder="описание"
           />
         </div>
         <div className={styles.create}>
-          <Constructor />
+          <Constructor onSubmit={constructedSet} />
         </div>
         <div className={styles.drop} {...getRootProps()}>
           <input name="files" {...getInputProps()} />

@@ -5,29 +5,6 @@
   }
   margin: 0 auto;
 
-  & form {
-    display: flex;
-    flex-flow: column wrap;
-    font-size: 1rem;
-
-    & input,
-    textarea {
-      grid-column: 1 / span 2;
-      padding: 1ch;
-      border: none;
-      background-color: var(--nav-element-color5);
-      color: var(--text-alt);
-
-      &::placeholder {
-        color: var(--text-alt);
-      }
-    }
-    & textarea {
-      height: 20ch;
-      resize: none;
-    }
-  }
-
   & button {
     align-self: center;
     width: fit-content;
@@ -47,6 +24,23 @@
     grid-template-columns: [column1] auto [column2] auto;
     row-gap: 10px;
     margin: 10px 0;
+
+    & input,
+    textarea {
+      grid-column: 1 / span 2;
+      padding: 1ch;
+      border: none;
+      background-color: var(--nav-element-color5);
+      color: var(--text-alt);
+
+      &::placeholder {
+        color: var(--text-alt);
+      }
+    }
+    & textarea {
+      height: 20ch;
+      resize: none;
+    }
   }
   & .create {
     display: flex;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import * as styles from "./Details.css";
 import Gallery from "../../Shared/Gallery";
@@ -7,6 +7,7 @@ import { useSpring, animated, config } from "react-spring";
 import { useDrag } from "react-use-gesture";
 
 import { Item, Box } from "../../../@types/queryTypes";
+
 import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 
 interface IDetails {
@@ -19,12 +20,24 @@ export const Details = ({ input, set: bundleSet, handlers }: IDetails) => {
   const types = {
     isBox: input.__typename === "Box",
     isItem: input.__typename === "Item",
-    isNamedItem: input.__typename === "Item" && input.is_editable,
+    isItemWithLetter: input.__typename === "Item" && input.is_editable,
   };
-  const [quantity, setQuantity] = useState(types.isNamedItem ? 0 : 1);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [track, setTrack] = useState(0);
+  const [quantity, setQuantity] = useState(types.isItemWithLetter ? "" : " ");
   const [active, setActive] = useState(false);
 
   const freeSlots = bundleSet?.filter((item) => !item).length;
+
+  useEffect(() => {
+    if (trackRef.current) {
+      setTrack(trackRef.current.offsetWidth);
+    }
+  }, [trackRef]);
+
+  useEffect(() => {
+    handlers.handlechangeQuantity(quantity);
+  }, [quantity]);
 
   const { morph } = useSpring({
     config: { duration: 250 },
@@ -32,7 +45,7 @@ export const Details = ({ input, set: bundleSet, handlers }: IDetails) => {
   });
 
   const [{ x, velocity }, set] = useSpring(() => ({
-    x: quantity,
+    x: quantity.length,
     velocity: 0,
   }));
   const bind = useDrag(
@@ -44,39 +57,64 @@ export const Details = ({ input, set: bundleSet, handlers }: IDetails) => {
       if (!down) {
         set({ x, velocity: 0 });
       } else {
+        setQuantity("".padStart(Math.round((freeSlots * x) / track), " "));
         set({ x, velocity: velocity * dx });
       }
     },
     {
-      initial: () => [x.get(), quantity],
-      bounds: { left: 0, right: freeSlots, top: 0, bottom: 0 },
+      initial: () => [x.get(), 0],
+      bounds: {
+        left: 0,
+        right: track,
+        top: 0,
+        bottom: 0,
+      },
       rubberband: false,
     }
   );
 
-  const handleIncrease = () => setQuantity(Math.min(quantity + 1, freeSlots));
-  const handleDecrease = () => setQuantity(Math.max(quantity - 1, 0));
+  const handleInputText = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (
+      [].every.call(e.target.value, (c: string) => /[А-я0-9]/.test(c)) &&
+      e.target.value.length <= freeSlots
+    ) {
+      setQuantity(e.target.value.toUpperCase());
+    } else {
+      return;
+    }
+  };
 
+  const moveKnob = (n: number) => set({ x: (track / freeSlots) * n });
+  const handleIncrease = () => {
+    moveKnob(quantity.length);
+    setQuantity("".padStart(Math.min(quantity.length + 1, freeSlots), " "));
+  };
+  const handleDecrease = () => {
+    moveKnob(quantity.length);
+    setQuantity("".padStart(Math.max(quantity.length - 1, 0), " "));
+  };
   return (
-    <div className={styles.container}>
+    <div onContextMenu={(e) => e.preventDefault()} className={styles.container}>
       <div className={styles.container_add}>
-        {types.isItem && (
+        {types.isItem && !types.isItemWithLetter && (
           <>
             <MinusOutlined onClick={handleDecrease} />
-            <div className={styles.container_add_range}>
+            <div ref={trackRef} className={styles.container_add_range}>
               <div className={styles.container_add_bar}></div>
               <animated.div
                 {...bind()}
                 // @ts-ignore
-                style={{ x }}
+                style={{
+                  transform: x.to((x) => `translateX(${x}px)`),
+                }}
                 className={styles.container_add_handle}
-                onContextMenu={(e) => e.preventDefault()}
               >
                 <div className={styles.container_add_knob}></div>
                 <animated.svg
                   viewBox="0 0 50 50"
                   height="50"
                   width="50"
+                  className={styles.container_add_circle}
                   style={{
                     transform: morph.to((n) => `translateY(${n * -36}px)`),
                   }}
@@ -91,28 +129,35 @@ export const Details = ({ input, set: bundleSet, handlers }: IDetails) => {
                     })}
                   />
                 </animated.svg>
+                {!active && quantity.length > 0 && (
+                  <div className={styles.container_add_count_inactive}>
+                    {quantity}
+                  </div>
+                )}
                 <animated.div
                   style={{
                     transform: morph.to(
-                      (n) => `translateY(${n * -39}px) scale(${n})`
+                      (n) => `translateY(${n * -32}px) scale(${n})`
                     ),
                   }}
                   className={styles.container_add_count}
                 >
-                  {x.to((x) => Math.round(freeSlots / x))}
+                  {quantity.length}
                 </animated.div>
               </animated.div>
             </div>
             <PlusOutlined onClick={handleIncrease} />
           </>
         )}
-        {types.isBox && (
-          <button
-            style={{ margin: "0 auto" }}
-            onClick={() => handlers.handleSelectBox(input)}
-          >
-            Добавить
-          </button>
+        {types.isItemWithLetter && (
+          <input
+            className={styles.container_add_input}
+            onChange={handleInputText}
+            type="text"
+            value={quantity}
+            name="text"
+            placeholder=""
+          />
         )}
       </div>
       <div className={styles.container_images}>

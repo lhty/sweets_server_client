@@ -14,7 +14,7 @@ export default function Featured({ bundle }: Props): ReactElement {
       className={styles.container}
       style={{
         backgroundImage: `url(${ThumbnailUrl({
-          images: bundle.info.image,
+          source: bundle.info.image,
         })})`,
       }}
     >

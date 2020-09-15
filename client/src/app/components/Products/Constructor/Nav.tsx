@@ -1,7 +1,11 @@
 import React from "react";
 
 import * as styles from "./Nav.css";
-import { DoubleLeftOutlined, DoubleRightOutlined } from "@ant-design/icons";
+import {
+  CheckOutlined,
+  DoubleLeftOutlined,
+  DoubleRightOutlined,
+} from "@ant-design/icons";
 import { Box, Item } from "../../../@types/queryTypes";
 import { constructorPage } from "../../../redux/actions/constructor";
 
@@ -9,10 +13,12 @@ interface Props {
   page: string;
   handlers?: any;
   box?: Box;
-  set?: Item[];
+  set?: Array<Item>;
+  details?: Box | Item;
+  quantity?: string;
 }
 
-export default ({ handlers, box, set, page }: Props) => {
+export default ({ handlers, details, box, set, quantity, page }: Props) => {
   const handleChangePage = () => {
     const currentIndex = constructorPage[page as keyof typeof constructorPage];
     handlers.handleSelectPage(
@@ -29,12 +35,12 @@ export default ({ handlers, box, set, page }: Props) => {
           className={styles.container_controls}
         />
       )}
-      <Nav {...{ page, box, set, handlers }} />
+      <Nav {...{ page, box, set, details, quantity, handlers }} />
     </div>
   );
 };
 
-const Nav = ({ page, box, set, handlers }: Props) => {
+const Nav = ({ page, box, set, details, quantity, handlers }: Props) => {
   switch (page) {
     case "box":
       return (
@@ -54,7 +60,31 @@ const Nav = ({ page, box, set, handlers }: Props) => {
             {box && set?.filter(Boolean).length + " / " + set?.length}
           </p>
           {set?.filter(Boolean).length >= box?.countmin && (
-            <DoubleRightOutlined className={styles.container_controls} />
+            <CheckOutlined
+              onClick={() => handlers.handleSubmitSet(set)}
+              className={styles.container_controls}
+            />
+          )}
+        </>
+      );
+    case "details":
+      return (
+        <>
+          {!!quantity && (
+            <button
+              type="button"
+              onClick={() => {
+                details.__typename === "Item"
+                  ? handlers.handleAddItemsToSet(details, quantity)
+                  : handlers.handleSelectBox(details);
+                handlers.handleSelectPage("slot");
+              }}
+              className={styles.container_add}
+            >
+              {details.__typename === "Item"
+                ? `Добавить ${quantity.length}`
+                : "Выбрать"}
+            </button>
           )}
         </>
       );

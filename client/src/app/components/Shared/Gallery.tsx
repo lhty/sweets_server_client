@@ -28,7 +28,7 @@ const Gallery = ({ images, bullets }: Props): ReactElement => {
         ref={fullscreenRef}
         className={styles.fullscreen}
         onClick={handleToggleOffFullscreen}
-        src={ThumbnailUrl({ images, index: fullscreen, fullscreen })}
+        src={ThumbnailUrl({ source: images, index: fullscreen, fullscreen })}
         alt=""
         draggable="false"
       />,
@@ -42,7 +42,7 @@ const Gallery = ({ images, bullets }: Props): ReactElement => {
           {images.map((images, index) => (
             <div key={images.id} onClick={() => setFullscreen(index)}>
               <img
-                src={ThumbnailUrl({ images, index })}
+                src={ThumbnailUrl({ source: images, index })}
                 alt=""
                 draggable="false"
               />

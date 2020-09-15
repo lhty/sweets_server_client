@@ -15,12 +15,7 @@ import {
   ComponentDimensionsDimensions,
   UploadFile,
 } from "../../@types/queryTypes";
-import {
-  ShoppingCartOutlined,
-  CheckOutlined,
-  PlusCircleOutlined,
-  CheckCircleOutlined,
-} from "@ant-design/icons";
+import { CheckOutlined, PlusOutlined } from "@ant-design/icons";
 
 type inputType = Product | Item | Box;
 interface Props {
@@ -54,13 +49,27 @@ export default function Card({
 
   return (
     <div className={styles.wrapper}>
+      <div className={styles.add}>
+        {typeOfInput.isBundle &&
+          (cart.find((prod) => prod.id === input.id) ? (
+            <CheckOutlined style={{ cursor: "default" }} />
+          ) : (
+            <PlusOutlined onClick={handleAdd} />
+          ))}
+        {typeOfInput.isBox &&
+          (box && box.id === input.id ? (
+            <CheckOutlined style={{ cursor: "default" }} />
+          ) : (
+            <PlusOutlined onClick={handleAdd} />
+          ))}
+      </div>
       <div className={styles.select} onClick={handleSelect}>
         {/* react-spring issue#653
        // @ts-ignore */}
         <a.div style={loaderStyle} className={styles.skeleton} />
         <img
           onDragStart={(e) => e.preventDefault()}
-          src={ThumbnailUrl({ images: input.info.image })}
+          src={ThumbnailUrl({ source: input.info.image })}
           onLoad={() => setLoading(false)}
           draggable="false"
           alt=""
@@ -68,22 +77,6 @@ export default function Card({
       </div>
       <div className={styles.content}>
         <Description {...{ type: input.__typename, ...input }} />
-        {/* {typeOfInput.isBundle &&
-          (cart.find((prod) => prod.id === input.id) ? (
-            <CheckOutlined
-              style={{ cursor: "default", filter: "hue-rotate(100deg)" }}
-            />
-          ) : (
-            <ShoppingCartOutlined onClick={handleAdd} />
-          ))}
-        {typeOfInput.isBox &&
-          (box && box.id === input.id ? (
-            <CheckCircleOutlined
-              style={{ cursor: "default", filter: "hue-rotate(100deg)" }}
-            />
-          ) : (
-            <PlusCircleOutlined onClick={handleAdd} />
-          ))} */}
         <div className={styles.price}>{input.price.overall}₽</div>
       </div>
     </div>

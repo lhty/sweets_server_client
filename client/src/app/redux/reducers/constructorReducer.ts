@@ -9,7 +9,6 @@ import {
 import {
   actions,
   ConstructorActionTypes,
-  constructorPage,
   pageType,
 } from "../actions/constructor";
 
@@ -23,6 +22,7 @@ type ConstructorStateType = {
   tags: Array<Tags>;
   page: pageType;
   details: Item | Box;
+  quantity: string;
 };
 
 const initial: ConstructorStateType = {
@@ -35,6 +35,7 @@ const initial: ConstructorStateType = {
   tags: null,
   page: "initial",
   details: null,
+  quantity: "",
 };
 
 export default function constructorReducer(
@@ -46,12 +47,44 @@ export default function constructorReducer(
       return {
         ...state,
         box: action.payload,
-        set: new Array(action.payload.countmin).fill(false),
+        set: new Array(action.payload.countmin).fill(null),
       };
     case actions.CHANGE_PAGE:
       return { ...state, page: action.payload };
     case actions.VIEW_ITEM_DETAILS:
       return { ...state, details: action.payload };
+    case actions.CHANGE_QUANTITY:
+      return { ...state, quantity: action.payload };
+    case actions.ADD_ITEMS_TO_SET:
+      let itemsToAdd = [...Array(action.quantity.length)].fill(action.payload);
+      if (action.quantity.trim().length) {
+        itemsToAdd = itemsToAdd.map((item, i) => ({
+          ...item,
+          letter: action.quantity[i],
+        }));
+      }
+      const parts = [
+        itemsToAdd.slice(0, state.set.length - action.fromIndex).reverse(),
+        itemsToAdd.slice(state.set.length - action.fromIndex).reverse(),
+      ];
+      const update = (set: Array<Item>, add: Array<Item>, from: number) =>
+        set.reduce((set, item, i) => {
+          if (i >= from && !item && add.length > 0) {
+            set[i] = add.pop();
+          }
+          return set;
+        }, set);
+
+      let updatedSet = update(state.set, parts[0], action.fromIndex);
+      if (parts[0].length || parts[1].length) {
+        updatedSet = update(updatedSet, [...parts[0], ...parts[1]], 0);
+      }
+      return { ...state, set: updatedSet, quantity: "" };
+    case actions.DEL_ITEM:
+      return {
+        ...state,
+        set: state.set.map((item, i) => (i === action.payload ? null : item)),
+      };
     case actions.RESET:
       return initial;
     default:

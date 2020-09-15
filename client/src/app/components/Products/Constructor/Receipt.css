@@ -1,6 +1,7 @@
 .price {
+  @mixin roundedCard;
   display: flex;
   justify-content: space-evenly;
-  color: var(--text-alt);
+  color: var(--text-main);
   padding: 2ch;
 }

@@ -5,7 +5,7 @@ import "./index.css";
 export default function index(): ReactElement {
   return (
     <footer>
-      <h2>TBD</h2>
+      <h2>footer TBD 2020</h2>
     </footer>
   );
 }

@@ -23,6 +23,7 @@ export default (): ReactElement => {
     [data]
   );
   const location = useLocation();
+
   return (
     <>
       <Featured bundle={featured} />
@@ -40,7 +41,9 @@ export default (): ReactElement => {
               <Editor />
             </AuthRoute>
           </Switch>
-          {location.pathname !== "/dashboard" && <Constructor />}
+          {location.pathname !== "/dashboard" && (
+            <Constructor onSubmit={console.log} />
+          )}
         </main>
       )}
     </>

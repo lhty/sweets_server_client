@@ -9,9 +9,11 @@ import * as styles from "./Constructor.css";
 
 import Constructor from "./Constructor";
 
-interface Props {}
+interface Props {
+  onSubmit?: (...rest: any) => void;
+}
 
-export default function index({}: Props): ReactElement {
+export default function index({ onSubmit }: Props): ReactElement {
   const dispatch = useDispatch();
 
   const constructorWindowState = useSelector(
@@ -29,7 +31,7 @@ export default function index({}: Props): ReactElement {
       <button className={styles.container_toggler} onClick={handleChangeWidth}>
         Toggle
       </button>
-      <Constructor />
+      <Constructor {...{ onSubmit }} />
     </a.div>
   );
 }

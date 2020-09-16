@@ -47,6 +47,12 @@
     flex-flow: column wrap;
     @mixin pattern5 var(--nav-element-color5);
     color: var(--text-alt);
+
+    &_result {
+      cursor: pointer;
+      text-align: center;
+      padding: 1ch;
+    }
   }
   & .drop {
     @mixin pattern5 var(--nav-element-color5);

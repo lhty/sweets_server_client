@@ -155,6 +155,7 @@ export const Details = ({ input, set: bundleSet, handlers }: IDetails) => {
             onChange={handleInputText}
             type="text"
             value={quantity}
+            autoComplete="off"
             name="text"
             placeholder=""
           />

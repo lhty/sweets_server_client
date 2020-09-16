@@ -11,11 +11,7 @@ import {
   RemoveItemFromSet,
 } from "../../../redux/actions/constructor";
 import { RootState } from "../../../redux/reducers";
-import {
-  Box,
-  ComponentBundleItemInput,
-  Item,
-} from "../../../@types/queryTypes";
+import { Box, Item } from "../../../@types/queryTypes";
 
 import { PlaySquareOutlined } from "@ant-design/icons";
 import { Boxes } from "./Boxes";
@@ -28,7 +24,7 @@ import { Receipt } from "./Receipt";
 export default ({
   onSubmit,
 }: {
-  onSubmit?: (arr: Array<ComponentBundleItemInput>) => void;
+  onSubmit?: (...rest: any) => void;
 }): ReactElement => {
   const dispatch = useDispatch();
   const { box, set, page, details, quantity } = useSelector(
@@ -59,8 +55,15 @@ export default ({
       dispatch(RemoveItemFromSet(id));
     },
     handleSubmitSet(set: Array<Item>) {
-      const data = set.map((item) => ({ item: item.id, letter: item.letter }));
-      onSubmit(data);
+      const data = set.reduce(
+        (acc, item) => ({
+          ...acc,
+          set: [...acc.set, { item: item.id, letter: item.letter }],
+          price: acc.price += item.price.overall,
+        }),
+        { set: [], price: box.price.overall }
+      );
+      onSubmit({ set: data.set, price: data.price, box: box.id, done: true });
     },
   };
 

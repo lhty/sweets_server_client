@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import { useMutation } from "@apollo/client";
 import uploadFiles from "../../graphql/mutations/uploadFiles.graphql";
+import addBundle from "../../graphql/mutations/addBundle.graphql";
 
 import * as styles from "./Dashboard.css";
 import { FileAddOutlined } from "@ant-design/icons";
@@ -14,10 +15,47 @@ import Constructor from "../Products/Constructor/Constructor";
 
 export default function () {
   const [sendFiles] = useMutation(uploadFiles);
-  const [set, constructedSet] = useState(null);
+  const [upload, { data }] = useMutation(addBundle);
+  const [constructor, constructedSet] = useState({
+    set: [],
+    box: "",
+    price: 0,
+    done: false,
+  });
+
+  const handleSubmitMutation = async (files: any) => {
+    const {
+      data: { multipleUpload },
+    } = await sendFiles({
+      variables: {
+        files,
+      },
+    });
+    const image = multipleUpload.map((upload: { id: string }) => upload.id);
+
+    await upload({
+      variables: {
+        input: {
+          data: {
+            info: {
+              name,
+              description,
+              image,
+            },
+            box: constructor.box,
+            bundle: constructor.set,
+            price: {
+              additional: 0,
+              discount: "",
+            },
+          },
+        },
+      },
+    });
+  };
 
   const {
-    values: { name, description, box, additional, discount, bundle, files },
+    values: { name, description, files },
     setFieldValue,
     handleSubmit,
     handleChange,
@@ -26,22 +64,12 @@ export default function () {
     initialValues: {
       name: "",
       description: "",
-      box: "",
-      additional: 0,
-      discount: "",
-      bundle: [],
       files: [],
     },
     onSubmit: async (values) => {
       try {
-        const {
-          data: { multipleUpload },
-        } = await sendFiles({
-          variables: {
-            files,
-          },
-        });
-        console.log(multipleUpload.map((upload: { id: string }) => upload.id));
+        await handleSubmitMutation(values.files);
+        console.log(data);
         handleReset(values);
       } catch (e) {
         console.log(e);
@@ -84,7 +112,16 @@ export default function () {
           />
         </div>
         <div className={styles.create}>
-          <Constructor onSubmit={constructedSet} />
+          {constructor.done ? (
+            <h2
+              onClick={() => constructedSet({ ...constructor, done: false })}
+              className={styles.create_result}
+            >
+              {constructor.set.length} шт {constructor.price} ₽
+            </h2>
+          ) : (
+            <Constructor onSubmit={constructedSet} />
+          )}
         </div>
         <div className={styles.drop} {...getRootProps()}>
           <input name="files" {...getInputProps()} />
@@ -106,7 +143,12 @@ export default function () {
           </ul>
         </div>
 
-        <button type="submit" disabled={!files.length}>
+        <button
+          type="submit"
+          disabled={
+            !files.length || !constructor.set.length || !name || !description
+          }
+        >
           Submit
         </button>
       </form>

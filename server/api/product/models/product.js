@@ -13,11 +13,11 @@ module.exports = {
     beforeUpdate: async (_, data) => {
       data = await strapi.services.product.CalculateProductBundlePrice(data);
     },
-    beforeSave: () => {
-      console.log("BROKEN :(");
+    beforeSave: async (_, data) => {
+      data = await strapi.services.product.CalculateProductBundlePrice(data);
     },
-    afterSave: () => {
-      console.log("BROKEN :(");
+    afterSave: async (_, data) => {
+      data = await strapi.services.product.CalculateProductBundlePrice(data);
     },
   },
 };

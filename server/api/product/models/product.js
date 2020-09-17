@@ -8,16 +8,22 @@
 module.exports = {
   lifecycles: {
     beforeCreate: async (data) => {
-      data = await strapi.services.product.CalculateProductBundlePrice(data);
+      const updated = await strapi.services.product.CalculateProductBundlePrice(
+        data
+      );
+      data.bundle = updated.bundle;
+      data.price = updated.price;
+      data.dimensions = updated.dimensions;
     },
     beforeUpdate: async (_, data) => {
-      data = await strapi.services.product.CalculateProductBundlePrice(data);
+      const updated = await strapi.services.product.CalculateProductBundlePrice(
+        data
+      );
+      data.bundle = updated.bundle;
+      data.price = updated.price;
+      data.dimensions = updated.dimensions;
     },
-    beforeSave: async (_, data) => {
-      data = await strapi.services.product.CalculateProductBundlePrice(data);
-    },
-    afterSave: async (_, data) => {
-      data = await strapi.services.product.CalculateProductBundlePrice(data);
-    },
+    beforeSave: async (_, data) => {},
+    afterSave: async (_, data) => {},
   },
 };

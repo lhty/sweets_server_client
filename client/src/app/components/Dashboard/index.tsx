@@ -45,17 +45,18 @@ export default function () {
             box: constructor.box,
             bundle: constructor.set,
             price: {
-              additional: 0,
-              discount: "",
+              additional,
+              discount,
             },
           },
         },
       },
+      refetchQueries: ["getBundles"],
     });
   };
 
   const {
-    values: { name, description, files },
+    values: { name, description, additional, discount, files },
     setFieldValue,
     handleSubmit,
     handleChange,
@@ -64,12 +65,13 @@ export default function () {
     initialValues: {
       name: "",
       description: "",
+      discount: "",
+      additional: 0,
       files: [],
     },
     onSubmit: async (values) => {
       try {
         await handleSubmitMutation(values.files);
-        console.log(data);
         handleReset(values);
       } catch (e) {
         console.log(e);
@@ -113,12 +115,48 @@ export default function () {
         </div>
         <div className={styles.create}>
           {constructor.done ? (
-            <h2
-              onClick={() => constructedSet({ ...constructor, done: false })}
-              className={styles.create_result}
-            >
-              {constructor.set.length} шт {constructor.price} ₽
-            </h2>
+            <>
+              <h2
+                onClick={() => constructedSet({ ...constructor, done: false })}
+                className={styles.create_result}
+              >
+                BASE : ${constructor.set.length} шт ${constructor.price} ₽
+              </h2>
+              {(discount !== "0" || additional > 0) && (
+                <h2 className={styles.create_result}>
+                  SUMMARY : $
+                  {constructor.price +
+                    additional -
+                    (discount !== "0"
+                      ? Math.round(
+                          discount.includes("%")
+                            ? ((constructor.price + additional) / 100) *
+                                Number(discount.replace(/\D/g, ""))
+                            : Number(discount)
+                        )
+                      : 0)}
+                  ₽
+                </h2>
+              )}
+              <div className={styles.create_params}>
+                <label htmlFor="additional">Добавочная стоимость</label>
+                <input
+                  onChange={handleChange}
+                  type="number"
+                  value={additional}
+                  name="additional"
+                  placeholder="добавочная стоимость"
+                />
+                <label htmlFor="discount">Скидка (% or flat)</label>
+                <input
+                  onChange={handleChange}
+                  type="text"
+                  value={discount}
+                  name="discount"
+                  placeholder="0"
+                />
+              </div>
+            </>
           ) : (
             <Constructor onSubmit={constructedSet} />
           )}

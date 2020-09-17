@@ -43,8 +43,6 @@
     }
   }
   & .create {
-    display: flex;
-    flex-flow: column wrap;
     @mixin pattern5 var(--nav-element-color5);
     color: var(--text-alt);
 
@@ -52,6 +50,23 @@
       cursor: pointer;
       text-align: center;
       padding: 1ch;
+    }
+    &_params {
+      display: flex;
+      flex-flow: column wrap;
+      align-content: center;
+      padding: 1ch;
+
+      & :nth-child(odd) {
+        display: block;
+        margin-top: 1ch;
+      }
+      & :nth-child(even) {
+        padding: 0.5ch;
+        margin-bottom: 1ch;
+        width: 50%;
+        border: none;
+      }
     }
   }
   & .drop {

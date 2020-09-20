@@ -40,6 +40,20 @@ export default function Bundle({}: Props): ReactElement {
         <h2>{data.product.info.name}</h2>
         <p>{data.product.info.description}</p>
       </div>
+      <div className={styles.info}>
+        <div className={styles.info_inside}>
+          состав :
+          {data.product.bundle.map(({ item }: { item: Item }, i: number) => (
+            <p key={i}>{item?.info.name}</p>
+          ))}
+        </div>
+        <div className={styles.info_dimensions}>
+          размеры :<p>ширина : {data.product.dimensions.width} мм</p>
+          <p>длина : {data.product.dimensions.breadth} мм</p>
+          <p>высота : {data.product.dimensions.height} мм</p>
+          <p>вес : {data.product.dimensions.weight} г</p>
+        </div>
+      </div>
       <div className={styles.price}>
         <h2>{data.product.price.overall} ₽</h2>
         {cart.find((prod) => prod.id === data.product.id) ? (
@@ -49,18 +63,6 @@ export default function Bundle({}: Props): ReactElement {
         ) : (
           <ShoppingCartOutlined onClick={handleAddToCart} />
         )}
-      </div>
-      <div className={styles.dimensions}>
-        размеры :<p>ширина : {data.product.dimensions.width} мм</p>
-        <p>длина : {data.product.dimensions.breadth} мм</p>
-        <p>высота : {data.product.dimensions.height} мм</p>
-        <p>вес : {data.product.dimensions.weight} г</p>
-      </div>
-      <div className={styles.inside}>
-        состав :
-        {data.product.bundle.map(({ item }: { item: Item }, i: number) => (
-          <p key={i}>{item?.info.name}</p>
-        ))}
       </div>
     </section>
   );

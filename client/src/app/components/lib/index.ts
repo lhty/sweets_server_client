@@ -13,6 +13,7 @@ export const ThumbnailUrl = ({
   fullscreen = -1,
   size = window.innerWidth,
 }: IThumbInput) => {
+  if (Array.isArray(source) && !source.length) return null;
   const prefix = (size: number | "thumb") => {
     switch (true) {
       case fullscreen >= 0:

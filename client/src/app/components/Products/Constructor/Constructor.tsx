@@ -113,7 +113,7 @@ const Constructor = ({
       return (
         <PlaySquareOutlined
           onClick={() => handlers.handleSelectPage("box")}
-          style={{ fontSize: "5rem", margin: "20px" }}
+          style={{ fontSize: "5rem", margin: "0 auto", display: "block" }}
         />
       );
   }

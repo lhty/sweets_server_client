@@ -20,7 +20,7 @@
     transform: translateX(calc(-50% + 10px));
   }
   &_description {
-    top: 40px;
+    top: 35px;
     left: 50%;
     transform: translateX(calc(-50% - 3px));
   }

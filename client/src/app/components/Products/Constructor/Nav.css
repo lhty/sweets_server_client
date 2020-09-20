@@ -2,16 +2,20 @@
   position: relative;
   display: flex;
   justify-content: space-between;
-  padding: 1ch 0;
+  padding-bottom: 1ch;
 
   &_controls {
     cursor: pointer;
     font-size: 3rem;
   }
   &_add {
-    border: 2px solid;
-    border-radius: 11px;
+    border: none;
     margin-right: 5px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 0 1ch;
+    background-color: var(--accent-color2);
+    color: var(--text-alt);
   }
 
   &_info {

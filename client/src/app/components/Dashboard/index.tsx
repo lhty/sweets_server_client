@@ -104,13 +104,13 @@ export default function () {
             type="text"
             value={name}
             name="name"
-            placeholder="название"
+            placeholder="Название"
           />
           <textarea
             onChange={handleChange}
             value={description}
             name="description"
-            placeholder="описание"
+            placeholder="Описание"
           />
         </div>
         <div className={styles.create}>
@@ -120,11 +120,11 @@ export default function () {
                 onClick={() => constructedSet({ ...constructor, done: false })}
                 className={styles.create_result}
               >
-                BASE : ${constructor.set.length} шт ${constructor.price} ₽
+                Базовая цена : {constructor.price} ₽
               </h2>
               {(discount !== "0" || additional > 0) && (
                 <h2 className={styles.create_result}>
-                  SUMMARY : $
+                  Итого :{" "}
                   {constructor.price +
                     additional -
                     (discount !== "0"
@@ -134,7 +134,7 @@ export default function () {
                                 Number(discount.replace(/\D/g, ""))
                             : Number(discount)
                         )
-                      : 0)}
+                      : 0)}{" "}
                   ₽
                 </h2>
               )}
@@ -143,11 +143,10 @@ export default function () {
                 <input
                   onChange={handleChange}
                   type="number"
-                  value={additional}
+                  value={additional || ""}
                   name="additional"
-                  placeholder="добавочная стоимость"
                 />
-                <label htmlFor="discount">Скидка (% or flat)</label>
+                <label htmlFor="discount">Скидка (% или ₽)</label>
                 <input
                   onChange={handleChange}
                   type="text"

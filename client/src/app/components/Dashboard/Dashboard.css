@@ -5,19 +5,22 @@
   }
   margin: 0 auto;
 
-  & button {
+  & form > button {
+    display: block;
     align-self: center;
     width: fit-content;
-    font-size: 1rem;
+    font-size: 2rem;
     font-weight: bold;
     padding: 10px 15px;
+    margin: 0 auto;
     border: none;
     background-color: var(--nav-element-color5);
     color: var(--text-alt);
-  }
-  & button:disabled {
-    opacity: 0.7;
-    filter: grayscale();
+
+    &::disabled {
+      opacity: 0.7;
+      filter: grayscale();
+    }
   }
   & .details {
     display: grid;
@@ -28,14 +31,23 @@
     & input,
     textarea {
       grid-column: 1 / span 2;
-      padding: 1ch;
-      border: none;
+      font-size: 1rem;
+      border: 1ch solid transparent;
+      padding: 0.5ch;
       background-color: var(--nav-element-color5);
       color: var(--text-alt);
+      transition: 0.5s ease-in-out;
 
       &::placeholder {
         color: var(--text-alt);
       }
+
+      &:focus {
+        border: 1ch solid var(--nav-element-color4);
+      }
+    }
+    & input {
+      font-weight: 700;
     }
     & textarea {
       height: 20ch;
@@ -45,27 +57,45 @@
   & .create {
     @mixin pattern5 var(--nav-element-color5);
     color: var(--text-alt);
+    padding: 1ch 0;
 
     &_result {
       cursor: pointer;
       text-align: center;
       padding: 1ch;
+      width: fit-content;
+      margin: 1ch auto;
+
+      &:first-of-type {
+        background-color: var(--accent-color2);
+      }
+      &:last-of-type {
+        font-size: 2.5rem;
+        background-color: var(--accent-color1);
+        color: var(--text-main);
+      }
     }
     &_params {
       display: flex;
       flex-flow: column wrap;
       align-content: center;
-      padding: 1ch;
+      width: fit-content;
+      margin: 1ch auto;
+      padding: 0.5ch 1.5ch;
+      background-color: var(--nav-element-color2);
+      color: var(--text-main);
 
       & :nth-child(odd) {
         display: block;
         margin-top: 1ch;
+        margin-bottom: 0.3ch;
+        font-size: 0.9rem;
       }
       & :nth-child(even) {
-        padding: 0.5ch;
-        margin-bottom: 1ch;
-        width: 50%;
+        padding: 0.2ch 0.5ch;
+        margin-bottom: 0.5ch;
         border: none;
+        font-size: 1.5rem;
       }
     }
   }
@@ -74,8 +104,8 @@
     color: var(--text-alt);
     display: flex;
     flex-flow: column;
-    padding: 0 2ch;
-    margin: 2ch 0;
+    padding: 2ch;
+    margin: 10px 0;
 
     & span {
       margin: 20px 0;

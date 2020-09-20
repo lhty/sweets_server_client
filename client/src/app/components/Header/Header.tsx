@@ -123,7 +123,7 @@ const Title = ({
         className={styles.header_logo}
       />
       <TitleText
-        style={{ top: offset ? 15 : 10 }}
+        style={{ top: offset ? 15 : 7 }}
         className={styles.header_title}
       />
       <Desc style={{ opacity }} className={styles.header_description} />

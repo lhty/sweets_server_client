@@ -10,15 +10,20 @@
     color: var(--nav-element-color5);
     z-index: 1;
   }
+  & .desc,
+  .info,
+  .price {
+    padding: 0.2em;
+    @mixin M {
+      padding: 1em;
+    }
+  }
+
   & .desc {
     position: relative;
     display: flex;
     flex-flow: column wrap;
     text-align-last: center;
-    padding: 0 0.2em;
-    @mixin M {
-      padding: 0 1em;
-    }
 
     & h2 {
       white-space: pre-line;
@@ -46,16 +51,22 @@
     max-height: 35vh;
     overflow: hidden;
   }
-  & .dimensions {
-    width: 30%;
-  }
-  & .inside {
-    width: 30%;
+  & .info {
+    display: flex;
+    justify-content: space-evenly;
+
+    &_dimensions {
+      width: 30%;
+    }
+    &_inside {
+      width: 30%;
+    }
   }
   & .price {
-    width: 30%;
     display: flex;
+    justify-content: flex-end;
     font-size: 2rem;
+
     & h2 {
       align-self: center;
     }

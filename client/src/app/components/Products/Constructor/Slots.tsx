@@ -16,14 +16,14 @@ export const Slots = ({ box, set, handlers, selectSlot }: Props) => {
   const columns = Math.floor(box.dimensions.width / 20);
   return (
     <div
-      style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}
+      style={{ gridTemplateColumns: `repeat(${columns}, auto)` }}
       className={styles.container}
     >
       {set.map((slot, index) => (
         <div className={styles.slot} key={index}>
           {!slot ? (
             <PlusSquareOutlined
-              style={{ fontSize: "5rem" }}
+              style={{ fontSize: "3rem" }}
               onClick={() => {
                 selectSlot(index);
                 handlers.handleSelectPage("items");

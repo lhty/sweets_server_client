@@ -5,17 +5,16 @@ import uploadFiles from "../../graphql/mutations/uploadFiles.graphql";
 import addBundle from "../../graphql/mutations/addBundle.graphql";
 
 import * as styles from "./Dashboard.css";
-import { FileAddOutlined } from "@ant-design/icons";
 
-import { useFormik } from "formik";
-import { useDropzone } from "react-dropzone";
+import { useFormik, useField } from "formik";
 import * as yup from "yup";
 
 import Constructor from "../Products/Constructor/Constructor";
+import FileUpload from "./FileUpload";
 
 export default function () {
   const [sendFiles] = useMutation(uploadFiles);
-  const [upload, { data }] = useMutation(addBundle);
+  const [uploadBundle] = useMutation(addBundle);
   const [constructor, constructedSet] = useState({
     set: [],
     box: "",
@@ -31,16 +30,18 @@ export default function () {
         files,
       },
     });
-    const image = multipleUpload.map((upload: { id: string }) => upload.id);
+    const imagesUidArray = multipleUpload.map(
+      (upload: { id: string }) => upload.id
+    );
 
-    await upload({
+    await uploadBundle({
       variables: {
         input: {
           data: {
             info: {
               name,
               description,
-              image,
+              image: imagesUidArray,
             },
             box: constructor.box,
             bundle: constructor.set,
@@ -82,19 +83,6 @@ export default function () {
     }),
   });
 
-  const onDrop = (acceptedFiles: any) => {
-    const usedPaths = files.map(({ path }) => path);
-    const filesToAdd = acceptedFiles.filter(
-      ({ path }: { path: string }) => !usedPaths.includes(path)
-    );
-    setFieldValue("files", [...files, ...filesToAdd]);
-  };
-
-  const { getRootProps, getInputProps } = useDropzone({
-    onDrop,
-    accept: "image/*",
-  });
-
   return (
     <div className={styles.container}>
       <form onSubmit={handleSubmit}>
@@ -103,6 +91,7 @@ export default function () {
             onChange={handleChange}
             type="text"
             value={name}
+            autoComplete="off"
             name="name"
             placeholder="Название"
           />
@@ -143,6 +132,7 @@ export default function () {
                 <input
                   onChange={handleChange}
                   type="number"
+                  step="50"
                   value={additional || ""}
                   name="additional"
                 />
@@ -160,26 +150,7 @@ export default function () {
             <Constructor onSubmit={constructedSet} />
           )}
         </div>
-        <div className={styles.drop} {...getRootProps()}>
-          <input name="files" {...getInputProps()} />
-          <FileAddOutlined style={{ fontSize: "5rem" }} />
-          <ul>
-            {files.map((file, i) => (
-              <li
-                onClick={() =>
-                  setFieldValue(
-                    "files",
-                    files.filter((_, _i) => i !== _i)
-                  )
-                }
-                key={i}
-              >
-                {file.name + " " + Math.round(file.size / 1000)} kB
-              </li>
-            ))}
-          </ul>
-        </div>
-
+        <FileUpload {...{ files, setFieldValue }} />
         <button
           type="submit"
           disabled={

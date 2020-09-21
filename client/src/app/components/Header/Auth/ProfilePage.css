@@ -68,6 +68,7 @@
       padding: 0.5ch;
       margin-top: 2ch;
       font-size: 1rem;
+      line-height: 1rem;
       font-weight: bold;
       background-color: var(--nav-element-color5);
       color: var(--text-alt);

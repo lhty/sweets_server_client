@@ -1,8 +1,11 @@
 .container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   position: relative;
   background-color: var(--blockbg-main);
 
-  & span:first-of-type {
+  & .back {
     position: absolute;
     top: -57px;
     left: -6px;
@@ -11,8 +14,7 @@
     z-index: 1;
   }
   & .desc,
-  .info,
-  .price {
+  .info {
     padding: 0.2em;
     @mixin M {
       padding: 1em;
@@ -55,34 +57,66 @@
     display: flex;
     justify-content: space-evenly;
 
+    &_dimensions,
+    &_inside {
+      padding: 0.5ch;
+    }
+
     &_dimensions {
-      width: 30%;
+      display: grid;
+      grid-template-columns: auto auto;
+      grid-column-gap: 0.5ch;
+      height: fit-content;
+      border: 1px dashed var(--nav-element-color3);
+      & > span {
+        color: var(--accent-color2);
+        font-size: 2rem;
+      }
+      & > p {
+        text-align: center;
+        align-self: center;
+      }
     }
     &_inside {
-      width: 30%;
+      @mixin pattern1 var(--accent-color1), 5px;
+      height: fit-content;
+      & > p {
+        padding: 0.2ch 0;
+      }
     }
   }
   & .price {
     display: flex;
-    justify-content: flex-end;
     font-size: 2rem;
-
+    align-self: flex-end;
+    background-color: var(--accent-color1);
     & h2 {
       align-self: center;
     }
-    & span {
+    & h2 > span {
+      font-weight: 100;
+    }
+    & > span,
+    h2 {
+      padding: 0.5ch;
+    }
+    & > span {
+      color: var(--text-alt);
+      background-color: var(--accent-color2);
       font-size: 3rem;
-      position: unset;
     }
   }
 }
 
 .bullets {
   position: absolute;
-  bottom: 35px;
+  bottom: 27px;
   left: 50%;
+  padding: 5px;
+  border-radius: 5px;
   transform: translateX(-50%);
   display: flex;
+  background-color: rgb(0 0 0 / 20%);
   & p {
     display: none;
   }
@@ -96,9 +130,7 @@
     @mixin M {
       width: 20px;
       height: 20px;
-      border: 2px solid var(--nav-element-color4);
       opacity: 0.6;
-      background-color: var(--nav-element-color2);
     }
   }
 }

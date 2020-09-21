@@ -17,7 +17,7 @@
     background-color: var(--nav-element-color5);
     color: var(--text-alt);
 
-    &::disabled {
+    &:disabled {
       opacity: 0.7;
       filter: grayscale();
     }
@@ -33,6 +33,7 @@
       grid-column: 1 / span 2;
       font-size: 1rem;
       border: 1ch solid transparent;
+      outline: none;
       padding: 0.5ch;
       background-color: var(--nav-element-color5);
       color: var(--text-alt);
@@ -95,30 +96,6 @@
         padding: 0.2ch 0.5ch;
         margin-bottom: 0.5ch;
         border: none;
-        font-size: 1.5rem;
-      }
-    }
-  }
-  & .drop {
-    @mixin pattern5 var(--nav-element-color5);
-    color: var(--text-alt);
-    display: flex;
-    flex-flow: column;
-    padding: 2ch;
-    margin: 10px 0;
-
-    & span {
-      margin: 20px 0;
-    }
-
-    & ul {
-      width: 100%;
-      display: flex;
-      flex-flow: column wrap;
-      align-items: center;
-      overflow: hidden;
-      & li {
-        font-weight: bold;
         font-size: 1.5rem;
       }
     }

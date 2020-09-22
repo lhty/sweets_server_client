@@ -15,7 +15,10 @@ import {
   DoubleLeftOutlined,
   CheckOutlined,
   ShoppingCartOutlined,
-  ColumnWidthOutlined,, ColumnHeightOutlined, VerticalAlignTopOutlined, DownloadOutlined
+  ColumnWidthOutlined,
+  ColumnHeightOutlined,
+  VerticalAlignTopOutlined,
+  DownloadOutlined,
 } from "@ant-design/icons";
 import { Item } from "../../../@types/queryTypes";
 import Loader from "../../Shared/Loader";
@@ -56,7 +59,6 @@ export default function Bundle({}: Props): ReactElement {
       </div>
       <div className={styles.info}>
         <div className={styles.info_inside}>
-          внутри :
           {data.product.bundle.map(({ item }: { item: Item }, i: number) => (
             <p key={i}>{item?.info.name}</p>
           ))}
@@ -66,12 +68,17 @@ export default function Bundle({}: Props): ReactElement {
           <p>ширина : {data.product.dimensions.width} мм</p>
           <ColumnHeightOutlined />
           <p>длина : {data.product.dimensions.breadth} мм</p>
-          <VerticalAlignTopOutlined /><p>высота : {data.product.dimensions.height} мм</p>
-          <DownloadOutlined /><p>вес : {data.product.dimensions.weight} г</p>
+          <VerticalAlignTopOutlined />
+          <p>высота : {data.product.dimensions.height} мм</p>
+          <DownloadOutlined />
+          <p>вес : {data.product.dimensions.weight} г</p>
         </div>
       </div>
       <div className={styles.price}>
-        <h2>{data.product.price.overall}<span>₽</span></h2>
+        <h2>
+          {data.product.price.overall}
+          <span>₽</span>
+        </h2>
         {cart.find((prod) => prod.id === data.product.id) ? (
           <CheckOutlined
             style={{ cursor: "default", filter: "hue-rotate(100deg)" }}

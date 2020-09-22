@@ -4,6 +4,7 @@ fragment Banner on Banner {
     name
     description
     image {
+      formats
       url
     }
   }

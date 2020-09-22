@@ -24,6 +24,7 @@ fragment Item on Item {
     description
     image {
       id
+      formats
       url
     }
   }

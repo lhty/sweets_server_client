@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useReducer } from "react";
 
 import { useMutation } from "@apollo/client";
 import uploadFiles from "../../graphql/mutations/uploadFiles.graphql";
@@ -11,6 +11,7 @@ import * as yup from "yup";
 
 import Constructor from "../Products/Constructor/Constructor";
 import FileUpload from "./FileUpload";
+import { ComponentBundleItemInput } from "../../@types/queryTypes";
 
 export default function () {
   const [sendFiles] = useMutation(uploadFiles);
@@ -21,6 +22,20 @@ export default function () {
     price: 0,
     done: false,
   });
+
+  // type dataType = {
+  //   set?: Array<ComponentBundleItemInput>;
+  //   box?: string;
+  //   price?: number;
+  //   done: boolean;
+  // };
+
+  // const [data, setData] = useReducer(
+  //   (data: dataType, action: any) => ({ ...data, action }),
+  //   {
+  //     done: false,
+  //   }
+  // );
 
   const handleSubmitMutation = async (files: any) => {
     const {

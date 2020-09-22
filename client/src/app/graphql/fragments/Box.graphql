@@ -17,6 +17,7 @@ fragment Box on Box {
     description
     image {
       id
+      formats
       url
     }
   }

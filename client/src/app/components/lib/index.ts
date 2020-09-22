@@ -13,6 +13,23 @@ export const ThumbnailUrl = ({
   fullscreen = -1,
   size = window.innerWidth,
 }: IThumbInput) => {
+  // formats:
+  // large: {name: "large_fractured_space_captain_jonesy-wallpaper-1920x1080.jpg",
+  //  hash: "large_fractured_space_captain_jonesy_wallpaper_1920x1080_827d5fbd70",
+  //  ext: ".jpg",
+  //  mime: "image/jpeg",
+  // url: "url",
+  //  width: 1000
+  // }
+  // medium: {name: "medium_fractured_space_captain_jonesy-wallpaper-1920x1080.jpg", hash: "medium_fractured_space_captain_jonesy_wallpaper_1920x1080_827d5fbd70", ext: ".jpg", mime: "image/jpeg", width: 750, …}
+  // small: {name: "small_fractured_space_captain_jonesy-wallpaper-1920x1080.jpg", hash: "small_fractured_space_captain_jonesy_wallpaper_1920x1080_827d5fbd70", ext: ".jpg", mime: "image/jpeg", width: 500, …}
+  // thumbnail: {name: "thumbnail_fractured_space_captain_jonesy-wallpaper-1920x1080.jpg", hash: "thumbnail_fractured_space_captain_jonesy_wallpaper_1920x1080_827d5fbd70", ext: ".jpg", mime: "image/jpeg", width: 245, …}
+  // __proto__: Object
+  // id: "9"
+  // url: "/uploads/fractured_space_captain_jonesy_wallpaper_1920x1080_827d5fbd70.jpg"
+  // __typename: "UploadFile"
+  // __proto__: Object
+
   if (Array.isArray(source) && !source.length) return null;
   const prefix = (size: number | "thumb") => {
     switch (true) {

@@ -54,7 +54,7 @@ const Slot = ({ item }: { item: Item }) => {
           ? `linear-gradient(45deg, white, white)`
           : `url(${ThumbnailUrl({
               source: item.info.image,
-              size: "thumb",
+              screenWidth: "thumb",
             })})`,
         // backgroundImage: `url(${ThumbnailUrl({
         //   source: item.info.image,

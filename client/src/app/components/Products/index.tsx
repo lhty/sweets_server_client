@@ -30,20 +30,22 @@ export default (): ReactElement => {
       {!loading && data && (
         <main className={styles.main}>
           {location.pathname !== "/dashboard" && <Sort />}
-          <Switch>
-            <Route exact path="/">
-              <Bundles {...{ bundles }} />
-            </Route>
-            <Route exact path="/:id/:title">
-              <Bundle />
-            </Route>
-            <AuthRoute path="/dashboard">
-              <Editor />
-            </AuthRoute>
-          </Switch>
-          {location.pathname !== "/dashboard" && (
-            <Constructor onSubmit={console.log} />
-          )}
+          <section className={styles.main_content}>
+            <Switch>
+              <Route exact path="/">
+                <Bundles {...{ bundles }} />
+              </Route>
+              <Route exact path="/:id/:title">
+                <Bundle />
+              </Route>
+              <AuthRoute path="/dashboard">
+                <Editor />
+              </AuthRoute>
+            </Switch>
+            {location.pathname !== "/dashboard" && (
+              <Constructor onSubmit={console.log} />
+            )}
+          </section>
         </main>
       )}
     </>

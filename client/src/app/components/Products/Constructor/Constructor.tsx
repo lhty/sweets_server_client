@@ -13,7 +13,7 @@ import {
 import { RootState } from "../../../redux/reducers";
 import { Box, Item } from "../../../@types/queryTypes";
 
-import { PlaySquareOutlined } from "@ant-design/icons";
+import { GiftOutlined } from "@ant-design/icons";
 import { Boxes } from "./Boxes";
 import { Slots } from "./Slots";
 import { Items } from "./Items";
@@ -63,7 +63,7 @@ export default ({
         }),
         { set: [], price: box.price.overall }
       );
-      onSubmit({ set: data.set, price: data.price, box: box.id, done: true });
+      onSubmit({ set: data.set, price: data.price, box: box.id, isDone: true });
     },
   };
 
@@ -111,7 +111,7 @@ const Constructor = ({
       return <Details {...{ input: details, set, handlers }} />;
     default:
       return (
-        <PlaySquareOutlined
+        <GiftOutlined
           onClick={() => handlers.handleSelectPage("box")}
           style={{ fontSize: "5rem", margin: "0 auto", display: "block" }}
         />

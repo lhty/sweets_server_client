@@ -39,8 +39,8 @@ const Gallery = ({ images, bullets }: Props): ReactElement => {
     <section className={styles.container}>
       <div className={styles.wrapper}>
         <Slider hasBullets={bullets}>
-          {images.map((images, index) => (
-            <div key={images.id} onClick={() => setFullscreen(index)}>
+          {images.map((_, index) => (
+            <div key={index} onClick={() => setFullscreen(index)}>
               <img
                 src={ThumbnailUrl({ source: images, index })}
                 alt=""

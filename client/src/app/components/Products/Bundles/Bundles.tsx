@@ -24,7 +24,7 @@ export default function Bundles({ bundles }: Props): ReactElement {
   const handleAddToCart = (product: Product) => dispatch(AddToCart(product));
 
   return (
-    <section className={styles.container}>
+    <div className={styles.container}>
       <Slider
         hasBullets={styles.bullets}
         grid={styles.grid}
@@ -41,6 +41,6 @@ export default function Bundles({ bundles }: Props): ReactElement {
           />
         ))}
       </Slider>
-    </section>
+    </div>
   );
 }

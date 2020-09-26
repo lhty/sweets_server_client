@@ -10,7 +10,7 @@
       width: 100%;
     }
     &_bar {
-      background-color: var(--text-alt);
+      background-color: var(--accent-color2);
       height: 2px;
       position: relative;
       top: 50%;
@@ -117,6 +117,7 @@
   & div {
     width: 15px;
     height: 15px;
+    border-radius: 50%;
     cursor: pointer;
     margin: 1px;
     background-color: var(--nav-element-color2);

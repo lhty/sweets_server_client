@@ -1,6 +1,8 @@
 .main {
   position: relative;
   overflow: hidden;
-  display: flex;
-  flex-flow: column;
+
+  &_content {
+    display: flex;
+  }
 }

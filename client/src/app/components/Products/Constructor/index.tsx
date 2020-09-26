@@ -31,7 +31,7 @@ export default function index({ onSubmit }: Props): ReactElement {
       <button className={styles.container_toggler} onClick={handleChangeWidth}>
         Toggle
       </button>
-      <Constructor {...{ onSubmit }} />
+      {!!constructorWindowState && <Constructor {...{ onSubmit }} />}
     </a.div>
   );
 }

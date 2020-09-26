@@ -1,8 +1,7 @@
 .container {
-  position: relative;
-  width: 100%;
   display: flex;
   flex-flow: column;
+  width: 100%;
 }
 .grid {
   --col: 1;

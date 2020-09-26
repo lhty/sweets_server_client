@@ -6,10 +6,10 @@ import addBundle from "../../graphql/mutations/addBundle.graphql";
 
 import * as styles from "./Dashboard.css";
 
-import { useFormik, useField } from "formik";
-import * as yup from "yup";
+import { useFormik } from "formik";
 
-import Constructor from "../Products/Constructor/Constructor";
+import Info from "./Info";
+import AddBundle from "./AddBundle";
 import FileUpload from "./FileUpload";
 import { ComponentBundleItemInput } from "../../@types/queryTypes";
 
@@ -23,19 +23,28 @@ export default function () {
     done: false,
   });
 
-  // type dataType = {
-  //   set?: Array<ComponentBundleItemInput>;
-  //   box?: string;
-  //   price?: number;
-  //   done: boolean;
-  // };
+  type dataType = {
+    name: string;
+    description: string;
+    set?: Array<ComponentBundleItemInput>;
+    box?: string;
+    price?: number;
+    isDone: boolean;
+    currentPage: keyof typeof variant;
+  };
 
-  // const [data, setData] = useReducer(
-  //   (data: dataType, action: any) => ({ ...data, action }),
-  //   {
-  //     done: false,
-  //   }
-  // );
+  const [{ set, box, price, currentPage, isDone }, setData] = useReducer(
+    (data: dataType, action: any) => ({ ...data, ...action }),
+    {
+      name: "",
+      description: "",
+      set: [],
+      box: "",
+      price: 0,
+      isDone: false,
+      currentPage: "bundle",
+    }
+  );
 
   const handleSubmitMutation = async (files: any) => {
     const {
@@ -58,8 +67,8 @@ export default function () {
               description,
               image: imagesUidArray,
             },
-            box: constructor.box,
-            bundle: constructor.set,
+            box,
+            bundle: set,
             price: {
               additional,
               discount,
@@ -86,91 +95,56 @@ export default function () {
       files: [],
     },
     onSubmit: async (values) => {
-      try {
-        await handleSubmitMutation(values.files);
-        handleReset(values);
-      } catch (e) {
-        console.log(e);
-      }
+      // try {
+      //   await handleSubmitMutation(values.files);
+      //   handleReset(values);
+      // } catch (e) {
+      //   console.log(e);
+      // }
+      console.log(values);
     },
-    validationSchema: yup.object({
-      files: yup.array(),
-    }),
   });
+
+  const variant: any = {
+    bundle: (
+      <AddBundle
+        {...{
+          handleChange,
+          additional,
+          discount,
+          price,
+          setData,
+          isDone,
+        }}
+      />
+    ),
+    item: null,
+    box: null,
+    material: null,
+    banner: null,
+    tag: null,
+  };
 
   return (
     <div className={styles.container}>
+      <div className={styles.container_nav}>
+        {Object.keys(variant).map((tab) => (
+          <button
+            className={currentPage === tab ? styles.active : ""}
+            onClick={() => setData({ currentPage: tab })}
+            key={tab}
+          >
+            {tab}
+          </button>
+        ))}
+      </div>
       <form onSubmit={handleSubmit}>
-        <div className={styles.details}>
-          <input
-            onChange={handleChange}
-            type="text"
-            value={name}
-            autoComplete="off"
-            name="name"
-            placeholder="Название"
-          />
-          <textarea
-            onChange={handleChange}
-            value={description}
-            name="description"
-            placeholder="Описание"
-          />
-        </div>
-        <div className={styles.create}>
-          {constructor.done ? (
-            <>
-              <h2
-                onClick={() => constructedSet({ ...constructor, done: false })}
-                className={styles.create_result}
-              >
-                Базовая цена : {constructor.price} ₽
-              </h2>
-              {(discount !== "0" || additional > 0) && (
-                <h2 className={styles.create_result}>
-                  Итого :{" "}
-                  {constructor.price +
-                    additional -
-                    (discount !== "0"
-                      ? Math.round(
-                          discount.includes("%")
-                            ? ((constructor.price + additional) / 100) *
-                                Number(discount.replace(/\D/g, ""))
-                            : Number(discount)
-                        )
-                      : 0)}{" "}
-                  ₽
-                </h2>
-              )}
-              <div className={styles.create_params}>
-                <label htmlFor="additional">Добавочная стоимость</label>
-                <input
-                  onChange={handleChange}
-                  type="number"
-                  step="50"
-                  value={additional || ""}
-                  name="additional"
-                />
-                <label htmlFor="discount">Скидка (% или ₽)</label>
-                <input
-                  onChange={handleChange}
-                  type="text"
-                  value={discount}
-                  name="discount"
-                  placeholder="0"
-                />
-              </div>
-            </>
-          ) : (
-            <Constructor onSubmit={constructedSet} />
-          )}
-        </div>
-        <FileUpload {...{ files, setFieldValue }} />
+        <Info {...{ handleChange, name, description }} />
+        {variant[currentPage]}
+        {currentPage !== "tag" && <FileUpload {...{ files, setFieldValue }} />}
         <button
           type="submit"
-          disabled={
-            !files.length || !constructor.set.length || !name || !description
-          }
+          disabled={!files.length || !set.length || !name || !description}
         >
           Submit
         </button>

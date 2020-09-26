@@ -3,12 +3,9 @@
   color: var(--text-alt);
   display: flex;
   flex-flow: column;
-  padding: 2ch;
-  margin: 10px 0;
-
-  & span {
-    margin: 20px 0;
-  }
+  padding: 1ch 0;
+  margin-bottom: 10px;
+  cursor: pointer;
 
   & ul {
     width: 100%;
@@ -16,6 +13,7 @@
     flex-flow: column wrap;
     align-items: center;
     overflow: hidden;
+    padding-top: 2ch;
     & li {
       font-weight: bold;
       font-size: 1.5rem;

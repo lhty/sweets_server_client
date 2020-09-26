@@ -25,21 +25,24 @@ const FileUpload = ({ files, setFieldValue }: IFileUpload) => {
     <div className={styles.filesupload} {...getRootProps()}>
       <input name="files" {...getInputProps()} />
       <FileAddOutlined style={{ fontSize: "5rem" }} />
-      <ul>
-        {files.map((file, i) => (
-          <li
-            onClick={() =>
-              setFieldValue(
-                "files",
-                files.filter((_, _i) => i !== _i)
-              )
-            }
-            key={i}
-          >
-            {file.name + " " + Math.round(file.size / 1000)} kB
-          </li>
-        ))}
-      </ul>
+      {!!files.length && (
+        <ul>
+          {files.map((file, i) => (
+            <li
+              onClick={(e) => {
+                e.stopPropagation();
+                setFieldValue(
+                  "files",
+                  files.filter((_, _i) => i !== _i)
+                );
+              }}
+              key={i}
+            >
+              {file.name + " " + Math.round(file.size / 1000)} kB
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };

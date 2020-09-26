@@ -15,21 +15,41 @@ html {
   --nav-element-color5: #e63946;
   --nav-element-color6: #ff7c86;
 
-  --loading-bg: #eaddd0;
+  --accent-color1: #ffbe0b;
+  --accent-color2: #e03030;
+  --accent-color3: #00ff43;
+  --accent-color7: #5e31dc;
+  --accent-color8: #3155dc;
 
+  --loading-bg: #eaddd0;
+  --headerbg: #fff;
+
+  /* //  GRADIENTS */
   --nav-element-gradient1: linear-gradient(
     30deg,
     var(--nav-element-color3) 5%,
     var(--nav-element-color4) 95%
   );
-
-  --nav-element-gradient2: linear-gradient(180deg, #ffffff 0%, #fe776e 85%);
-
-  --accent-color1: #ffbe0b;
-  --accent-color2: #e03030;
-  --accent-color3: #00ff43;
-
-  --headerbg: #fff;
+  --nav-element-gradient2: linear-gradient(
+      -213deg,
+      var(--nav-element-color5) 0%,
+      var(--nav-element-color6) 100%
+    ),
+    linear-gradient(
+      32deg,
+      rgba(255, 255, 255, 0.25) 33%,
+      rgba(0, 0, 0, 0.25) 100%
+    );
+  --nav-element-gradient3: linear-gradient(
+      -213deg,
+      var(--accent-color7) 0%,
+      var(--accent-color8) 100%
+    ),
+    linear-gradient(
+      32deg,
+      rgba(255, 255, 255, 0.25) 33%,
+      rgba(0, 0, 0, 0.25) 100%
+    );
 
   /* //  BLOCK */
   --blockbg-main: #fdf4ef;

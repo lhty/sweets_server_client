@@ -27,14 +27,13 @@ export default ({ handlers, details, box, set, quantity, page }: Props) => {
         : "box"
     );
   };
+  if (page === "initial") return null;
   return (
     <div className={styles.container}>
-      {page !== "initial" && (
-        <DoubleLeftOutlined
-          onClick={handleChangePage}
-          className={styles.container_controls}
-        />
-      )}
+      <DoubleLeftOutlined
+        onClick={handleChangePage}
+        className={styles.container_controls}
+      />
       <Nav {...{ page, box, set, details, quantity, handlers }} />
     </div>
   );

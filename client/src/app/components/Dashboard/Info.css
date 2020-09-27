@@ -23,9 +23,6 @@
       border: 1ch solid var(--nav-element-color4);
     }
   }
-  & input {
-    font-weight: 700;
-  }
   & textarea {
     height: 15ch;
     resize: none;

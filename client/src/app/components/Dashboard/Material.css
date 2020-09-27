@@ -1,0 +1,7 @@
+.container {
+  background-color: var(--nav-element-color5);
+  color: var(--text-alt);
+  padding: 1ch 0;
+  margin-bottom: 10px;
+  text-align: center;
+}

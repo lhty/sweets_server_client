@@ -3,7 +3,7 @@
   flex-direction: column;
   width: 100%;
   @mixin L {
-    width: 50%;
+    width: 70%;
   }
   margin: 0 auto;
 

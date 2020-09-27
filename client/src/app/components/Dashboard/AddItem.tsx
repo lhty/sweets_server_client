@@ -4,35 +4,33 @@ import { useFormik } from "formik";
 
 import { useMutation } from "@apollo/client";
 import uploadFiles from "../../graphql/mutations/uploadFiles.graphql";
-import sendBundle from "../../graphql/mutations/addBundle.graphql";
+import sendItem from "../../graphql/mutations/addItem.graphql";
 
-import CreateBundle from "./CreateBundle";
 import FileUpload from "./FileUpload";
 import Info from "./Info";
-
-import { ComponentBundleItemInput } from "../../@types/queryTypes";
 import Tag from "./Tag";
+import Material from "./Material";
 
 type dataType = {
-  set?: Array<ComponentBundleItemInput>;
-  box?: string;
-  price?: number;
-  isDone: boolean;
+  base_price?: number;
+  additional?: number;
+  discount?: string;
+  is_available_in_constructor?: boolean;
 };
 
-const AddBundle = () => {
+const AddItem = () => {
   const [sendFiles] = useMutation(uploadFiles);
-  const [uploadBundle] = useMutation(sendBundle);
+  const [uploadItem] = useMutation(sendItem);
 
-  const [{ set, box, price, isDone }, setData] = useReducer(
-    (data: dataType, action: any) => ({ ...data, ...action }),
-    {
-      set: [],
-      box: "",
-      price: 0,
-      isDone: false,
-    }
-  );
+  const [
+    { base_price, additional, discount, is_available_in_constructor },
+    setData,
+  ] = useReducer((data: dataType, action: any) => ({ ...data, ...action }), {
+    base_price: 0,
+    additional: 0,
+    discount: "",
+    is_available_in_constructor: true,
+  });
 
   const handleSubmitMutation = async (files: any) => {
     const {
@@ -46,7 +44,7 @@ const AddBundle = () => {
       (upload: { id: string }) => upload.id
     );
 
-    await uploadBundle({
+    await uploadItem({
       variables: {
         input: {
           data: {
@@ -55,21 +53,21 @@ const AddBundle = () => {
               description,
               image: imagesUidArray,
             },
-            box,
-            bundle: set,
             price: {
+              base_price,
               additional,
               discount,
             },
+            is_available_in_constructor,
           },
         },
       },
-      refetchQueries: ["getBundles"],
+      refetchQueries: ["getItems"],
     });
   };
 
   const {
-    values: { name, description, additional, discount, files },
+    values: { name, description, files },
     setFieldValue,
     handleSubmit,
     handleChange,
@@ -78,43 +76,31 @@ const AddBundle = () => {
     initialValues: {
       name: "",
       description: "",
-      discount: "",
-      additional: 0,
       files: [],
     },
     onSubmit: async (values) => {
-      try {
-        await handleSubmitMutation(values.files);
-        handleReset(values);
-      } catch (e) {
-        console.log(e);
-      }
+      // try {
+      //   await handleSubmitMutation(values.files);
+      //   handleReset(values);
+      // } catch (e) {
+      //   console.log(e);
+      // }
+      console.log(values);
+      handleReset(values);
     },
   });
 
   return (
     <form onSubmit={handleSubmit}>
       <Info {...{ handleChange, name, description }} />
+      <Material />
       <Tag />
-      <CreateBundle
-        {...{
-          handleChange,
-          additional,
-          discount,
-          price,
-          setData,
-          isDone,
-        }}
-      />
       <FileUpload {...{ files, setFieldValue }} />
-      <button
-        type="submit"
-        disabled={!files.length || !set.length || !name || !description}
-      >
+      <button type="submit" disabled={!files.length || !name || !description}>
         Submit
       </button>
     </form>
   );
 };
 
-export default AddBundle;
+export default AddItem;

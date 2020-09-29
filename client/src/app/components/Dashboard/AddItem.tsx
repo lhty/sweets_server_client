@@ -99,13 +99,12 @@ const AddItem = () => {
       files: [],
     },
     onSubmit: async (values) => {
-      // try {
-      //   await handleSubmitMutation(values.files);
-      //   handleReset(values);
-      // } catch (e) {
-      //   console.log(e);
-      // }
-      console.log(values);
+      try {
+        await handleSubmitMutation(values.files);
+        handleReset(values);
+      } catch (e) {
+        console.log(e);
+      }
       handleReset(values);
     },
   });

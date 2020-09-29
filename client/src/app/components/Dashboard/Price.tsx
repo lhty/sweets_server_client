@@ -21,22 +21,6 @@ const Price = ({
 }: Props) => {
   return (
     <div className={styles.price}>
-      {(discount !== "0" || additional > 0) && (
-        <h2 className={styles.price_result} onClick={handleUndo}>
-          Итого :{" "}
-          {base_price +
-            additional -
-            (discount !== "0"
-              ? Math.round(
-                  discount.includes("%")
-                    ? ((base_price + additional) / 100) *
-                        Number(discount.replace(/\D/g, ""))
-                    : Number(discount)
-                )
-              : 0)}{" "}
-          ₽
-        </h2>
-      )}
       <div className={styles.price_params}>
         <label htmlFor="base_price">Базовая цена</label>
         <input
@@ -64,6 +48,22 @@ const Price = ({
           placeholder="0"
         />
       </div>
+      {(discount !== "0" || additional > 0) && (
+        <h2 className={styles.price_result} onClick={handleUndo}>
+          Итого :{" "}
+          {base_price +
+            additional -
+            (discount !== "0"
+              ? Math.round(
+                  discount.includes("%")
+                    ? ((base_price + additional) / 100) *
+                        Number(discount.replace(/\D/g, ""))
+                    : Number(discount)
+                )
+              : 0)}{" "}
+          ₽
+        </h2>
+      )}
     </div>
   );
 };

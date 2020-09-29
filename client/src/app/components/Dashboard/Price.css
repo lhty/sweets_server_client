@@ -8,7 +8,7 @@
     text-align: center;
     padding: 1ch;
     width: fit-content;
-    margin: 0 auto;
+    margin: 0.5ch auto 0;
     font-size: 2.5rem;
     background-color: var(--accent-color1);
     color: var(--text-main);

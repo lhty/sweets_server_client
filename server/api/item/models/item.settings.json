@@ -36,8 +36,8 @@
       "component": "price.price"
     },
     "tags": {
-      "collection": "tags",
       "via": "items",
+      "collection": "tags",
       "dominant": true
     },
     "materials": {

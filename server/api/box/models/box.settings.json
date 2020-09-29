@@ -31,8 +31,8 @@
       "component": "dimensions.dimensions"
     },
     "tags": {
-      "collection": "tags",
       "via": "boxes",
+      "collection": "tags",
       "dominant": true
     },
     "products": {

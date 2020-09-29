@@ -9,6 +9,13 @@ fragment Product on Product {
       url
     }
   }
+  tags {
+    id
+    info {
+      name
+      description
+    }
+  }
   box {
     id
     info {

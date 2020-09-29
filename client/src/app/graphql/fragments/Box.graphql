@@ -2,6 +2,10 @@ fragment Box on Box {
   id
   tags {
     id
+    info {
+      name
+      description
+    }
   }
   countmin
   countmax

@@ -2,20 +2,26 @@ import React, { useReducer } from "react";
 
 import { useFormik } from "formik";
 
+import { useQuery } from "@apollo/client";
+import getTags from "../../graphql/queries/getTags.graphql";
+
 import { useMutation } from "@apollo/client";
 import uploadFiles from "../../graphql/mutations/uploadFiles.graphql";
 import sendBundle from "../../graphql/mutations/addBundle.graphql";
 
-import CreateBundle from "./CreateBundle";
+import * as styles from "./Dashboard.css";
+
+import { ComponentBundleItemInput, Tags } from "../../@types/queryTypes";
 import FileUpload from "./FileUpload";
 import Info from "./Info";
-
-import { ComponentBundleItemInput } from "../../@types/queryTypes";
-import Tag from "./Tag";
+import Selectable from "./Selectable";
+import Price from "./Price";
+import Constructor from "../Products/Constructor/Constructor";
 
 type dataType = {
   set?: Array<ComponentBundleItemInput>;
   box?: string;
+  tags?: Array<Tags>;
   price?: number;
   isDone: boolean;
 };
@@ -24,11 +30,12 @@ const AddBundle = () => {
   const [sendFiles] = useMutation(uploadFiles);
   const [uploadBundle] = useMutation(sendBundle);
 
-  const [{ set, box, price, isDone }, setData] = useReducer(
+  const [{ set, box, tags, price, isDone }, setData] = useReducer(
     (data: dataType, action: any) => ({ ...data, ...action }),
     {
       set: [],
       box: "",
+      tags: [],
       price: 0,
       isDone: false,
     }
@@ -56,6 +63,7 @@ const AddBundle = () => {
               image: imagesUidArray,
             },
             box,
+            tags,
             bundle: set,
             price: {
               additional,
@@ -92,20 +100,31 @@ const AddBundle = () => {
     },
   });
 
+  const handleUndo = () => setData({ isDone: false });
+
+  const { data, loading } = useQuery<{ tags: Array<Tags> }>(getTags, {
+    // variables: { name: null },
+  });
   return (
     <form onSubmit={handleSubmit}>
       <Info {...{ handleChange, name, description }} />
-      <Tag />
-      <CreateBundle
-        {...{
-          handleChange,
-          additional,
-          discount,
-          price,
-          setData,
-          isDone,
-        }}
-      />
+      {!loading && <Selectable {...{ set: setData, data, selected: tags }} />}
+      {isDone ? (
+        <Price
+          {...{
+            base_price: price,
+            additional,
+            discount,
+            handleChange,
+            isDone,
+            handleUndo,
+          }}
+        />
+      ) : (
+        <div className={styles.wrapper}>
+          <Constructor onSubmit={setData} />
+        </div>
+      )}
       <FileUpload {...{ files, setFieldValue }} />
       <button
         type="submit"

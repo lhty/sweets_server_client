@@ -9,27 +9,26 @@
     "timestamps": true
   },
   "attributes": {
-    "name": {
-      "type": "string"
-    },
-    "description": {
-      "type": "text"
-    },
     "items": {
-      "via": "tags",
-      "collection": "item"
+      "collection": "item",
+      "via": "tags"
     },
     "boxes": {
-      "via": "tags",
-      "collection": "box"
+      "collection": "box",
+      "via": "tags"
     },
     "products": {
-      "via": "tags",
-      "collection": "product"
+      "collection": "product",
+      "via": "tags"
     },
     "banners": {
-      "via": "tags",
-      "collection": "banner"
+      "collection": "banner",
+      "via": "tags"
+    },
+    "info": {
+      "type": "component",
+      "repeatable": false,
+      "component": "info.info"
     }
   }
 }

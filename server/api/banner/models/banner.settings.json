@@ -15,8 +15,8 @@
       "component": "info.info"
     },
     "tags": {
-      "collection": "tags",
       "via": "banners",
+      "collection": "tags",
       "dominant": true
     }
   }

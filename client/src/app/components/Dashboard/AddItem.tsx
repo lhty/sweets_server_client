@@ -2,19 +2,26 @@ import React, { useReducer } from "react";
 
 import { useFormik } from "formik";
 
+import { useQuery } from "@apollo/client";
+import getTags from "../../graphql/queries/getTags.graphql";
+import getMaterials from "../../graphql/queries/getMaterials.graphql";
+
 import { useMutation } from "@apollo/client";
 import uploadFiles from "../../graphql/mutations/uploadFiles.graphql";
 import sendItem from "../../graphql/mutations/addItem.graphql";
 
 import FileUpload from "./FileUpload";
 import Info from "./Info";
-import Tag from "./Tag";
-import Material from "./Material";
+import Selectable from "./Selectable";
+
+import Price from "./Price";
+import { Tags, Material } from "../../@types/queryTypes";
 
 type dataType = {
   base_price?: number;
   additional?: number;
   discount?: string;
+  tags?: Array<string>;
   is_available_in_constructor?: boolean;
 };
 
@@ -23,13 +30,12 @@ const AddItem = () => {
   const [uploadItem] = useMutation(sendItem);
 
   const [
-    { base_price, additional, discount, is_available_in_constructor },
+    { is_available_in_constructor, tags, materials },
     setData,
   ] = useReducer((data: dataType, action: any) => ({ ...data, ...action }), {
-    base_price: 0,
-    additional: 0,
-    discount: "",
     is_available_in_constructor: true,
+    tags: [],
+    materials: [],
   });
 
   const handleSubmitMutation = async (files: any) => {
@@ -58,6 +64,8 @@ const AddItem = () => {
               additional,
               discount,
             },
+            tags,
+            materials,
             is_available_in_constructor,
           },
         },
@@ -66,8 +74,17 @@ const AddItem = () => {
     });
   };
 
+  const { data: tagData, loading: tagLoading } = useQuery<{
+    tags: Array<Tags>;
+  }>(getTags, {
+    // variables: { name: null },
+  });
+  const { data: materialData, loading: materialLoading } = useQuery<{
+    material: Array<Material>;
+  }>(getMaterials);
+
   const {
-    values: { name, description, files },
+    values: { name, description, base_price, additional, discount, files },
     setFieldValue,
     handleSubmit,
     handleChange,
@@ -76,6 +93,9 @@ const AddItem = () => {
     initialValues: {
       name: "",
       description: "",
+      base_price: 0,
+      additional: 0,
+      discount: "",
       files: [],
     },
     onSubmit: async (values) => {
@@ -93,8 +113,22 @@ const AddItem = () => {
   return (
     <form onSubmit={handleSubmit}>
       <Info {...{ handleChange, name, description }} />
-      <Material />
-      <Tag />
+      {!materialLoading && (
+        <Selectable
+          {...{ set: setData, data: materialData, selected: materials }}
+        />
+      )}
+      <Price
+        {...{
+          base_price,
+          additional,
+          discount,
+          handleChange,
+        }}
+      />
+      {!tagLoading && (
+        <Selectable {...{ set: setData, data: tagData, selected: tags }} />
+      )}
       <FileUpload {...{ files, setFieldValue }} />
       <button type="submit" disabled={!files.length || !name || !description}>
         Submit

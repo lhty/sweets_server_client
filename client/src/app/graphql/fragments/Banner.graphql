@@ -9,7 +9,10 @@ fragment Banner on Banner {
     }
   }
   tags {
-    name
-    description
+    id
+    info {
+      name
+      description
+    }
   }
 }

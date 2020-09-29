@@ -2,6 +2,10 @@ fragment Item on Item {
   id
   tags {
     id
+    info {
+      name
+      description
+    }
   }
   letter
   is_editable

@@ -1,10 +1,11 @@
 import React from "react";
+import { Material, Tags } from "../../@types/queryTypes";
 
 import * as styles from "./Selectable.css";
 
 interface Props {
   set: (input: any) => void;
-  data: { [key: string]: Array<any> };
+  data: { [key: string]: Array<Tags | Material> };
   selected: Array<string>;
 }
 

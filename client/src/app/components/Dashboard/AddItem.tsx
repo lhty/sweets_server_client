@@ -13,16 +13,20 @@ import sendItem from "../../graphql/mutations/addItem.graphql";
 import FileUpload from "./FileUpload";
 import Info from "./Info";
 import Selectable from "./Selectable";
-
 import Price from "./Price";
-import { Tags, Material } from "../../@types/queryTypes";
+import Dimensions from "./Dimensions";
+
+import {
+  Tags,
+  Material,
+  ComponentDimensionsDimensions,
+} from "../../@types/queryTypes";
 
 type dataType = {
-  base_price?: number;
-  additional?: number;
-  discount?: string;
-  tags?: Array<string>;
-  is_available_in_constructor?: boolean;
+  tags: Array<string>;
+  materials: Array<string>;
+  dimensions: Partial<ComponentDimensionsDimensions>;
+  is_available_in_constructor: boolean;
 };
 
 const AddItem = () => {
@@ -30,13 +34,17 @@ const AddItem = () => {
   const [uploadItem] = useMutation(sendItem);
 
   const [
-    { is_available_in_constructor, tags, materials },
+    { is_available_in_constructor, tags, materials, dimensions },
     setData,
-  ] = useReducer((data: dataType, action: any) => ({ ...data, ...action }), {
-    is_available_in_constructor: true,
-    tags: [],
-    materials: [],
-  });
+  ] = useReducer(
+    (data: dataType, action: Partial<dataType>) => ({ ...data, ...action }),
+    {
+      is_available_in_constructor: true,
+      tags: [],
+      dimensions: { weight: 0, width: 0, breadth: 0, height: 0 },
+      materials: [],
+    }
+  );
 
   const handleSubmitMutation = async (files: any) => {
     const {
@@ -64,6 +72,7 @@ const AddItem = () => {
               additional,
               discount,
             },
+            dimensions,
             tags,
             materials,
             is_available_in_constructor,
@@ -108,7 +117,6 @@ const AddItem = () => {
       handleReset(values);
     },
   });
-
   return (
     <form onSubmit={handleSubmit}>
       <Info {...{ handleChange, name, description }} />
@@ -125,6 +133,7 @@ const AddItem = () => {
           handleChange,
         }}
       />
+      <Dimensions {...{ dimensions, set: setData }} />
       {!tagLoading && (
         <Selectable {...{ set: setData, data: tagData, selected: tags }} />
       )}

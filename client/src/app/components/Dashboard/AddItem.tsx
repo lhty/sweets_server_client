@@ -26,20 +26,15 @@ type dataType = {
   tags: Array<string>;
   materials: Array<string>;
   dimensions: Partial<ComponentDimensionsDimensions>;
-  is_available_in_constructor: boolean;
 };
 
 const AddItem = () => {
   const [sendFiles] = useMutation(uploadFiles);
   const [uploadItem] = useMutation(sendItem);
 
-  const [
-    { is_available_in_constructor, tags, materials, dimensions },
-    setData,
-  ] = useReducer(
+  const [{ tags, materials, dimensions }, setData] = useReducer(
     (data: dataType, action: Partial<dataType>) => ({ ...data, ...action }),
     {
-      is_available_in_constructor: true,
       tags: [],
       dimensions: { weight: 0, width: 0, breadth: 0, height: 0 },
       materials: [],
@@ -93,7 +88,15 @@ const AddItem = () => {
   }>(getMaterials);
 
   const {
-    values: { name, description, base_price, additional, discount, files },
+    values: {
+      name,
+      description,
+      base_price,
+      additional,
+      discount,
+      is_available_in_constructor,
+      files,
+    },
     setFieldValue,
     handleSubmit,
     handleChange,
@@ -105,6 +108,7 @@ const AddItem = () => {
       base_price: 0,
       additional: 0,
       discount: "",
+      is_available_in_constructor: true,
       files: [],
     },
     onSubmit: async (values) => {
@@ -119,6 +123,12 @@ const AddItem = () => {
   });
   return (
     <form onSubmit={handleSubmit}>
+      <input
+        onChange={handleChange}
+        type="checkbox"
+        checked={is_available_in_constructor}
+        name="is_available_in_constructor"
+      />
       <Info {...{ handleChange, name, description }} />
       {!materialLoading && (
         <Selectable

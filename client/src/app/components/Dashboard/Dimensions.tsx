@@ -8,12 +8,11 @@ interface Props {
   set: (i: any) => void;
 }
 const locale = ["Вес", "Ширина", "Длина", "Высота"];
-
 const Dimensions = ({ dimensions, set }: Props) => {
   return (
     <div className={styles.container}>
       <div className={styles.container_wrapper}>
-        {Object.keys(dimensions).map((prop, i) => (
+        {Object.keys(dimensions).map((prop: keyof typeof dimensions, i) => (
           <React.Fragment key={prop + i}>
             <label htmlFor={prop}>{locale[i]}</label>
             <input

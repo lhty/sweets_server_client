@@ -60,6 +60,8 @@ const AddBox = () => {
               additional,
               discount,
             },
+            countmin,
+            countmax,
             dimensions,
             tags,
           },
@@ -75,13 +77,24 @@ const AddBox = () => {
     // variables: { name: null },
   });
   const {
-    values: { name, description, base_price, additional, discount, files },
+    values: {
+      name,
+      description,
+      base_price,
+      additional,
+      discount,
+      countmin,
+      countmax,
+      files,
+    },
     setFieldValue,
     handleSubmit,
     handleChange,
     handleReset,
   } = useFormik({
     initialValues: {
+      countmin: 0,
+      countmax: 0,
       name: "",
       description: "",
       base_price: 0,

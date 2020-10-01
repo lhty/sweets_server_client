@@ -18,8 +18,8 @@
       "via": "tags"
     },
     "products": {
-      "collection": "product",
-      "via": "tags"
+      "via": "tags",
+      "collection": "product"
     },
     "banners": {
       "collection": "banner",

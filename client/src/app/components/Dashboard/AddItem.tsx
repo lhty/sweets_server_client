@@ -15,6 +15,7 @@ import Info from "./Info";
 import Selectable from "./Selectable";
 import Price from "./Price";
 import Dimensions from "./Dimensions";
+import Checkbox from "./Checkbox";
 
 import {
   Tags,
@@ -123,18 +124,18 @@ const AddItem = () => {
   });
   return (
     <form onSubmit={handleSubmit}>
-      <input
-        onChange={handleChange}
-        type="checkbox"
-        checked={is_available_in_constructor}
-        name="is_available_in_constructor"
-      />
       <Info {...{ handleChange, name, description }} />
       {!materialLoading && (
         <Selectable
           {...{ set: setData, data: materialData, selected: materials }}
         />
       )}
+      <Checkbox
+        {...{
+          handleChange,
+          is_available_in_constructor,
+        }}
+      />
       <Price
         {...{
           base_price,

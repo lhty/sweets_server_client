@@ -1,6 +1,7 @@
 fragment Material on Material {
   id
   info {
+    id
     name
     description
     image {

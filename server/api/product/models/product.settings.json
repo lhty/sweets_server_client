@@ -25,8 +25,8 @@
       "component": "price.price"
     },
     "tags": {
-      "via": "products",
       "collection": "tags",
+      "via": "products",
       "dominant": true
     },
     "box": {
@@ -38,6 +38,11 @@
       "repeatable": true,
       "component": "bundle.item",
       "required": true
+    },
+    "flags": {
+      "type": "component",
+      "repeatable": false,
+      "component": "info.flags"
     }
   }
 }

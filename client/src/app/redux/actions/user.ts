@@ -12,10 +12,10 @@ export enum actions {
 
 interface IsetUser {
   type: typeof actions.USER_SET_USER;
-  payload: UsersPermissionsMe;
+  payload: UsersPermissionsMe | boolean;
 }
 
-export const setUser = (user: UsersPermissionsMe): IsetUser => ({
+export const setUser = (user: UsersPermissionsMe | boolean): IsetUser => ({
   type: actions.USER_SET_USER,
   payload: user,
 });

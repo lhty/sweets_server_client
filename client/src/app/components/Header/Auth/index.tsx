@@ -28,7 +28,16 @@ export default function ({ Handler, isOpen }: Props): ReactElement {
   ] = useLazyQuery(getUser);
   const [tryLogin, Login] = useMutation(logInMutation);
   const [trySignUp, Signup] = useMutation(signUpMutation);
+
   const handleLogout = () => dispatch(onLogout());
+
+  const exiredToken = FetchUserError?.message === "Invalid token.";
+
+  useEffect(() => {
+    if (exiredToken) {
+      handleLogout();
+    }
+  }, [exiredToken]);
 
   useEffect(() => {
     if (token && fetchUserData?.me) {

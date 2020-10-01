@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_info_flags",
+  "info": {
+    "name": "flags",
+    "icon": "check"
+  },
+  "options": {},
+  "attributes": {
+    "is_available_in_constructor": {
+      "type": "boolean"
+    }
+  }
+}

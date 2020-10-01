@@ -9,6 +9,10 @@ fragment Product on Product {
       url
     }
   }
+  flags {
+    id
+    is_available_in_constructor
+  }
   tags {
     id
     info {

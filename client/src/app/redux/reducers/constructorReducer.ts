@@ -4,8 +4,8 @@ import {
   ComponentPricePrice,
   Box,
   AdminUser,
-  Item,
 } from "../../@types/queryTypes";
+import { ItemMod } from "../../@types/utility";
 import {
   actions,
   ConstructorActionTypes,
@@ -15,13 +15,13 @@ import {
 type ConstructorStateType = {
   info: ComponentInfoInfo;
   price: ComponentPricePrice;
-  set: Array<Item>;
+  set: Array<ItemMod>;
   box: Box;
   created_by: AdminUser;
   updated_by: AdminUser;
   tags: Array<Tags>;
   page: pageType;
-  details: Item | Box;
+  details: ItemMod | Box;
   quantity: string;
 };
 
@@ -67,7 +67,7 @@ export default function constructorReducer(
         itemsToAdd.slice(0, state.set.length - action.fromIndex).reverse(),
         itemsToAdd.slice(state.set.length - action.fromIndex).reverse(),
       ];
-      const update = (set: Array<Item>, add: Array<Item>, from: number) =>
+      const update = (set: Array<ItemMod>, add: Array<ItemMod>, from: number) =>
         set.reduce((set, item, i) => {
           if (i >= from && !item && add.length > 0) {
             set[i] = add.pop();

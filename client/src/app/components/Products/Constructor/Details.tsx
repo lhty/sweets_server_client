@@ -6,13 +6,14 @@ import Gallery from "../../Shared/Gallery";
 import { useSpring, animated, config } from "react-spring";
 import { useDrag } from "react-use-gesture";
 
-import { Item, Box } from "../../../@types/queryTypes";
+import { ItemMod } from "../../../@types/utility";
+import { Box } from "../../../@types/queryTypes";
 
 import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 
 interface IDetails {
-  input: Item | Box;
-  set?: Array<Item>;
+  input: ItemMod | Box;
+  set?: Array<ItemMod>;
   handlers: any;
 }
 
@@ -20,7 +21,7 @@ export const Details = ({ input, set: bundleSet, handlers }: IDetails) => {
   const types = {
     isBox: input.__typename === "Box",
     isItem: input.__typename === "Item",
-    isItemWithLetter: input.__typename === "Item" && input.is_editable,
+    isItemWithLetter: input.__typename === "Item" && input.flags.is_editable,
   };
   const trackRef = useRef<HTMLDivElement>(null);
   const [track, setTrack] = useState(0);

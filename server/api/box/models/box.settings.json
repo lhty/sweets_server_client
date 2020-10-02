@@ -31,13 +31,18 @@
       "component": "dimensions.dimensions"
     },
     "tags": {
-      "via": "boxes",
       "collection": "tags",
+      "via": "boxes",
       "dominant": true
     },
     "products": {
-      "via": "box",
-      "collection": "product"
+      "collection": "product",
+      "via": "box"
+    },
+    "flags": {
+      "type": "component",
+      "repeatable": false,
+      "component": "info.flags"
     }
   }
 }

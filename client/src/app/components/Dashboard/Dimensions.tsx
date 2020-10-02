@@ -4,28 +4,42 @@ import { ComponentDimensionsDimensions } from "../../@types/queryTypes";
 import * as styles from "./Dimensions.css";
 
 interface Props {
-  dimensions: Partial<ComponentDimensionsDimensions>;
   set: (i: any) => void;
+  dimensions: Partial<ComponentDimensionsDimensions>;
+  capacity?: { [key: string]: number };
 }
-const locale = ["Вес", "Ширина", "Длина", "Высота"];
-const Dimensions = ({ dimensions, set }: Props) => {
+const locale = ["Вес", "Ширина", "Длина", "Высота", "Мин(шт)", "Макс(шт)"];
+const Dimensions = ({ dimensions, capacity, set }: Props) => {
+  const isCapacityProps = (i: number) => i > Object.keys(dimensions).length - 1;
   return (
     <div className={styles.container}>
       <div className={styles.container_wrapper}>
-        {Object.keys(dimensions).map((prop: keyof typeof dimensions, i) => (
+        {Object.keys(
+          capacity ? { ...dimensions, ...capacity } : dimensions
+        ).map((prop: keyof typeof dimensions, i) => (
           <React.Fragment key={prop + i}>
             <label htmlFor={prop}>{locale[i]}</label>
             <input
               onChange={(e) =>
-                set({
-                  dimensions: {
-                    ...dimensions,
-                    [prop]: Number(e.target.value),
-                  },
-                })
+                isCapacityProps(i)
+                  ? set({
+                      capacity: {
+                        ...capacity,
+                        [prop]: Number(e.target.value),
+                      },
+                    })
+                  : set({
+                      dimensions: {
+                        ...dimensions,
+                        [prop]: Number(e.target.value),
+                      },
+                    })
               }
               type="number"
-              value={dimensions[prop] || ""}
+              required={isCapacityProps(i)}
+              value={
+                (isCapacityProps(i) ? capacity[prop] : dimensions[prop]) || ""
+              }
               name={prop}
             />
           </React.Fragment>

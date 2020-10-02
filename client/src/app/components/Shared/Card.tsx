@@ -9,15 +9,14 @@ import * as styles from "./Card.css";
 import { ThumbnailUrl, makeStrShorter } from "../lib";
 import {
   Product,
-  Item,
   Box,
   ComponentInfoInfo,
   ComponentDimensionsDimensions,
-  UploadFile,
 } from "../../@types/queryTypes";
+import { ItemMod } from "../../@types/utility";
 import { CheckOutlined, PlusOutlined } from "@ant-design/icons";
 
-type inputType = Product | Item | Box;
+type inputType = Product | ItemMod | Box;
 interface Props {
   input: inputType;
   select?: (id: string | inputType, name?: string) => void;

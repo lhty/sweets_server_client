@@ -9,17 +9,6 @@
     "timestamps": true
   },
   "attributes": {
-    "is_available_in_constructor": {
-      "type": "boolean",
-      "default": true
-    },
-    "letter": {
-      "type": "string"
-    },
-    "is_editable": {
-      "type": "boolean",
-      "default": false
-    },
     "info": {
       "type": "component",
       "repeatable": false,
@@ -36,14 +25,19 @@
       "component": "price.price"
     },
     "tags": {
-      "via": "items",
       "collection": "tags",
+      "via": "items",
       "dominant": true
     },
     "materials": {
       "collection": "material",
       "via": "items",
       "dominant": true
+    },
+    "flags": {
+      "type": "component",
+      "repeatable": false,
+      "component": "info.flags"
     }
   }
 }

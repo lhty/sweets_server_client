@@ -16,22 +16,30 @@ import Price from "./Price";
 import Dimensions from "./Dimensions";
 
 import { Tags, ComponentDimensionsDimensions } from "../../@types/queryTypes";
+import Checkbox from "./Checkbox";
 
 type dataType = {
   tags: Array<string>;
   dimensions: Partial<ComponentDimensionsDimensions>;
+  capacity?: {
+    countmin: number;
+    countmax: number;
+  };
 };
 
 const AddBox = () => {
   const [sendFiles] = useMutation(uploadFiles);
   const [uploadBox] = useMutation(sendBox);
 
-  const [{ tags, dimensions }, setData] = useReducer(
+  const init: dataType = {
+    tags: [],
+    dimensions: { weight: 0, width: 0, breadth: 0, height: 0 },
+    capacity: { countmin: 0, countmax: 0 },
+  };
+
+  const [{ tags, dimensions, capacity }, setData] = useReducer(
     (data: dataType, action: Partial<dataType>) => ({ ...data, ...action }),
-    {
-      tags: [],
-      dimensions: { weight: 0, width: 0, breadth: 0, height: 0 },
-    }
+    init
   );
 
   const handleSubmitMutation = async (files: any) => {
@@ -50,18 +58,21 @@ const AddBox = () => {
       variables: {
         input: {
           data: {
+            countmin: capacity.countmin,
+            countmax: capacity.countmax,
             info: {
               name,
               description,
               image: imagesUidArray,
+            },
+            flags: {
+              is_available_in_constructor,
             },
             price: {
               base_price,
               additional,
               discount,
             },
-            countmin,
-            countmax,
             dimensions,
             tags,
           },
@@ -69,6 +80,7 @@ const AddBox = () => {
       },
       refetchQueries: ["getItems"],
     });
+    setData(init);
   };
 
   const { data: tagData, loading: tagLoading } = useQuery<{
@@ -83,8 +95,7 @@ const AddBox = () => {
       base_price,
       additional,
       discount,
-      countmin,
-      countmax,
+      is_available_in_constructor,
       files,
     },
     setFieldValue,
@@ -100,6 +111,7 @@ const AddBox = () => {
       base_price: 0,
       additional: 0,
       discount: "",
+      is_available_in_constructor: true,
       files: [],
     },
     onSubmit: async (values) => {
@@ -115,6 +127,12 @@ const AddBox = () => {
   return (
     <form onSubmit={handleSubmit}>
       <Info {...{ handleChange, name, description }} />
+      <Checkbox
+        {...{
+          handleChange,
+          is_available_in_constructor,
+        }}
+      />
       <Price
         {...{
           base_price,
@@ -123,12 +141,21 @@ const AddBox = () => {
           handleChange,
         }}
       />
-      <Dimensions {...{ dimensions, set: setData }} />
+      <Dimensions {...{ dimensions, capacity, set: setData }} />
       {!tagLoading && (
         <Selectable {...{ set: setData, data: tagData, selected: tags }} />
       )}
       <FileUpload {...{ files, setFieldValue }} />
-      <button type="submit" disabled={!files.length || !name || !description}>
+      <button
+        type="submit"
+        disabled={
+          !files.length ||
+          !name ||
+          !description ||
+          !base_price ||
+          capacity.countmin > capacity.countmax
+        }
+      >
         Submit
       </button>
     </form>

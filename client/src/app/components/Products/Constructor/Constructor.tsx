@@ -11,7 +11,8 @@ import {
   RemoveItemFromSet,
 } from "../../../redux/actions/constructor";
 import { RootState } from "../../../redux/reducers";
-import { Box, Item } from "../../../@types/queryTypes";
+import { Box } from "../../../@types/queryTypes";
+import { ItemMod } from "../../../@types/utility";
 
 import { GiftOutlined } from "@ant-design/icons";
 import { Boxes } from "./Boxes";
@@ -41,20 +42,20 @@ export default ({
       dispatch(pickBox(box));
       handlers.handleSelectPage("slot");
     },
-    handleViewItemDetails(input: Item | Box) {
+    handleViewItemDetails(input: ItemMod | Box) {
       dispatch(viewItemDetails(input));
       handlers.handleSelectPage("details");
     },
     handlechangeQuantity(quantity: string) {
       dispatch(changeQuantity(quantity));
     },
-    handleAddItemsToSet(input: Item, quantity: string) {
+    handleAddItemsToSet(input: ItemMod, quantity: string) {
       dispatch(addItemsToSet(input, quantity, selectedSlot));
     },
     handleRemoveItemFromSet(id: number) {
       dispatch(RemoveItemFromSet(id));
     },
-    handleSubmitSet(set: Array<Item>) {
+    handleSubmitSet(set: Array<ItemMod>) {
       const data = set.reduce(
         (acc, item) => ({
           ...acc,
@@ -79,9 +80,9 @@ export default ({
 interface IConstructor {
   handlers: any;
   box: Box;
-  set: Array<Item>;
+  set: Array<ItemMod>;
   page: string;
-  details: Box | Item;
+  details: Box | ItemMod;
   selectSlot: (n: number) => void;
 }
 

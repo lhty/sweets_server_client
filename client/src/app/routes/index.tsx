@@ -16,7 +16,7 @@ export default (): ReactElement => {
         <Header />
         <Banners />
         <Products />
-        <Footer />
+        {/* <Footer /> */}
       </Suspense>
     </Router>
   );

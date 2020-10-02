@@ -10,12 +10,12 @@
   },
   "attributes": {
     "items": {
-      "collection": "item",
-      "via": "tags"
+      "via": "tags",
+      "collection": "item"
     },
     "boxes": {
-      "collection": "box",
-      "via": "tags"
+      "via": "tags",
+      "collection": "box"
     },
     "products": {
       "via": "tags",

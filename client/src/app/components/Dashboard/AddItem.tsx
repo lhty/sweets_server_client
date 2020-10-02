@@ -33,13 +33,15 @@ const AddItem = () => {
   const [sendFiles] = useMutation(uploadFiles);
   const [uploadItem] = useMutation(sendItem);
 
+  const init: dataType = {
+    tags: [],
+    dimensions: { weight: 0, width: 0, breadth: 0, height: 0 },
+    materials: [],
+  };
+
   const [{ tags, materials, dimensions }, setData] = useReducer(
     (data: dataType, action: Partial<dataType>) => ({ ...data, ...action }),
-    {
-      tags: [],
-      dimensions: { weight: 0, width: 0, breadth: 0, height: 0 },
-      materials: [],
-    }
+    init
   );
 
   const handleSubmitMutation = async (files: any) => {
@@ -63,6 +65,10 @@ const AddItem = () => {
               description,
               image: imagesUidArray,
             },
+            flags: {
+              is_available_in_constructor,
+              is_editable,
+            },
             price: {
               base_price,
               additional,
@@ -77,6 +83,7 @@ const AddItem = () => {
       },
       refetchQueries: ["getItems"],
     });
+    setData(init);
   };
 
   const { data: tagData, loading: tagLoading } = useQuery<{
@@ -96,6 +103,7 @@ const AddItem = () => {
       additional,
       discount,
       is_available_in_constructor,
+      is_editable,
       files,
     },
     setFieldValue,
@@ -110,6 +118,7 @@ const AddItem = () => {
       additional: 0,
       discount: "",
       is_available_in_constructor: true,
+      is_editable: false,
       files: [],
     },
     onSubmit: async (values) => {
@@ -134,6 +143,7 @@ const AddItem = () => {
         {...{
           handleChange,
           is_available_in_constructor,
+          is_editable,
         }}
       />
       <Price
@@ -149,7 +159,10 @@ const AddItem = () => {
         <Selectable {...{ set: setData, data: tagData, selected: tags }} />
       )}
       <FileUpload {...{ files, setFieldValue }} />
-      <button type="submit" disabled={!files.length || !name || !description}>
+      <button
+        type="submit"
+        disabled={!files.length || !name || !description || !base_price}
+      >
         Submit
       </button>
     </form>

@@ -30,8 +30,8 @@
       "dominant": true
     },
     "box": {
-      "model": "box",
-      "via": "products"
+      "via": "products",
+      "model": "box"
     },
     "bundle": {
       "type": "component",

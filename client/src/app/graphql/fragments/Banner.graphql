@@ -1,18 +1,12 @@
+#import "./parts/Info.graphql"
+#import "./Tag.graphql"
+
 fragment Banner on Banner {
   id
   info {
-    name
-    description
-    image {
-      formats
-      url
-    }
+    ...Info
   }
   tags {
-    id
-    info {
-      name
-      description
-    }
+    ...Tag
   }
 }

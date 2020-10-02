@@ -7,7 +7,12 @@
   "options": {},
   "attributes": {
     "is_available_in_constructor": {
-      "type": "boolean"
+      "type": "boolean",
+      "default": true
+    },
+    "is_editable": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

@@ -5,16 +5,22 @@ import { useTransition, animated as a } from "react-spring";
 import AddBundle from "./AddBundle";
 import AddItem from "./AddItem";
 import AddBox from "./AddBox";
+import AddBanner from "./AddBanner";
 
 import * as styles from "./Dashboard.css";
 
 export default function () {
-  const [Bundle, Item, Box] = [a(AddBundle), a(AddItem), a(AddBox)];
+  const [Bundle, Item, Box, Banner] = [
+    a(AddBundle),
+    a(AddItem),
+    a(AddBox),
+    a(AddBanner),
+  ];
   const pages: any = {
     Bundle: <Bundle />,
     Item: <Item />,
     Box: <Box />,
-    Banner: null,
+    Banner: <Banner />,
     Orders: null,
     Customers: null,
   };

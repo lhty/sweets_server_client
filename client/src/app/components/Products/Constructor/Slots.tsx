@@ -1,13 +1,14 @@
 import React from "react";
 
 import * as styles from "./Slots.css";
-import { Box, Item } from "../../../@types/queryTypes";
+import { Box } from "../../../@types/queryTypes";
+import { ItemMod } from "../../../@types/utility";
 import { PlusSquareOutlined, CloseOutlined } from "@ant-design/icons";
 import { ThumbnailUrl } from "../../lib";
 
 interface Props {
   box: Box;
-  set: Array<Item>;
+  set: Array<ItemMod>;
   handlers: any;
   selectSlot: (n: number) => void;
 }
@@ -45,12 +46,12 @@ export const Slots = ({ box, set, handlers, selectSlot }: Props) => {
   );
 };
 
-const Slot = ({ item }: { item: Item }) => {
+const Slot = ({ item }: { item: ItemMod }) => {
   return (
     <div
       className={styles.filled}
       style={{
-        backgroundImage: item.letter
+        backgroundImage: item.flags.is_editable
           ? `linear-gradient(45deg, white, white)`
           : `url(${ThumbnailUrl({
               source: item.info.image,
@@ -62,7 +63,9 @@ const Slot = ({ item }: { item: Item }) => {
         // })})`,
       }}
     >
-      {!!item.letter && <h2 className={styles.filled_letter}>{item.letter}</h2>}
+      {!!item.flags.is_editable && (
+        <h2 className={styles.filled_letter}>{item.letter}</h2>
+      )}
     </div>
   );
 };

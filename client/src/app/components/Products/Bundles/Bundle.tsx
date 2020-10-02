@@ -20,8 +20,8 @@ import {
   VerticalAlignTopOutlined,
   DownloadOutlined,
 } from "@ant-design/icons";
-import { Item } from "../../../@types/queryTypes";
 import Loader from "../../Shared/Loader";
+import { ItemMod } from "../../../@types/utility";
 
 interface Props {}
 
@@ -59,7 +59,7 @@ export default function Bundle({}: Props): ReactElement {
       </div>
       <div className={styles.info}>
         <div className={styles.info_inside}>
-          {data.product.bundle.map(({ item }: { item: Item }, i: number) => (
+          {data.product.bundle.map(({ item }: { item: ItemMod }, i: number) => (
             <p key={i}>{item?.info.name}</p>
           ))}
         </div>

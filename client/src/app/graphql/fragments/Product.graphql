@@ -1,60 +1,33 @@
+#import "./parts/Info.graphql"
+#import "./parts/Flags.graphql"
+#import "./parts/BundleElement.graphql"
+#import "./parts/Dimensions.graphql"
+#import "./parts/Price.graphql"
+#import "./Item.graphql"
+#import "./Box.graphql"
+#import "./Tag.graphql"
+
 fragment Product on Product {
   id
   info {
-    name
-    description
-    image {
-      id
-      formats
-      url
-    }
+    ...Info
   }
   flags {
-    id
-    is_available_in_constructor
+    ...Flags
   }
   tags {
-    id
-    info {
-      name
-      description
-    }
+    ...Tag
   }
   box {
-    id
-    info {
-      id
-      name
-      description
-    }
-    countmin
-    countmax
-    price {
-      id
-      overall
-    }
+    ...Box
   }
   bundle {
-    item {
-      id
-      info {
-        id
-        name
-        description
-      }
-    }
-    letter
+    ...BundleElement
   }
   dimensions {
-    id
-    weight
-    width
-    breadth
-    height
+    ...Dimensions
   }
   price {
-    id
-    discount
-    overall
+    ...Price
   }
 }

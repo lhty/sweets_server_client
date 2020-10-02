@@ -1,11 +1,12 @@
 import React from "react";
 
 import * as styles from "./Receipt.css";
-import { Box, Item } from "../../../@types/queryTypes";
+import { Box } from "../../../@types/queryTypes";
+import { ItemMod } from "../../../@types/utility";
 
 interface Props {
   box: Box;
-  set: Array<Item>;
+  set: Array<ItemMod>;
   page: string;
 }
 

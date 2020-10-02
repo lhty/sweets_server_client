@@ -1,35 +1,26 @@
+#import "./parts/Info.graphql"
+#import "./parts/Flags.graphql"
+#import "./parts/Dimensions.graphql"
+#import "./parts/Price.graphql"
+#import "./Tag.graphql"
+
 fragment Box on Box {
   id
-  tags {
-    id
-    info {
-      name
-      description
-    }
-  }
   countmin
   countmax
+  tags {
+    ...Tag
+  }
   price {
-    id
-    additional
-    discount
-    overall
+    ...Price
   }
   info {
-    id
-    name
-    description
-    image {
-      id
-      formats
-      url
-    }
+    ...Info
+  }
+  flags {
+    ...Flags
   }
   dimensions {
-    id
-    width
-    breadth
-    height
-    weight
+    ...Dimensions
   }
 }

@@ -1,4 +1,5 @@
-import { Box, Item } from "../../@types/queryTypes";
+import { Box } from "../../@types/queryTypes";
+import { ItemMod } from "../../@types/utility";
 
 export enum actions {
   CHANGE_PAGE = "CHANGE_PAGE",
@@ -41,10 +42,10 @@ export const pickBox = (box: Box): IpickBox => ({
 
 interface IviewItemDetails {
   type: typeof actions.VIEW_ITEM_DETAILS;
-  payload: Item | Box;
+  payload: ItemMod | Box;
 }
 
-export const viewItemDetails = (input: Item | Box): IviewItemDetails => ({
+export const viewItemDetails = (input: ItemMod | Box): IviewItemDetails => ({
   type: actions.VIEW_ITEM_DETAILS,
   payload: input,
 });
@@ -69,13 +70,13 @@ export const changeQuantity = (quantity: string) => ({
 
 interface IaddItemsToSet {
   type: typeof actions.ADD_ITEMS_TO_SET;
-  payload: Item;
+  payload: ItemMod;
   quantity: string;
   fromIndex: number;
 }
 
 export const addItemsToSet = (
-  item: Item,
+  item: ItemMod,
   quantity: string = "",
   fromIndex: number
 ) => ({

@@ -8,6 +8,7 @@ interface Props {
 
 const locale: { [key: string]: string } = {
   is_available_in_constructor: "Доступно в конструкторе",
+  is_editable: "Редактируемая(текст)",
 };
 
 const Checkbox = ({ handleChange, ...args }: Props) => {

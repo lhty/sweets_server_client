@@ -6,15 +6,16 @@ import {
   DoubleLeftOutlined,
   DoubleRightOutlined,
 } from "@ant-design/icons";
-import { Box, Item } from "../../../@types/queryTypes";
+import { Box } from "../../../@types/queryTypes";
+import { ItemMod } from "../../../@types/utility";
 import { constructorPage } from "../../../redux/actions/constructor";
 
 interface Props {
   page: string;
   handlers?: any;
   box?: Box;
-  set?: Array<Item>;
-  details?: Box | Item;
+  set?: Array<ItemMod>;
+  details?: Box | ItemMod;
   quantity?: string;
 }
 

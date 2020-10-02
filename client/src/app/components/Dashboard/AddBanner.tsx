@@ -1,45 +1,32 @@
 import React, { useReducer } from "react";
 
-import { useFormik } from "formik";
-
 import { useQuery } from "@apollo/client";
 import getTags from "../../graphql/queries/getTags.graphql";
 
 import { useMutation } from "@apollo/client";
 import uploadFiles from "../../graphql/mutations/uploadFiles.graphql";
-import sendBundle from "../../graphql/mutations/addBundle.graphql";
+import sendBanner from "../../graphql/mutations/addBanner.graphql";
 
-import * as styles from "./Dashboard.css";
-
-import { ComponentBundleItemInput, Tags } from "../../@types/queryTypes";
 import FileUpload from "./FileUpload";
 import Info from "./Info";
 import Selectable from "./Selectable";
-import Price from "./Price";
-import Constructor from "../Products/Constructor/Constructor";
-import Checkbox from "./Checkbox";
+
+import { useFormik } from "formik";
+import { Tags } from "../../@types/queryTypes";
 
 type dataType = {
-  set?: Array<ComponentBundleItemInput>;
-  box?: string;
   tags?: Array<Tags>;
-  price?: number;
-  isDone: boolean;
 };
 
-const AddBundle = () => {
+const AddBanner = () => {
   const [sendFiles] = useMutation(uploadFiles);
-  const [uploadBundle] = useMutation(sendBundle);
+  const [uploadBanner] = useMutation(sendBanner);
 
   const init: dataType = {
-    set: [],
-    box: "",
     tags: [],
-    price: 0,
-    isDone: false,
   };
 
-  const [{ set, box, tags, price, isDone }, setData] = useReducer(
+  const [{ tags }, setData] = useReducer(
     (data: dataType, action: any) => ({ ...data, ...action }),
     init
   );
@@ -56,7 +43,7 @@ const AddBundle = () => {
       (upload: { id: string }) => upload.id
     );
 
-    await uploadBundle({
+    await uploadBanner({
       variables: {
         input: {
           data: {
@@ -65,33 +52,16 @@ const AddBundle = () => {
               description,
               image: imagesUidArray,
             },
-            flags: {
-              is_available_in_constructor,
-            },
-            box,
             tags,
-            bundle: set,
-            price: {
-              additional,
-              discount,
-            },
           },
         },
       },
-      refetchQueries: ["getBundles"],
+      refetchQueries: ["getBanners"],
     });
-    setData(init);
   };
 
   const {
-    values: {
-      name,
-      description,
-      additional,
-      discount,
-      is_available_in_constructor,
-      files,
-    },
+    values: { name, description, files },
     setFieldValue,
     handleSubmit,
     handleChange,
@@ -100,9 +70,6 @@ const AddBundle = () => {
     initialValues: {
       name: "",
       description: "",
-      discount: "",
-      additional: 0,
-      is_available_in_constructor: true,
       files: [],
     },
     onSubmit: async (values) => {
@@ -114,47 +81,20 @@ const AddBundle = () => {
       }
     },
   });
-
-  const handleUndo = () => setData({ isDone: false });
-
   const { data, loading } = useQuery<{ tags: Array<Tags> }>(getTags, {
     // variables: { name: null },
   });
+
   return (
     <form onSubmit={handleSubmit}>
       <Info {...{ handleChange, name, description }} />
-      <Checkbox
-        {...{
-          handleChange,
-          is_available_in_constructor,
-        }}
-      />
       {!loading && <Selectable {...{ set: setData, data, selected: tags }} />}
-      {isDone ? (
-        <Price
-          {...{
-            base_price: price,
-            additional,
-            discount,
-            handleChange,
-            isDone,
-            handleUndo,
-          }}
-        />
-      ) : (
-        <div className={styles.wrapper}>
-          <Constructor onSubmit={setData} />
-        </div>
-      )}
       <FileUpload {...{ files, setFieldValue }} />
-      <button
-        type="submit"
-        disabled={!files.length || !set.length || !name || !description}
-      >
+      <button type="submit" disabled={!files.length || !name || !description}>
         Submit
       </button>
     </form>
   );
 };
 
-export default AddBundle;
+export default AddBanner;

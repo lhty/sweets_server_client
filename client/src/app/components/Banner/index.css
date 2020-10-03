@@ -1,10 +1,6 @@
 .container {
   position: relative;
-  width: 100%;
   margin: auto;
-  @mixin M {
-    width: 90%;
-  }
 }
 
 .bullets {

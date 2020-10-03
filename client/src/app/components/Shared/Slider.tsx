@@ -9,6 +9,7 @@ interface SliderProps {
   scaleOnDrag?: boolean;
   grid?: boolean | string;
   hasBullets?: boolean | string;
+  disabled?: boolean;
   activeIndex?: number;
   auto?: number;
   children?: React.ReactElement | React.ReactElement[];
@@ -21,6 +22,7 @@ export default function Slider({
   scaleOnDrag = false,
   grid = false,
   hasBullets = false,
+  disabled = false,
   activeIndex = 0,
   auto = 0,
   children,
@@ -71,7 +73,7 @@ export default function Slider({
         distance,
         cancel,
       }) => {
-        if (down && distance > window.innerWidth / 5) {
+        if (!disabled && down && distance > window.innerWidth / 5) {
           const newIndex = _clamp(
             currentSlide + (xDir > 0 ? -1 : 1),
             0,
@@ -81,14 +83,14 @@ export default function Slider({
           setSlide(newIndex);
         }
         // @ts-ignore
-        set(() => ({
-          x: down ? (distance * (xDir > 0 ? 1 : -1)) / 10 : 0,
-          sc: scaleOnDrag
-            ? down && xDir
-              ? 1 - distance / window.innerWidth
-              : 1
-            : 1,
-        }));
+        // set(() => ({
+        //   x: down ? (distance * (xDir > 0 ? 1 : -1)) / 10 : 0,
+        //   sc: scaleOnDrag
+        //     ? down && xDir
+        //       ? 1 - distance / window.innerWidth
+        //       : 1
+        //     : 1,
+        // }));
       },
     },
     {
@@ -121,7 +123,7 @@ export default function Slider({
             )
         )}
       </div>
-      {hasBullets && SLIDES.length > 1 && (
+      {!disabled && hasBullets && SLIDES.length > 1 && (
         <div className={hasBullets.toString()}>
           {SLIDES.map((_, i) => (
             <div

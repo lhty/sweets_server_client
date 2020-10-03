@@ -11,10 +11,12 @@
 
   & .add {
     position: absolute;
-    right: 10px;
-    top: 10px;
-    font-size: 3rem;
+    right: 0;
+    top: 0;
+    font-size: 2rem;
+    line-height: 2rem;
     color: white;
+    background-color: var(--nav-element-color5);
   }
 
   & img {

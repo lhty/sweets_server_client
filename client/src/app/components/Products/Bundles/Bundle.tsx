@@ -12,7 +12,6 @@ import Gallery from "../../Shared/Gallery";
 
 import * as styles from "./Bundle.css";
 import {
-  DoubleLeftOutlined,
   CheckOutlined,
   ShoppingCartOutlined,
   ColumnWidthOutlined,
@@ -46,10 +45,6 @@ export default function Bundle({}: Props): ReactElement {
     );
   return (
     <section className={styles.container}>
-      <DoubleLeftOutlined
-        className={styles.back}
-        onClick={() => history.push("/")}
-      />
       <div className={styles.pictures}>
         <Gallery images={data.product.info.image} bullets={styles.bullets} />
       </div>

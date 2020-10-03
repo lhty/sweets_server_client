@@ -24,7 +24,7 @@ export default function index({ onSubmit }: Props): ReactElement {
   });
 
   const handleChangeWidth = () =>
-    dispatch(changeConstructorWidth(constructorWindowState > 0 ? 0 : 30));
+    dispatch(changeConstructorWidth(constructorWindowState > 0 ? 0 : 100));
 
   return (
     <a.div style={currentWidth} className={styles.container}>

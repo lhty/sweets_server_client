@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import * as styles from "./Details.css";
 import Gallery from "../../Shared/Gallery";
 
-import { useSpring, animated, config } from "react-spring";
+import { useSpring, animated } from "react-spring";
 import { useDrag } from "react-use-gesture";
 
 import { ItemMod } from "../../../@types/utility";
@@ -96,72 +96,73 @@ export const Details = ({ input, set: bundleSet, handlers }: IDetails) => {
   };
   return (
     <div onContextMenu={(e) => e.preventDefault()} className={styles.container}>
-      <div className={styles.container_add}>
-        {types.isItem && !types.isItemWithLetter && (
-          <>
-            <MinusOutlined onClick={handleDecrease} />
-            <div ref={trackRef} className={styles.container_add_range}>
-              <div className={styles.container_add_bar}></div>
-              <animated.div
-                {...bind()}
-                // @ts-ignore
-                style={{
-                  transform: x.to((x) => `translateX(${x}px)`),
-                }}
-                className={styles.container_add_handle}
-              >
-                <div className={styles.container_add_knob}></div>
-                <animated.svg
-                  viewBox="0 0 50 50"
-                  height="50"
-                  width="50"
-                  className={styles.container_add_circle}
-                  style={{
-                    transform: morph.to((n) => `translateY(${n * -36}px)`),
-                  }}
-                >
-                  <animated.path
-                    d={morph.to({
-                      range: [0, 1],
-                      output: [
-                        "M 33,25.001 C 33,29.419278 29.418278,33 25,33 20.581722,33 17,29.419278 17,25.001 17,20.582722 20.581722,17 25,17 29.418278,17 33,20.582722 33,25.001 Z",
-                        "M 45,20 C 45,31.045695 32.089401,45 25,45 17.910599,45 5,31.045695 5,20 5,8.954305 13.954305,5 25,5 36.045695,5 45,8.954305 45,20 Z",
-                      ],
-                    })}
-                  />
-                </animated.svg>
-                {!active && quantity.length > 0 && (
-                  <div className={styles.container_add_count_inactive}>
-                    {quantity}
-                  </div>
-                )}
+      {types.isItem && (
+        <div className={styles.container_add}>
+          {types.isItemWithLetter ? (
+            <input
+              className={styles.container_add_input}
+              onChange={handleInputText}
+              type="text"
+              value={quantity}
+              autoComplete="off"
+              name="text"
+              placeholder=""
+            />
+          ) : (
+            <>
+              <MinusOutlined onClick={handleDecrease} />
+              <div ref={trackRef} className={styles.container_add_range}>
+                <div className={styles.container_add_bar}></div>
                 <animated.div
+                  {...bind()}
+                  // @ts-ignore
                   style={{
-                    transform: morph.to(
-                      (n) => `translateY(${n * -32}px) scale(${n})`
-                    ),
+                    transform: x.to((x) => `translateX(${x}px)`),
                   }}
-                  className={styles.container_add_count}
+                  className={styles.container_add_handle}
                 >
-                  {quantity.length}
+                  <div className={styles.container_add_knob}></div>
+                  <animated.svg
+                    viewBox="0 0 50 50"
+                    height="50"
+                    width="50"
+                    className={styles.container_add_circle}
+                    style={{
+                      transform: morph.to((n) => `translateY(${n * -36}px)`),
+                    }}
+                  >
+                    <animated.path
+                      d={morph.to({
+                        range: [0, 1],
+                        output: [
+                          "M 33,25.001 C 33,29.419278 29.418278,33 25,33 20.581722,33 17,29.419278 17,25.001 17,20.582722 20.581722,17 25,17 29.418278,17 33,20.582722 33,25.001 Z",
+                          "M 45,20 C 45,31.045695 32.089401,45 25,45 17.910599,45 5,31.045695 5,20 5,8.954305 13.954305,5 25,5 36.045695,5 45,8.954305 45,20 Z",
+                        ],
+                      })}
+                    />
+                  </animated.svg>
+                  {!active && quantity.length > 0 && (
+                    <div className={styles.container_add_count_inactive}>
+                      {quantity}
+                    </div>
+                  )}
+                  <animated.div
+                    style={{
+                      transform: morph.to(
+                        (n) => `translateY(${n * -32}px) scale(${n})`
+                      ),
+                    }}
+                    className={styles.container_add_count}
+                  >
+                    {quantity.length}
+                  </animated.div>
                 </animated.div>
-              </animated.div>
-            </div>
-            <PlusOutlined onClick={handleIncrease} />
-          </>
-        )}
-        {types.isItemWithLetter && (
-          <input
-            className={styles.container_add_input}
-            onChange={handleInputText}
-            type="text"
-            value={quantity}
-            autoComplete="off"
-            name="text"
-            placeholder=""
-          />
-        )}
-      </div>
+              </div>
+              <PlusOutlined onClick={handleIncrease} />
+            </>
+          )}
+        </div>
+      )}
       <div className={styles.container_images}>
         <Gallery images={input.info.image} bullets={styles.bullets} />
       </div>

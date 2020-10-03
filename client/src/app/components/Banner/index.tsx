@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { useReducer, ReactElement } from "react";
 
 import { useQuery } from "@apollo/client";
 import getBanners from "../../graphql/queries/getBanners.graphql";
@@ -11,14 +11,15 @@ import * as styles from "./index.css";
 
 export default function index(): ReactElement | null {
   const { data, loading } = useQuery(getBanners);
+  const [isOpen, toggle] = useReducer((isOpen) => !isOpen, false);
 
   if (loading) return null;
   return (
     <section className={styles.container}>
-      <Slider hasBullets={styles.bullets} scaleOnDrag>
+      <Slider hasBullets={styles.bullets} disabled={isOpen} scaleOnDrag>
         {data?.banners.map(
           (banner: bannerType, i: number) =>
-            banner && <Banner key={i} {...{ banner }} />
+            banner && <Banner key={i} {...{ banner, isOpen, toggle }} />
         )}
       </Slider>
     </section>

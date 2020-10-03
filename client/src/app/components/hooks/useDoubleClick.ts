@@ -1,11 +1,6 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 
-interface Props {
-  callback: () => void;
-  delay: number;
-}
-
-export const useDoubleclick = ({ callback, delay = 300 }: Props) => {
+export const useDoubleclick = (callback: () => void, delay: number = 300) => {
   const [timesClicked, setTimesClicked] = useState(0);
   let timerId = useRef(null);
 

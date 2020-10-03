@@ -10,7 +10,7 @@
       width: 100%;
     }
     &_bar {
-      background-color: var(--accent-color2);
+      background-color: var(--text-main);
       height: 2px;
       position: relative;
       top: 50%;
@@ -26,7 +26,7 @@
       bottom: 5px;
 
       & path {
-        fill: var(--text-alt);
+        fill: var(--text-main);
       }
     }
     &_circle {
@@ -36,13 +36,13 @@
     }
     &_knob {
       position: absolute;
-      background-color: var(--text-alt);
+      background-color: var(--text-main);
       height: 13px;
       top: 50%;
       width: 2px;
     }
     &_count {
-      color: var(--nav-element-color5);
+      color: var(--text-alt);
       font-family: "sans-serif";
       font-weight: 800;
       text-align: center;

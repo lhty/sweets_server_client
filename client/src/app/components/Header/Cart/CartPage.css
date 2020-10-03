@@ -3,10 +3,6 @@
   top: 0;
   right: 0;
   @mixin pattern1 var(--headerbg);
-  border-radius: 0 0 0 10px;
-  @mixin M {
-    border-radius: 10px 30px 10px 10px;
-  }
   box-shadow: 0 20px 40px -10px rgb(0 0 0 / 0.2);
 
   & .list {

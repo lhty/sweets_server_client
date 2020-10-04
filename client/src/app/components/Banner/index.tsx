@@ -18,8 +18,8 @@ export default function index(): ReactElement | null {
     <section className={styles.container}>
       <Slider hasBullets={styles.bullets} disabled={isOpen} scaleOnDrag>
         {data?.banners.map(
-          (banner: bannerType, i: number) =>
-            banner && <Banner key={i} {...{ banner, isOpen, toggle }} />
+          (banner: bannerType) =>
+            banner && <Banner key={banner.id} {...{ banner, isOpen, toggle }} />
         )}
       </Slider>
     </section>

@@ -68,12 +68,13 @@ export default function Slider({
     {
       onDrag: ({
         down,
-        direction: [xDir],
-        delta: [xDelta],
+        direction: [xDir, yDir],
+        delta: [xDelta, yDelta],
         distance,
         cancel,
       }) => {
-        if (!disabled && down && distance > window.innerWidth / 5) {
+        if (disabled || yDelta > 5 || Math.abs(yDir) > 0.5) return;
+        if (down && distance > window.innerWidth / 5) {
           const newIndex = _clamp(
             currentSlide + (xDir > 0 ? -1 : 1),
             0,
@@ -82,15 +83,15 @@ export default function Slider({
           cancel();
           setSlide(newIndex);
         }
-        // @ts-ignore
-        // set(() => ({
-        //   x: down ? (distance * (xDir > 0 ? 1 : -1)) / 10 : 0,
-        //   sc: scaleOnDrag
-        //     ? down && xDir
-        //       ? 1 - distance / window.innerWidth
-        //       : 1
-        //     : 1,
-        // }));
+        //@ts-ignore
+        set(() => ({
+          x: down ? (distance * (xDir > 0 ? 1 : -1)) / 5 : 0,
+          sc: scaleOnDrag
+            ? down && xDir
+              ? 1 - distance / window.innerWidth
+              : 1
+            : 1,
+        }));
       },
     },
     {
@@ -99,30 +100,27 @@ export default function Slider({
       },
     }
   );
-
   return (
-    <>
-      <div className={styles.container}>
-        {springs.map(
-          ({ x, sc }, index) =>
-            currentSlide === index && (
-              <a.div
-                onContextMenu={(e) => e.preventDefault()}
-                className={grid.toString()}
-                {...bind()}
-                key={index}
-                style={{
-                  transform: to(
-                    [x, sc],
-                    (x, sc) => `translateX(${x}px) scale(${sc})`
-                  ),
-                }}
-              >
-                {SLIDES[currentSlide]}
-              </a.div>
-            )
-        )}
-      </div>
+    <div className={styles.container}>
+      {springs.map(
+        ({ x, sc }, index) =>
+          currentSlide === index && (
+            <a.div
+              onContextMenu={(e) => e.preventDefault()}
+              className={grid.toString()}
+              {...bind()}
+              key={sc.id + x.id}
+              style={{
+                transform: to(
+                  [x, sc],
+                  (x, sc) => `translateX(${x}px) scale(${sc})`
+                ),
+              }}
+            >
+              {SLIDES[currentSlide]}
+            </a.div>
+          )
+      )}
       {!disabled && hasBullets && SLIDES.length > 1 && (
         <div className={hasBullets.toString()}>
           {SLIDES.map((_, i) => (
@@ -142,7 +140,7 @@ export default function Slider({
           ))}
         </div>
       )}
-    </>
+    </div>
   );
 }
 

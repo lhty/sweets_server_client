@@ -10,10 +10,6 @@
   @mixin M {
     padding: 2em 1em 1em;
   }
-
-  & img {
-    align-self: center;
-  }
   & p {
     font-weight: 300;
     margin-top: 0.5rem;
@@ -39,10 +35,7 @@
 
   &_images {
     position: relative;
-    height: max-content;
     border-radius: 0;
-    background-color: var(--nav-element-color2);
-    max-height: 35vh;
     overflow: hidden;
   }
 }

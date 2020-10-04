@@ -1,5 +1,5 @@
 .container {
-  background-color: var(--blockbg-main);
+  @mixin pattern1 var(--nav-element-color2);
   height: 100%;
 
   &_toggler {

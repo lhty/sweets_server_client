@@ -39,13 +39,6 @@
     width: 100%;
     height: 30px;
   } */
-  & .pictures {
-    position: relative;
-    height: max-content;
-    @mixin pattern1 var(--nav-element-color2);
-    max-height: 35vh;
-    overflow: hidden;
-  }
   & .info {
     display: flex;
     justify-content: space-evenly;

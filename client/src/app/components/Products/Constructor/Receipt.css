@@ -1,5 +1,5 @@
 .price {
-  @mixin roundedCard;
+  background-color: hsla(0, 0%, 100%, 0.25);
   display: flex;
   justify-content: space-evenly;
   color: var(--text-main);

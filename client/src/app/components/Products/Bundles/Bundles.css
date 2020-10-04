@@ -4,14 +4,11 @@
   width: 100%;
 }
 .grid {
-  --col: 1;
+  --col: 2;
   display: grid;
   grid-template-columns: repeat(var(--col), 1fr);
   grid-gap: 5px;
   padding: 0;
-  @mixin SM {
-    --col: 2;
-  }
   @mixin M {
     --col: 3;
     padding: 0 5px 10px;

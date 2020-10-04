@@ -24,32 +24,35 @@ const Gallery = ({ images, bullets }: Props): ReactElement => {
 
   if (fullscreen || fullscreen === 0)
     return createPortal(
-      <img
-        ref={fullscreenRef}
-        className={styles.fullscreen}
-        onClick={handleToggleOffFullscreen}
-        src={ThumbnailUrl({ source: images, index: fullscreen, fullscreen })}
-        alt=""
-        draggable="false"
-      />,
+      <div className={styles.fullscreen}>
+        <img
+          ref={fullscreenRef}
+          onClick={handleToggleOffFullscreen}
+          src={ThumbnailUrl({ source: images, index: fullscreen, fullscreen })}
+          alt=""
+          draggable="false"
+        />
+      </div>,
       document.getElementById("fullscreen")
     );
 
   return (
     <section className={styles.container}>
-      <div className={styles.wrapper}>
-        <Slider hasBullets={bullets}>
-          {images.map((_, index) => (
-            <div key={index} onClick={() => setFullscreen(index)}>
-              <img
-                src={ThumbnailUrl({ source: images, index })}
-                alt=""
-                draggable="false"
-              />
-            </div>
-          ))}
-        </Slider>
-      </div>
+      <Slider hasBullets={bullets}>
+        {images.map((image, index) => (
+          <div
+            className={styles.wrapper}
+            key={image.name + image.id}
+            // onClick={() => setFullscreen(index)}
+          >
+            <img
+              src={ThumbnailUrl({ source: images, index })}
+              alt=""
+              draggable="false"
+            />
+          </div>
+        ))}
+      </Slider>
     </section>
   );
 };

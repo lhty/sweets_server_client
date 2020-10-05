@@ -1,4 +1,4 @@
-import React, { lazy, ReactElement, useMemo } from "react";
+import React, { lazy, ReactElement } from "react";
 import * as styles from "./index.css";
 
 import { useQuery } from "@apollo/client";
@@ -18,15 +18,11 @@ export default (): ReactElement => {
   const { data, loading } = useQuery(getBundles);
 
   const bundles = data?.products;
-  const featured = useMemo(
-    () => data?.products[Math.floor(Math.random() * data.products.length)],
-    [data]
-  );
   const location = useLocation();
 
   return (
     <>
-      <Featured bundle={featured} />
+      <Featured />
       {!loading && data && (
         <main className={styles.main}>
           {location.pathname !== "/dashboard" && <Sort />}

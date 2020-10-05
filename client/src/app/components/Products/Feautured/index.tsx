@@ -1,15 +1,16 @@
-import React, { ReactElement } from "react";
+import React, { useMemo, ReactElement } from "react";
 
+import { useQuery } from "@apollo/client";
+import getBundles from "../../../graphql/queries/getBundles.graphql";
 import Featured from "./Featured";
 
-import { Product } from "../../../@types/queryTypes";
+export default function index(): ReactElement {
+  const { data, loading } = useQuery(getBundles);
+  const featured = useMemo(
+    () => data?.products[Math.floor(Math.random() * data.products.length)],
+    [data]
+  );
+  if (loading) return <></>;
 
-interface Props {
-  bundle: Product;
-}
-
-export default function index({ bundle }: Props): ReactElement {
-  if (!bundle) return <></>;
-
-  return <Featured bundle={bundle} />;
+  return <Featured {...{ featured }} />;
 }

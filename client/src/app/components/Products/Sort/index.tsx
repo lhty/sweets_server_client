@@ -12,11 +12,18 @@ export default ({}: Props): ReactElement => {
 
   return (
     <div className={styles.container}>
-      {pathname !== "/" && (
+      {pathname !== "/" ? (
         <DoubleLeftOutlined
           className={styles.back}
           onClick={() => history.push("/")}
         />
+      ) : (
+        <>
+          <span>Сортировать:</span>
+          <button>по новизне</button>
+          <button>по цене</button>
+          <button>по размеру</button>
+        </>
       )}
     </div>
   );

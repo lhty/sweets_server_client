@@ -7,6 +7,7 @@ import getItems from "../../../graphql/queries/getItems.graphql";
 import { ItemMod } from "../../../@types/utility";
 
 import Card from "../../Shared/Card";
+import Slider from "../../Shared/Slider";
 
 interface Props {
   select: (item: ItemMod) => void;
@@ -17,12 +18,12 @@ export const Items = ({ select }: Props) => {
   const items: ItemMod[] = data?.items;
 
   return (
-    <div className={styles.grid}>
+    <Slider grid={styles.grid} itemsPerPage={20}>
       {!loading &&
         data &&
         items.map((item) => (
           <Card key={item.id} input={item} select={select} />
         ))}
-    </div>
+    </Slider>
   );
 };

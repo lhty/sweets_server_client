@@ -1,27 +1,28 @@
-import React, { ReactElement } from "react";
+import React, { useMemo, ReactElement } from "react";
 
 import * as styles from "./Featured.css";
-import { Product } from "../../../@types/queryTypes";
 import { ThumbnailUrl } from "../../lib";
+import { Product } from "../../../@types/queryTypes";
 
 interface Props {
-  bundle: Product;
+  featured: Product;
 }
 
-export default function Featured({ bundle }: Props): ReactElement {
+const Featured = ({ featured }: Props): ReactElement => {
   return (
     <section
       className={styles.container}
       style={{
         backgroundImage: `url(${ThumbnailUrl({
-          source: bundle.info.image,
+          source: featured.info.image,
         })})`,
       }}
     >
       <div className={styles.wrapper}>
-        <h2>{bundle.info.name}</h2>
-        <h2>{bundle.price.overall}₽</h2>
+        <h2>{featured.info.name}</h2>
+        <h2>{featured.price.overall}₽</h2>
       </div>
     </section>
   );
-}
+};
+export default Featured;

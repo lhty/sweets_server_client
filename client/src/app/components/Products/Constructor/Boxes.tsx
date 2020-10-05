@@ -7,6 +7,7 @@ import getBoxes from "../../../graphql/queries/getBoxes.graphql";
 import * as styles from "./Items.css";
 
 import Card from "../../Shared/Card";
+import Slider from "../../Shared/Slider";
 
 interface IBoxes {
   add?: (box: Box) => void;
@@ -18,12 +19,12 @@ export const Boxes = ({ add, select }: IBoxes) => {
   const boxes: Box[] = data?.boxes;
 
   return (
-    <div className={styles.grid}>
+    <Slider grid={styles.grid} itemsPerPage={10}>
       {!loading &&
         data &&
         boxes.map((box) => (
           <Card key={box.id} input={box} {...{ add, select }} />
         ))}
-    </div>
+    </Slider>
   );
 };

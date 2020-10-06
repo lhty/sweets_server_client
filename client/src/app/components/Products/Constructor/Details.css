@@ -10,7 +10,7 @@
       width: 100%;
     }
     &_bar {
-      background-color: var(--text-main);
+      background-color: var(--nav-element-color5);
       height: 2px;
       position: relative;
       top: 50%;
@@ -26,7 +26,7 @@
       bottom: 5px;
 
       & path {
-        fill: var(--text-main);
+        fill: var(--accent-color2);
       }
     }
     &_circle {
@@ -36,7 +36,7 @@
     }
     &_knob {
       position: absolute;
-      background-color: var(--text-main);
+      background-color: var(--nav-element-color5);
       height: 13px;
       top: 50%;
       width: 2px;
@@ -61,7 +61,7 @@
 
     & span {
       font-size: 26px;
-
+      color: var(--nav-element-color5);
       &:first-of-type {
         margin-right: 5px;
       }

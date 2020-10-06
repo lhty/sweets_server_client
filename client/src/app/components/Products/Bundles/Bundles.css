@@ -11,7 +11,6 @@
   padding: 0;
   @mixin M {
     --col: 3;
-    padding: 0 5px 10px;
   }
   @mixin L {
     --col: 5;

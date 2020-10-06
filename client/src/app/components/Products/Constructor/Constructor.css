@@ -1,18 +1,23 @@
 .container {
   @mixin pattern1 var(--nav-element-color2);
+  position: relative;
   height: 100%;
 
   &_toggler {
-    position: absolute;
-    top: 10px;
-    right: 0;
-    outline: none;
-    box-sizing: border-box;
-    padding: 0.5ch;
-    font-size: 1rem;
+    width: 100vw;
+    height: 3rem;
+    line-height: 1.5rem;
+    font-size: 1.5rem;
     font-weight: 700;
     background-color: var(--nav-element-color5);
     color: var(--text-alt);
     border: none;
+    @mixin M {
+      position: absolute;
+      top: 0;
+      left: -83px;
+      padding-left: 0.5ch;
+      width: auto;
+    }
   }
 }

@@ -85,19 +85,21 @@ export const Details = ({ input, set: bundleSet, handlers }: IDetails) => {
     }
   };
 
+  const quantityToStr = (n: number) => setQuantity("".padStart(n, " "));
+  const moveKnob = (n: number) => set({ x: (track / freeSlots) * n });
+
   const moveKnobOnClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const dist = e.pageX - trackRef.current.offsetLeft;
-    setQuantity("".padStart(Math.ceil(dist / (track / freeSlots)), " "));
+    quantityToStr(Math.round(dist * Math.round(track / freeSlots)));
     set({ x: dist });
   };
-  const moveKnob = (n: number) => set({ x: (track / freeSlots) * n });
   const handleIncrease = () => {
     moveKnob(quantity.length);
-    setQuantity("".padStart(Math.min(quantity.length + 1, freeSlots), " "));
+    quantityToStr(Math.min(quantity.length + 1, freeSlots));
   };
   const handleDecrease = () => {
     moveKnob(quantity.length);
-    setQuantity("".padStart(Math.max(quantity.length - 1, 0), " "));
+    quantityToStr(Math.max(quantity.length - 1, 0));
   };
   return (
     <div onContextMenu={(e) => e.preventDefault()} className={styles.container}>

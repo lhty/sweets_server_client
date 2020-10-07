@@ -85,6 +85,11 @@ export const Details = ({ input, set: bundleSet, handlers }: IDetails) => {
     }
   };
 
+  const moveKnobOnClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const dist = e.pageX - trackRef.current.offsetLeft;
+    setQuantity("".padStart(Math.ceil(dist / (track / freeSlots)), " "));
+    set({ x: dist });
+  };
   const moveKnob = (n: number) => set({ x: (track / freeSlots) * n });
   const handleIncrease = () => {
     moveKnob(quantity.length);
@@ -111,7 +116,11 @@ export const Details = ({ input, set: bundleSet, handlers }: IDetails) => {
           ) : (
             <>
               <MinusOutlined onClick={handleDecrease} />
-              <div ref={trackRef} className={styles.container_add_range}>
+              <div
+                onClick={(e) => moveKnobOnClick(e)}
+                ref={trackRef}
+                className={styles.container_add_range}
+              >
                 <div className={styles.container_add_bar}></div>
                 <animated.div
                   {...bind()}

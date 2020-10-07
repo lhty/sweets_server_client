@@ -5,17 +5,17 @@
     margin-bottom: 1ch;
     padding: 0 0.5ch;
 
-    &_range {
+    &_range,
+    &_bar {
+      cursor: pointer;
       position: relative;
       width: 100%;
     }
     &_bar {
       background-color: var(--nav-element-color5);
       height: 2px;
-      position: relative;
       top: 50%;
       transform: translateY(-50%);
-      width: 100%;
     }
     &_handle {
       cursor: pointer;

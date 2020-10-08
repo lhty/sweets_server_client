@@ -45,5 +45,5 @@
 .wrapper {
   margin-bottom: 10px;
   padding: 1ch;
-  border: 5px solid var(--text-main);
+  border: 5px dashed var(--nav-element-color3);
 }

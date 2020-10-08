@@ -89,8 +89,8 @@ export const Details = ({ input, set: bundleSet, handlers }: IDetails) => {
   const moveKnob = (n: number) => set({ x: (track / freeSlots) * n });
 
   const moveKnobOnClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    const dist = e.pageX - trackRef.current.offsetLeft;
-    quantityToStr(Math.round(dist * Math.round(track / freeSlots)));
+    const dist = e.pageX - trackRef.current.getBoundingClientRect().left;
+    quantityToStr(Math.round(dist / (track / freeSlots)));
     set({ x: dist });
   };
   const handleIncrease = () => {

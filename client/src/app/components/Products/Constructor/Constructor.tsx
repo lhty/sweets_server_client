@@ -14,13 +14,13 @@ import { RootState } from "../../../redux/reducers";
 import { Box } from "../../../@types/queryTypes";
 import { ItemMod } from "../../../@types/utility";
 
-import { GiftOutlined } from "@ant-design/icons";
 import { Boxes } from "./Boxes";
 import { Slots } from "./Slots";
 import { Items } from "./Items";
 import { Details } from "./Details";
-import Nav from "./Nav";
 import { Receipt } from "./Receipt";
+import { Starter } from "./Starter";
+import Nav from "./Nav";
 
 export default ({
   onSubmit,
@@ -111,11 +111,6 @@ const Constructor = ({
     case "details":
       return <Details {...{ input: details, set, handlers }} />;
     default:
-      return (
-        <GiftOutlined
-          onClick={() => handlers.handleSelectPage("box")}
-          style={{ fontSize: "5rem", margin: "0 auto", display: "block" }}
-        />
-      );
+      return <Starter start={handlers.handleSelectPage} />;
   }
 };

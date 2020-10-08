@@ -45,7 +45,9 @@ export default function Bundle({}: Props): ReactElement {
     );
   return (
     <section className={styles.container}>
-      <Gallery images={data.product.info.image} bullets={styles.bullets} />
+      <div className={styles.full}>
+        <Gallery images={data.product.info.image} bullets={styles.bullets} />
+      </div>
       <div className={styles.desc}>
         <h2>{data.product.info.name}</h2>
         <p>{data.product.info.description}</p>

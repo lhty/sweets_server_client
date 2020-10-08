@@ -12,6 +12,7 @@
     background-color: var(--nav-element-color5);
     color: var(--text-alt);
     border: none;
+    border-radius: 20px 0 0 20px;
     @mixin M {
       position: absolute;
       top: 0;
@@ -19,5 +20,17 @@
       padding-left: 0.5ch;
       width: auto;
     }
+  }
+}
+
+.start {
+  color: var(--nav-element-color3);
+  font-size: 5rem;
+  margin: 0px auto;
+  display: block;
+  padding: 2ch;
+  transition: 0.2s ease;
+  &:hover {
+    font-size: 6rem;
   }
 }

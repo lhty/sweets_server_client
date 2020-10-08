@@ -23,20 +23,23 @@ export const Slots = ({ box, set, handlers, selectSlot }: Props) => {
       {set.map((slot, index) => (
         <div className={styles.slot} key={index}>
           {!slot ? (
-            <PlusSquareOutlined
-              style={{ fontSize: "3rem" }}
+            <span
+              className={styles.slot_add}
               onClick={() => {
                 selectSlot(index);
                 handlers.handleSelectPage("items");
               }}
-            />
+            >
+              +
+            </span>
           ) : (
             <>
-              <CloseOutlined
+              <span
                 className={styles.filled_del}
-                style={{ color: "red" }}
                 onClick={() => handlers.handleRemoveItemFromSet(index)}
-              />
+              >
+                +
+              </span>
               <Slot item={slot} />
             </>
           )}

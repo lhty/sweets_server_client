@@ -1,8 +1,19 @@
 .container {
+  display: grid;
+  grid-template-columns:
+    1fr
+    min(65ch, 100%)
+    1fr;
+  grid-gap: 1ch;
+  width: 100%;
+  & > * {
+    grid-column: 2;
+  }
   &_add {
+    grid-column: 1/4;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 1ch;
+    margin-top: 1ch;
     padding: 0 0.5ch;
 
     &_range,
@@ -83,8 +94,8 @@
   }
 
   &_images {
+    grid-column: 1/4;
     position: relative;
-    max-height: 450px;
     overflow: hidden;
   }
   &_info {

@@ -5,6 +5,8 @@ fragment Info on ComponentInfoInfo {
   image {
     id
     url
+    width
+    height
     formats
   }
 }

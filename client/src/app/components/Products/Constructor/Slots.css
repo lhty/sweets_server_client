@@ -30,11 +30,13 @@
   background-size: cover;
   display: flex;
   justify-content: center;
+  background-position: center;
 
   &_letter {
     align-self: center;
+    font-size: 1em;
+    text-align: center;
     color: var(--nav-element-color5);
-    font-size: 3rem;
   }
 
   &_del {

@@ -12,8 +12,7 @@
     background-color: var(--nav-element-color5);
     color: var(--text-alt);
     border: none;
-    border-radius: 20px 0 0 20px;
-    @mixin M {
+    @mixin L {
       position: absolute;
       top: 0;
       left: -83px;

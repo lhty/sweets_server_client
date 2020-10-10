@@ -3,12 +3,18 @@
 
   & .wrapper {
     cursor: -webkit-grab;
-    display: flex;
-    justify-content: center;
+    /* width: fit-content; */
+    margin: 0 auto;
     & img {
+      display: block;
       width: auto;
     }
   }
+}
+.card {
+  min-height: 550px;
+  max-height: 600px;
+  object-fit: cover;
 }
 .fullscreen {
   @mixin roundedCard;
@@ -25,5 +31,32 @@
     border: 1px solid var(--nav-element-color1);
     top: 50%;
     transform: translateY(-50%);
+  }
+}
+
+.skeleton {
+  @mixin square #cccccc;
+  &::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+    background-image: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0,
+      rgba(255, 255, 255, 0.2) 20%,
+      rgba(255, 255, 255, 0.5) 60%,
+      rgba(255, 255, 255, 0)
+    );
+    animation: shimmer 2s infinite;
+    content: "";
+  }
+
+  @keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
   }
 }

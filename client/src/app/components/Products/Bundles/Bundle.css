@@ -6,6 +6,7 @@
     1fr
     min(65ch, 100%)
     1fr;
+  grid-gap: 1ch;
   background-color: var(--blockbg-main);
 
   & > * {
@@ -14,40 +15,9 @@
   & .full {
     grid-column: 1/4;
   }
-  & .desc,
-  .info {
-    padding: 0.2em;
-    @mixin M {
-      padding: 1em;
-    }
+  & .desc {
+    text-align: center;
   }
-
-  /* & .desc {
-    position: relative;
-    display: flex;
-    flex-flow: column wrap;
-    text-align-last: center;
-
-    & h2 {
-      white-space: pre-line;
-      font-size: 3rem;
-      padding-bottom: 25px;
-    }
-    & p {
-      text-transform: capitalize;
-      text-align: center;
-    }
-  } */
-  /* & .desc::before {
-    background-color: var(--blockbg-main);
-    border-radius: 15px 15px 0 0;
-    position: absolute;
-    content: "";
-    top: -30px;
-    left: 0;
-    width: 100%;
-    height: 30px;
-  } */
   & .info {
     display: flex;
     justify-content: space-evenly;
@@ -83,9 +53,11 @@
     }
   }
   & .price {
+    grid-column: 1/4;
     display: flex;
     font-size: 2rem;
-    align-self: flex-end;
+    width: fit-content;
+    margin-left: auto;
     background-color: var(--accent-color1);
     & h2 {
       align-self: center;

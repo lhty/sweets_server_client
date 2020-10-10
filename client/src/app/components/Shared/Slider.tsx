@@ -42,6 +42,8 @@ export default function Slider({
         []
       )
     : children;
+  if (SLIDES.length < 2)
+    return <div className={grid.toString()}>{children}</div>;
 
   const [springs, set] = useSprings(SLIDES.length, () => ({
     x: 0,
@@ -100,6 +102,7 @@ export default function Slider({
       },
     }
   );
+
   return (
     <div className={styles.container}>
       {springs.map(

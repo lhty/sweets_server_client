@@ -3,7 +3,6 @@ import React from "react";
 import * as styles from "./Slots.css";
 import { Box } from "../../../@types/queryTypes";
 import { ItemMod } from "../../../@types/utility";
-import { PlusSquareOutlined, CloseOutlined } from "@ant-design/icons";
 import { ThumbnailUrl } from "../../lib";
 
 interface Props {
@@ -17,7 +16,7 @@ export const Slots = ({ box, set, handlers, selectSlot }: Props) => {
   const columns = Math.floor(box.dimensions.width / 20);
   return (
     <div
-      style={{ gridTemplateColumns: `repeat(${columns}, auto)` }}
+      style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}
       className={styles.container}
     >
       {set.map((slot, index) => (
@@ -50,25 +49,27 @@ export const Slots = ({ box, set, handlers, selectSlot }: Props) => {
 };
 
 const Slot = ({ item }: { item: ItemMod }) => {
+  const {url} = ThumbnailUrl({
+    source: item.info.image,
+    screenWidth: "thumb",
+  })
   return (
     <div
       className={styles.filled}
       style={{
         backgroundImage: item.flags.is_editable
           ? `linear-gradient(45deg, white, white)`
-          : `url(${ThumbnailUrl({
-              source: item.info.image,
-              screenWidth: "thumb",
-            })})`,
+          : `url(${url})`,
         // backgroundImage: `url(${ThumbnailUrl({
         //   source: item.info.image,
         //   size: "thumb",
         // })})`,
       }}
     >
-      {!!item.flags.is_editable && (
+      {!!item.flags.is_editable  && (
         <h2 className={styles.filled_letter}>{item.letter}</h2>
       )}
+      {!url &&  <h2 className={styles.filled_letter}>{item.info.name}</h2>}
     </div>
   );
 };

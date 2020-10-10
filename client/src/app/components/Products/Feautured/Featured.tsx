@@ -1,4 +1,4 @@
-import React, { useMemo, ReactElement } from "react";
+import React, { ReactElement } from "react";
 
 import * as styles from "./Featured.css";
 import { ThumbnailUrl } from "../../lib";
@@ -9,13 +9,14 @@ interface Props {
 }
 
 const Featured = ({ featured }: Props): ReactElement => {
+  const {url} = ThumbnailUrl({
+    source: featured.info.image,
+  })
   return (
     <section
       className={styles.container}
       style={{
-        backgroundImage: `url(${ThumbnailUrl({
-          source: featured.info.image,
-        })})`,
+        backgroundImage: `url(${url})`,
       }}
     >
       <div className={styles.wrapper}>

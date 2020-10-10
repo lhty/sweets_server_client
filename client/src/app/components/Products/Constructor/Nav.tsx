@@ -83,8 +83,14 @@ const Nav = ({ page, box, set, details, quantity, handlers }: Props) => {
             >
               {details.__typename === "Item"
                 ? `Добавить ${quantity.length}`
-                : "Выбрать"}
+                : box ?"Заменить" :"Выбрать"}
             </button>
+          )}
+            {details.__typename === "Box" && box && (
+            <DoubleRightOutlined
+              onClick={() => handlers.handleSelectPage("slot")}
+              className={styles.container_controls}
+            />
           )}
         </>
       );

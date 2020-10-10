@@ -5,7 +5,7 @@
   &_content {
     display: flex;
     flex-flow: column-reverse;
-    @mixin M {
+    @mixin L {
       flex-flow: row;
     }
   }

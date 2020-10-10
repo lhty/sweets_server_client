@@ -1,18 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/reducers";
 
-import { useSpring, animated as a } from "react-spring";
 import * as styles from "./Card.css";
 
-import { ThumbnailUrl, makeStrShorter } from "../lib";
+import { makeStrShorter } from "../lib";
 import {
   Product,
   Box,
   ComponentInfoInfo,
   ComponentDimensionsDimensions,
 } from "../../@types/queryTypes";
+import Gallery from "./Gallery";
 import { ItemMod } from "../../@types/utility";
 import { CheckOutlined, PlusOutlined } from "@ant-design/icons";
 
@@ -28,13 +28,8 @@ export default function Card({
   select,
   add,
 }: Props): React.ReactElement {
-  const [loading, setLoading] = useState(true);
   const cart = useSelector((state: RootState) => state.cart.list);
   const { box } = useSelector((state: RootState) => state.bundle);
-
-  const loaderStyle = useSpring({
-    opacity: loading ? 1 : 0,
-  });
 
   const typeOfInput = {
     isBundle: input.__typename === "Product",
@@ -45,7 +40,6 @@ export default function Card({
   const handleSelect = () =>
     typeOfInput.isBundle ? select(input.id, input.info.name) : select(input);
   const handleAdd = () => add(input);
-
   return (
     <div className={styles.wrapper}>
       <div className={styles.add}>
@@ -63,16 +57,7 @@ export default function Card({
           ))}
       </div>
       <div className={styles.select} onClick={handleSelect}>
-        {/* react-spring issue#653
-       // @ts-ignore */}
-        <a.div style={loaderStyle} className={styles.skeleton} />
-        <img
-          onDragStart={(e) => e.preventDefault()}
-          src={ThumbnailUrl({ source: input.info.image })}
-          onLoad={() => setLoading(false)}
-          draggable="false"
-          alt=""
-        />
+        <Gallery images={input.info.image} card />
       </div>
       <div className={styles.content}>
         <Description {...{ type: input.__typename, ...input }} />

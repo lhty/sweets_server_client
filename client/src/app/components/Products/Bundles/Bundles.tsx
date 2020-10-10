@@ -29,7 +29,7 @@ export default function Bundles({ bundles }: Props): ReactElement {
         hasBullets={styles.bullets}
         grid={styles.grid}
         itemsPerPage={
-          window.innerWidth <= 640 ? 4 : window.innerWidth <= 768 ? 6 : 10
+          window.innerWidth <= 640 ? 4 : window.innerWidth < 1024 ? 6 : 10
         }
       >
         {bundles.map((bundle) => (

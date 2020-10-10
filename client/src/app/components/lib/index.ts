@@ -11,17 +11,34 @@ export const ThumbnailUrl = ({
   fullscreen?: number;
   screenWidth?: number | "thumb";
 }) => {
-  if (Array.isArray(source) && !source.length) return null;
+  if (Array.isArray(source) && !source.length)
+    return { url: null, width: null, height: null };
   const sizes = source.reduce(
     (acc, file) => [
       ...acc,
-      [
-        file.formats.thumbnail?.url,
-        file.url,
-        file.formats.small?.url,
-        file.formats.medium?.url,
-        file.formats.large?.url,
-      ],
+      {
+        0: {
+          url: file.formats.thumbnail?.url,
+          width: file.formats.thumbnail?.width,
+          height: file.formats.thumbnail?.height,
+        },
+        1: { url: file.url, width: file.width, height: file.height },
+        2: {
+          url: file.formats.small?.url,
+          width: file.formats.small?.width,
+          height: file.formats.small?.height,
+        },
+        3: {
+          url: file.formats.medium?.url,
+          width: file.formats.medium?.width,
+          height: file.formats.medium?.height,
+        },
+        4: {
+          url: file.formats.large?.url,
+          width: file.formats.large?.width,
+          height: file.formats.large?.height,
+        },
+      },
     ],
     []
   );
@@ -40,9 +57,15 @@ export const ThumbnailUrl = ({
     }
   };
   const doesExist = (i: number): number =>
-    sizes[index][i] ? i : doesExist(Math.max(0, i - 1));
-
-  return process.env.API_URL + sizes[index][doesExist(sizeIndex(screenWidth))];
+    sizes[index][i].url ? i : doesExist(Math.max(0, i - 1));
+  const { url, width, height } = sizes[index][
+    doesExist(sizeIndex(screenWidth))
+  ];
+  return {
+    url: process.env.API_URL + url,
+    width,
+    height,
+  };
 };
 
 export const makeStrShorter = (str: string, n: number): string =>
